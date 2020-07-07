@@ -57,6 +57,9 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 * Profile
     * User can set up a profile (photos, bio)
     * User can see other profiles
+* Camera Screen
+    * User can take pictures
+    * User can upload pictures
 
 ### 3. Navigation
 
@@ -66,23 +69,32 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 * Users Nearby
 * Messages
 * User Profile
+* Camera
 
 **Flow Navigation** (Screen to Screen)
 
 * Login screen
-   => Nearby Users Screen
+   => Home screen
 * Registration screen
-   => Nearby Users screen
+   => Home screen
+* Home screen
+   => Detailed post screen
 * Nearby Users screen
-  => Message screen
   => Profile screen
 * Nearby Restaurants screen
   => Nearby Users screen
-* Message screen
+  => Detailed restaurant screen
+* Messages screen
   => Profile screen
-  => Nearby Restaurants screen
-* Profile
+  => Detailed message screen
+* Self Profile Screen
+  => Edit profile screen
+  => Detailed post screen
+* Other User Profile screen
   => Message screen
+  => Detailed post screen
+* Camera screen
+  => Post preview screen
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
