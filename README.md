@@ -107,10 +107,82 @@ https://www.figma.com/file/h1cTCJ0Bk4bR0vQOLJ1JLv/Eating-Companion-App?node-id=0
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### User
+
+   | Property       | Type     | Description |
+   | -------------- | -------- | ------------|
+   | userId         | String   | unique id for the user (default field) |
+   | username       | String   | user's screenname/display name |
+   | password       | String   | user's password for login |
+   | profilePicture | File     | user's profile image |
+   | bio            | String   | user's description |
+   | city           | String   | user's default city |
+   | state          | String   | user's default state |
+#### Message
+
+   | Property       | Type     | Description |
+   | -------------- | -------- | ------------|
+   | userId         | Pointer  | unique id for the user (default field) |
+   | body           | String   | message's text content |
+   | timestamp      | DateTime | time the message was posted |
+   | media          | File     | (optional) media file posted |
+   | chatId         | Pointer  | unique chat id for that restaurant + time |
+#### Chat
+
+   | Property       | Type     | Description |
+   | -------------- | -------- | ------------|
+   | chatId         | String   | unique chat id (default field) |
+   | restaurantId   | String   | unique restaurant id (from Google Maps API) |
+   | timeToGo       | DateTime | time the meetup is set for |
+   | city           | String   | user's default city |
+   | state          | String   | user's default state |
+   | userIds        | Array    | users in the chat room |
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### List of network requests by screen
+   - Login Screen
+      - (Create/POST) Authorize user credentials for login
+   - Registration Screen
+      - (Create/POST) Create a new user object
+   - Profile Screen
+      - (Read/GET) Query logged in user object
+      - (Update/PUT) Update user profile image
+      - (Update/PUT) Update user bio
+      - (Delete) Logout/remove user session
+   - Restaurant List Screen
+      - (Read/GET) Retrieve list of nearby restaurants (from Google Maps API)
+      - (Create/POST) Create a new chat object
+   - Restaurant Details Screen
+      - (Read/GET) Retrieve details of selected restaurant (from Google Maps API)
+   - Chat List Screen
+      - (Read/GET) Query active chats in user's city and chats the user is part of
+      ```java
+         ParseQuery<Chat> query = ParseQuery.getQuery(Chat.class);
+         query.include(Chat.KEY_USER);
+         query.whereEqualTo(Chat.KEY_USER, ParseUser.getCurrentUser());
+         query.setLimit(20);
+         query.addDescendingOrder(Chat.KEY_TIME_TO_GO);
+         query.findInBackground(new FindCallback<Chat>() {
+             @Override
+             public void done(List<Chat> chats, ParseException e) {
+                 if (e != null) {
+                     Log.e(TAG, "Issue with getting chat rooms", e);
+                     return;
+                 } else {
+                     Log.i(TAG, "Successfully retrieved chat rooms");
+                     // do something with queried chat rooms
+                 }
+             }
+         });
+         ```
+   - Chat Detail Screen
+      - (Create/POST) Create a new message object
+#### Existing API endpoints
+##### Google Maps Places API
+- Base URL: [https://maps.googleapis.com/maps/api/place](https://maps.googleapis.com/maps/api/place/textsearch/json)
+   
+   HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `GET`    | /textsearch/json?query=restaurants+city+state | get all restaurants in specific city
+    `GET`    | /details/json?placeid=[restaurant id] | get details of specific restaurant by its place_id
+    
