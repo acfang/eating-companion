@@ -186,3 +186,12 @@ https://www.figma.com/file/h1cTCJ0Bk4bR0vQOLJ1JLv/Eating-Companion-App?node-id=0
     `GET`    | /textsearch/json?query=restaurants+city+state | get all restaurants in specific city
     `GET`    | /details/json?placeid=[restaurant id] | get details of specific restaurant by its place_id
     
+## Sprint Plan
+   
+   Week   | Milestones
+   -------|-----------
+   Week 1 | - Set up your data models and validate they work<br>* users (name, password, pic, long_lat)<br>  * messages (user, message_body, timestamp, media?, chat_id)<br>  * chats (chat_id, restaurant_id, time_to_go)<br>- Build the navigational skeleton of your app<br>- Build out skeleton views for your app<br>  * login & registration screen<br>  * profile<br>  * photo upload<br> ? nearby users<br>  * chat list<br>  * chat detail<br>  * restaurant list<br>  * restaurant detail<br>- At the end of the week, review and update your project plan with your mentor (this should be an ongoing process, but be EXTRA SURE to do this after your first week of work!)
+   Week 2 | - Build basic login/logout (and account creation flow)<br>- Build a feature around using the camera - we don't care if it's simple or complicated<br>  * profile pic<br>- Get your core functionality working atop the skeleton you built last week (it doesn't have to be pretty!)<br>* query the restaurant list<br>* populate chat detail<br>* start a new chat<br>* query chat list<br>* populate restaurant detail
+   Week 3 | - Finish building out and polishing any views you haven't finished in previous weeks<br>- Integrate with a SDK<br>- Integrate a more complex algorithm into your app<br>- Begin adding visual polish<br>- Begin adding an animation<br>- Begin adding a gesture recognizer
+   Week 4 | - Finish adding animations / gestures<br>- Finish visual polish<br>- Bring in an external library or two that you can use to make your UI look fancier
+   
