@@ -57,9 +57,11 @@ This mobile app lets users find people near them to grab a bite with. Users can 
     * User can see other group chats near them or set one up
 * Chat Room Screen
     * User can message other users for a specific restaurant and time to meet
-* Profile
+* Profile Screen
     * User can set up a profile (photos, bio)
-    * User can see other profiles
+* Other User Profile Screen
+    * User can see other profiles (photos, bio)
+    * User can message this user
 * Camera Screen
     * User can take pictures
     * User can upload pictures
