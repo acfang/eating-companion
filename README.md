@@ -136,9 +136,8 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    | chatId         | String   | unique chat id (default field) |
    | restaurantId   | String   | unique restaurant id (from Google Maps API) |
    | timeToGo       | DateTime | time the meetup is set for |
-   | city           | String   | user's default city |
-   | state          | String   | user's default state |
-   | userIds        | Array    | users in the chat room |
+   | city           | String   | city where the restaurant is |
+   | state          | String   | state where the restaurant is |
 ### Networking
 #### List of network requests by screen
    - Login Screen
