@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_restaurant"
+        android:icon="@drawable/ic_restaurant_24px"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_chat"
+        android:icon="@drawable/ic_chat_24px"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_users"
+        android:icon="@drawable/ic_group_24px"
+        app:showAsAction="always" />
+</menu>

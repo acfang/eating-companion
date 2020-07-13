@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EatTogether"
+        android:layout_marginTop="70dp"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="Username"
+        android:layout_below="@+id/tvLogo"
+        android:background="@drawable/stroke_box"
+        android:layout_marginTop="5dp"
+        android:paddingStart="15dp"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_below="@+id/etUsername"
+        android:background="@drawable/stroke_box"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"/>
+
+    <EditText
+        android:id="@+id/etCity"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="City"
+        android:layout_below="@+id/etPassword"
+        android:background="@drawable/stroke_box"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"/>
+
+    <EditText
+        android:id="@+id/etState"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="State"
+        android:layout_below="@+id/etCity"
+        android:background="@drawable/stroke_box"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivProfilePicture"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:src="@drawable/default_avatar"
+        android:layout_below="@id/etState"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/etBio"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="Set a bio"
+        android:layout_below="@+id/ivProfilePicture"
+        android:background="@drawable/stroke_box"
+        android:layout_marginTop="10dp"
+        android:paddingStart="15dp"/>
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#458eff"
+        android:layout_below="@+id/etBio"
+        android:layout_marginTop="10dp" />
+
+</RelativeLayout>
