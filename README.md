@@ -50,10 +50,9 @@ This mobile app lets users find people near them to grab a bite with. Users can 
     * User can create a new account
 * Nearby Restaurants Screen
     * User can see nearby restaurants
-* Nearby Users Screen
-    * User can see nearby users
-* Message Screen
-    * User can message other users
+    * User can create a new group chat
+* Chat Screen
+    * User can see other group chats near them or set one up
 * Profile
     * User can set up a profile (photos, bio)
     * User can see other profiles
@@ -66,35 +65,31 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 **Tab Navigation** (Tab to Screen)
 
 * Restaurants Nearby
-* Users Nearby
 * Messages
 * User Profile
-* Camera
+* (Stretch) Users Nearby
 
 **Flow Navigation** (Screen to Screen)
 
 * Login screen
-   => Home screen
+   => Registration screen
+   => Chat screen
 * Registration screen
-   => Home screen
-* Home screen
-   => Detailed post screen
-* Nearby Users screen
-  => Profile screen
+   => Chat screen
+* Chat screen
+   => Nearby Restaurants screen
+   => Chat room/detail screen
+   => Profile screen
 * Nearby Restaurants screen
-  => Nearby Users screen
   => Detailed restaurant screen
-* Messages screen
-  => Profile screen
-  => Detailed message screen
+  => Chat screen
 * Self Profile Screen
   => Edit profile screen
-  => Detailed post screen
+  => Camera screen
 * Other User Profile screen
   => Message screen
-  => Detailed post screen
 * Camera screen
-  => Post preview screen
+  => Self Profile screen
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
@@ -102,7 +97,7 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 
 ### [BONUS] Digital Wireframes & Mockups
 
-https://www.figma.com/file/h1cTCJ0Bk4bR0vQOLJ1JLv/Eating-Companion-App?node-id=0%3A1
+(Work in progress) https://www.figma.com/file/h1cTCJ0Bk4bR0vQOLJ1JLv/Eating-Companion-App?node-id=0%3A1
 
 ### [BONUS] Interactive Prototype
 
