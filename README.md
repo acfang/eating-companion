@@ -126,7 +126,7 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    | -------------- | -------- | ------------|
    | userId         | Pointer  | unique id for the user (default field) |
    | body           | String   | message's text content |
-   | timestamp      | DateTime | time the message was posted |
+   | createdAt      | DateTime | time the message was posted |
    | media          | File     | (optional) media file posted |
    | chatId         | Pointer  | unique chat id for that restaurant + time |
 #### Chat
