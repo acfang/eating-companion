@@ -18,23 +18,40 @@ import com.example.eatingcompanion.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
-public class ProfileFragment extends Fragment {
+public class OtherUserProfileFragment extends Fragment {
 
     private ImageView ivProfilePicture;
     private ImageView ivCoverPicture;
     private TextView tvFirstName;
     private TextView tvUsername;
     private TextView tvBio;
+    private User user;
 
-    public ProfileFragment() {
+    public OtherUserProfileFragment() {
         // Required empty public constructor
+    }
+
+    public static OtherUserProfileFragment newInstance(User user) {
+        OtherUserProfileFragment fragment = new OtherUserProfileFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("user", user);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            user = (User) getArguments().getSerializable("user");
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_other_user_profile, container, false);
     }
 
     @Override
@@ -44,8 +61,6 @@ public class ProfileFragment extends Fragment {
         tvFirstName = view.findViewById(R.id.tvFirstName);
         tvUsername = view.findViewById(R.id.tvUsername);
         tvBio = view.findViewById(R.id.tvBio);
-
-        User user = (User) ParseUser.getCurrentUser();
 
         ParseFile profilePicture = user.getProfilePicture();
         if (profilePicture != null) {

@@ -13,18 +13,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EatTogether"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="60dp"
         android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"/>
+
+    <EditText
+        android:id="@+id/etFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="First Name"
+        android:layout_below="@+id/tvLogo"
+        android:background="@drawable/stroke_box"
+        android:layout_marginTop="5dp"
+        android:paddingStart="15dp"/>
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:hint="Username"
-        android:layout_below="@+id/tvLogo"
+        android:layout_below="@+id/etFirstName"
         android:background="@drawable/stroke_box"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:paddingStart="15dp"/>
 
     <EditText

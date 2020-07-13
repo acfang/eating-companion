@@ -4,8 +4,10 @@ import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import java.io.Serializable;
+
 @ParseClassName("_User")
-public class User extends ParseUser {
+public class User extends ParseUser implements Serializable {
     public User() {};
 
     public static final String KEY_PROFILE_PICTURE = "profilePicture";
@@ -14,6 +16,7 @@ public class User extends ParseUser {
     public static final String KEY_CITY = "city";
     public static final String KEY_STATE = "state";
     public static final String KEY_CHAT = "chatsIn";
+    public static final String KEY_NAME = "firstName";
 
     public ParseFile getProfilePicture() {
         return getParseFile(KEY_PROFILE_PICTURE);
@@ -53,5 +56,13 @@ public class User extends ParseUser {
 
     public void setState(String state) {
         put(KEY_STATE, state);
+    }
+
+    public String getName() {
+        return getString(KEY_NAME);
+    }
+
+    public void setName(String name) {
+        put(KEY_NAME, name);
     }
 }

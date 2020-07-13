@@ -25,6 +25,6 @@ public class ParseApplication extends Application {
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("eating-companion") // should correspond to APP_ID env variable
                 .clientKey(getString(R.string.parse_master_key))  // set explicitly unless clientKey is explicitly configured on Parse server
-                .server("https://eating-companion.herokuapp.com/parse/").build());
+                .server("http://eating-companion.herokuapp.com/parse/").build());
     }
 }

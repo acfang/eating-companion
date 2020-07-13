@@ -15,7 +15,8 @@
         android:text="EatTogether"
         android:layout_marginTop="100dp"
         android:textColor="@android:color/black"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"/>
 
     <EditText
         android:id="@+id/etUsername"
