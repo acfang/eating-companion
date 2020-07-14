@@ -1,9 +1,12 @@
 package com.example.eatingcompanion.adapters;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,11 +48,22 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView ivChatPicture;
+        private TextView tvTime;
+        private TextView tvRestaurantName;
+        private TextView tvMessagePreview;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ivChatPicture = itemView.findViewById(R.id.ivChatPicture);
+            tvTime = itemView.findViewById(R.id.tvTime);
+            tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
+            tvMessagePreview = itemView.findViewById(R.id.tvMessagePreview);
         }
 
         public void bind(Chat chat) {
+            tvTime.setText(chat.getTime());
+
         }
     }
 }

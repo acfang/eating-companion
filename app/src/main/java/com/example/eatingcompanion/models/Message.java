@@ -15,8 +15,8 @@ public class Message extends ParseObject {
     public static final String KEY_BODY = "body";
     public static final String KEY_MEDIA = "media";
 
-    public ParseUser getUser() {
-        return getParseUser(KEY_USER);
+    public User getUser() {
+        return (User) getParseUser(KEY_USER);
     }
 
     public void setUser(ParseUser user) {

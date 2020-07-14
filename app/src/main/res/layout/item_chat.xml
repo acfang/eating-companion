@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/ivChatPicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:padding="5dp"/>
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12:15pm, "
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_toEndOf="@id/ivChatPicture"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:id="@+id/tvRestaurantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        tools:text="In-N-Out Burger"
+        android:layout_toEndOf="@+id/tvTime"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_alignTop="@id/tvTime"/>
+
+    <TextView
+        android:id="@+id/tvMessagePreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        tools:text="Taylor: Yeah, let's meet up by the front entrance! I'll be wearing a white shirt..."
+        android:layout_below="@+id/tvTime"
+        android:layout_alignStart="@id/tvTime"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"/>
+
+    <View
+        android:id="@+id/vDividingLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#4d4e4f"
+        android:visibility="visible"
+        android:layout_marginStart="0dp"
+        android:layout_below="@id/ivChatPicture" />
 
 </RelativeLayout>
