@@ -65,33 +65,36 @@ public class RestaurantsFragment extends Fragment {
         rvRestaurants.setAdapter(adapter);
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        YelpService yelpService = retrofit.create(YelpService.class);
-        yelpService.searchRestaurants("Bearer " + getString(R.string.yelp_api_key), "Avocado Toast", "New York").enqueue(new Callback<YelpAPIResponse>() {
-            @Override
-            public void onResponse(Call<YelpAPIResponse> call, Response<YelpAPIResponse> response) {
-                Log.i(TAG, "onResponse " + response);
-                if (response.body() == null) {
-                    Log.e(TAG, "Did not receive valid response body from Yelp API");
-                    return;
-                }
-                allRestaurants.addAll(response.body().getRestaurants());
-                adapter.notifyDataSetChanged();
-            }
+        final YelpService yelpService = retrofit.create(YelpService.class);
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(Call<YelpAPIResponse> call, Throwable t) {
-                Log.i(TAG, "onFailure " + t);
+            public void onClick(View view) {
+                Log.i(TAG, "onClick search button");
+                String searchTerm = etSearchTerm.getText().toString();
+                String location = etLocation.getText().toString();
+
+                yelpService.searchRestaurants("Bearer " + getString(R.string.yelp_api_key), searchTerm, location).enqueue(new Callback<YelpAPIResponse>() {
+                    @Override
+                    public void onResponse(Call<YelpAPIResponse> call, Response<YelpAPIResponse> response) {
+                        Log.i(TAG, "onResponse " + response);
+                        if (response.body() == null) {
+                            Log.e(TAG, "Did not receive valid response body from Yelp API");
+                            return;
+                        }
+                        allRestaurants.addAll(response.body().getRestaurants());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailure(Call<YelpAPIResponse> call, Throwable t) {
+                        Log.i(TAG, "onFailure " + t);
+                    }
+                });
             }
         });
     }

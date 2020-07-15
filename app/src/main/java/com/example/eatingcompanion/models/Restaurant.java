@@ -45,7 +45,7 @@ public class Restaurant {
 
     public String getDistance() {
         double milesPerMeter = 0.000621371;
-        return "%2.f".format(String.valueOf(distance * milesPerMeter)) + " mi";
+        return String.format("%.2f", distance * milesPerMeter) + " mi";
     }
 
     public Location getLocation() {

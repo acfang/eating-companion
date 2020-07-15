@@ -17,9 +17,6 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Restaurant;
 
-import org.json.JSONException;
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
@@ -75,10 +72,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         }
 
         public void bind(Restaurant restaurant) {
-            Glide.with(context).load(restaurant.getImageUrl()).into(ivRestaurant);
+            Glide.with(context).load(restaurant.getImageUrl()).centerCrop().into(ivRestaurant);
             tvRestaurantName.setText(restaurant.getName());
             rbRestaurant.setRating((float) restaurant.getRating());
-            tvReviews.setText(restaurant.getNumReviews());
+            tvReviews.setText(String.valueOf(restaurant.getNumReviews()));
             tvAddress.setText(restaurant.getLocation().getAddress());
             tvDistance.setText(restaurant.getDistance());
             tvPrice.setText(restaurant.getPrice());
@@ -87,7 +84,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             for (int i = 0; i < categories.size(); i++) {
                 concatenatedCategories += ", " + categories.get(i).getTitle();
             }
-            concatenatedCategories = concatenatedCategories.substring(1);
+            concatenatedCategories = concatenatedCategories.substring(2);
             tvRestaurantType.setText(concatenatedCategories);
         }
     }
