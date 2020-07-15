@@ -19,8 +19,8 @@ public class Chat extends ParseObject {
         return getString(KEY_RESTAURANT);
     }
 
-    public void setRestaurantId(String restaurantId) {
-        put(KEY_RESTAURANT, restaurantId);
+    public void setRestaurantId(String restaurant) {
+        put(KEY_RESTAURANT, restaurant);
     }
 
     public String getTime() {

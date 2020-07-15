@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.RestaurantsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/etSearchTerm"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:hint="Search..."
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <EditText
+        android:id="@+id/etLocation"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/etSearchTerm"
+        android:hint="Location..."
+        android:layout_alignTop="@id/etSearchTerm"/>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:layout_toEndOf="@+id/etLocation"
+        android:layout_alignTop="@id/etSearchTerm"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRestaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_below="@+id/etSearchTerm"/>
 
-</FrameLayout>
+</RelativeLayout>

@@ -6,20 +6,10 @@
 
     <ImageView
         android:id="@+id/ivRestaurant"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         tools:srcCompat="@tools:sample/avatars"
         android:padding="5dp"/>
-
-    <TextView
-        android:id="@+id/tvOpen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        tools:text="Open"
-        android:layout_marginEnd="8dp"
-        android:textSize="16sp"
-        android:layout_alignTop="@+id/tvRestaurantName"/>
 
     <TextView
         android:id="@+id/tvRestaurantName"
@@ -30,7 +20,7 @@
         android:textSize="18sp"
         android:layout_toEndOf="@id/ivRestaurant"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="7dp"/>
+        android:layout_marginTop="6dp"/>
 
     <RatingBar
         android:id="@+id/rbRestaurant"
@@ -39,25 +29,57 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRestaurantName"
         android:layout_alignStart="@id/tvRestaurantName"
-        android:layout_marginStart="-3dp"/>
+        android:layout_marginStart="-3dp"
+        android:layout_marginTop="3dp"
+        tools:rating="4.5"/>
 
     <TextView
-        android:id="@+id/tvPrice"
+        android:id="@+id/tvReviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="$, "
+        android:layout_toEndOf="@id/rbRestaurant"
+        tools:text="200 Reviews"
+        android:layout_alignBottom="@id/rbRestaurant"
+        android:layout_marginStart="4dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="123 Sesame Street"
         android:layout_below="@+id/rbRestaurant"
-        android:textSize="16sp"
-        android:layout_alignStart="@id/tvRestaurantName"/>
+        android:textSize="14sp"
+        android:layout_alignStart="@id/rbRestaurant"
+        android:layout_marginTop="2dp"/>
 
     <TextView
         android:id="@+id/tvRestaurantType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="American, Fast Food"
-        android:layout_below="@+id/rbRestaurant"
+        android:layout_below="@+id/tvAddress"
+        android:textSize="14sp"
+        android:layout_alignStart="@id/rbRestaurant"/>
+
+    <TextView
+        android:id="@+id/tvDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/tvRestaurantName"
+        tools:text="1.23 mi"
+        android:layout_marginEnd="6dp" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="$"
         android:textSize="16sp"
-        android:layout_toEndOf="@id/tvPrice"/>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/tvDistance"
+        android:layout_marginEnd="6dp"/>
 
     <View
         android:id="@+id/vDividingLine"
@@ -66,7 +88,6 @@
         android:background="#4d4e4f"
         android:visibility="visible"
         android:layout_marginStart="0dp"
-
         android:layout_below="@id/ivRestaurant" />
 
 </RelativeLayout>

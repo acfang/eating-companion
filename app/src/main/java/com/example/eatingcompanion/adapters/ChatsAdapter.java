@@ -63,7 +63,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
 
         public void bind(Chat chat) {
             tvTime.setText(chat.getTime());
-
         }
     }
+
+
 }
