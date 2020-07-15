@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.eatingcompanion.R;
-import com.example.eatingcompanion.YelpAPIResponse;
+import com.example.eatingcompanion.YelpSearchResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.RestaurantsAdapter;
 import com.example.eatingcompanion.models.Restaurant;
@@ -78,9 +78,9 @@ public class RestaurantsFragment extends Fragment {
                 String searchTerm = etSearchTerm.getText().toString();
                 String location = etLocation.getText().toString();
 
-                yelpService.searchRestaurants("Bearer " + getString(R.string.yelp_api_key), searchTerm, location).enqueue(new Callback<YelpAPIResponse>() {
+                yelpService.searchRestaurants("Bearer " + getString(R.string.yelp_api_key), searchTerm, location).enqueue(new Callback<YelpSearchResponse>() {
                     @Override
-                    public void onResponse(Call<YelpAPIResponse> call, Response<YelpAPIResponse> response) {
+                    public void onResponse(Call<YelpSearchResponse> call, Response<YelpSearchResponse> response) {
                         Log.i(TAG, "onResponse " + response);
                         if (response.body() == null) {
                             Log.e(TAG, "Did not receive valid response body from Yelp API");
@@ -91,7 +91,7 @@ public class RestaurantsFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<YelpAPIResponse> call, Throwable t) {
+                    public void onFailure(Call<YelpSearchResponse> call, Throwable t) {
                         Log.i(TAG, "onFailure " + t);
                     }
                 });

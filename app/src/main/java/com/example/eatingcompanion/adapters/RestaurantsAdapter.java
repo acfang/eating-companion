@@ -2,6 +2,9 @@ package com.example.eatingcompanion.adapters;
 
 import android.content.Context;
 import android.media.Image;
+import android.os.Bundle;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +13,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Restaurant;
+import com.parse.ParseException;
 
+import java.util.Date;
 import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
@@ -69,13 +77,33 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             tvDistance = itemView.findViewById(R.id.tvDistance);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvRestaurantType = itemView.findViewById(R.id.tvRestaurantType);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i(TAG, "Restaurant clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get restaurant at the position
+                        Restaurant restaurant = restaurants.get(position);
+                        Fragment fragment;
+                        fragment = new RestaurantDetailFragment();
+                        // create bundle of post info to send to detail fragment
+                        Bundle args = new Bundle();
+                        args.putString("id", restaurant.getId());
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
+                }
+            });
         }
 
         public void bind(Restaurant restaurant) {
             Glide.with(context).load(restaurant.getImageUrl()).centerCrop().into(ivRestaurant);
             tvRestaurantName.setText(restaurant.getName());
             rbRestaurant.setRating((float) restaurant.getRating());
-            tvReviews.setText(String.valueOf(restaurant.getNumReviews()));
+            String numReviews = restaurant.getNumReviews() + " Reviews";
+            tvReviews.setText(numReviews);
             tvAddress.setText(restaurant.getLocation().getAddress());
             tvDistance.setText(restaurant.getDistance());
             tvPrice.setText(restaurant.getPrice());

@@ -1,19 +1,26 @@
-package com.example.eatingcompanion.models;
+package com.example.eatingcompanion;
 
+import com.example.eatingcompanion.models.Category;
+import com.example.eatingcompanion.models.Hours;
+import com.example.eatingcompanion.models.Location;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Restaurant {
+public class YelpDetailResponse {
 
+    @SerializedName("id")
+    private String id;
     @SerializedName("name")
     private String name;
+    @SerializedName("image_url")
+    private String imageUrl;
+    @SerializedName("display_phone")
+    private String phone;
     @SerializedName("rating")
     private double rating;
     @SerializedName("price")
     private String price;
-    @SerializedName("image_url")
-    private String imageUrl;
     @SerializedName("categories")
     private List<Category> categories;
     @SerializedName("distance")
@@ -22,11 +29,26 @@ public class Restaurant {
     private Location location;
     @SerializedName("review_count")
     private int numReviews;
-    @SerializedName("id")
-    private String id;
+    @SerializedName("photos")
+    private List photos;
+//    @SerializedName("hours")
+//    private Hours hours;
+
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public double getRating() {
@@ -35,10 +57,6 @@ public class Restaurant {
 
     public String getPrice() {
         return price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
     }
 
     public List<Category> getCategories() {
@@ -58,7 +76,11 @@ public class Restaurant {
         return numReviews;
     }
 
-    public String getId() {
-        return id;
+    public List getPhotos() {
+        return photos;
     }
+
+//    public Hours getHours() {
+//        return hours;
+//    }
 }

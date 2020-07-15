@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YelpAPIResponse {
+public class YelpSearchResponse {
 
     @SerializedName("businesses")
     private List<Restaurant> restaurants;
 
     // public constructor is necessary for collections
-    public YelpAPIResponse() {
+    public YelpSearchResponse() {
         restaurants = new ArrayList<Restaurant>();
     }
 
