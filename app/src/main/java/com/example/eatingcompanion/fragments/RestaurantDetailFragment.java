@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,11 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
-import com.example.eatingcompanion.YelpSearchResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.models.Category;
-
-import org.json.JSONObject;
+import com.example.eatingcompanion.models.DailyHours;
 
 import java.util.List;
 
@@ -47,6 +46,7 @@ public class RestaurantDetailFragment extends Fragment {
     private ImageView ivPhoto0;
     private ImageView ivPhoto1;
     private ImageView ivPhoto2;
+    private TextView tvHours;
 
     public RestaurantDetailFragment() {
         // Required empty public constructor
@@ -74,6 +74,7 @@ public class RestaurantDetailFragment extends Fragment {
         ivPhoto0 = view.findViewById(R.id.ivPhoto0);
         ivPhoto1 = view.findViewById(R.id.ivPhoto1);
         ivPhoto2 = view.findViewById(R.id.ivPhoto2);
+        tvHours = view.findViewById(R.id.tvHours);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -110,6 +111,15 @@ public class RestaurantDetailFragment extends Fragment {
                 tvRestaurantType.setText(concatenatedCategories);
                 tvPhone.setText(response.body().getPhone());
                 List photos = response.body().getPhotos();
+                Glide.with(getContext()).load(photos.get(0)).centerCrop().into(ivPhoto0);
+                Glide.with(getContext()).load(photos.get(1)).centerCrop().into(ivPhoto1);
+                Glide.with(getContext()).load(photos.get(2)).centerCrop().into(ivPhoto2);
+                String concatenatedHours = "";
+                List<DailyHours> dailyHours = response.body().getHours().get(0).getOpenHours();
+                for (int i = 0; i < dailyHours.size(); i++) {
+                    concatenatedHours += dailyHours.get(i).getDailyHours();
+                }
+                tvHours.setText(concatenatedHours);
             }
 
             @Override

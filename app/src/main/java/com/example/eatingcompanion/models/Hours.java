@@ -10,9 +10,9 @@ import java.util.List;
 public class Hours {
 
     @SerializedName("open")
-    private List<JsonArray> openHours;
+    private List<DailyHours> openHours;
 
-    public List<JsonArray> getOpenHours() {
+    public List<DailyHours> getOpenHours() {
         return openHours;
     }
 }

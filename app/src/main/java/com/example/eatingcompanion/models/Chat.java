@@ -1,12 +1,12 @@
 package com.example.eatingcompanion.models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
+
+import java.io.Serializable;
 
 @ParseClassName("Chat")
-public class Chat extends ParseObject {
+public class Chat extends ParseObject implements Serializable {
     public Chat() {};
 
     public static final String KEY_RESTAURANT = "restaurantId";

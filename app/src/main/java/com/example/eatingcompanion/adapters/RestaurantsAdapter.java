@@ -22,9 +22,7 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Restaurant;
-import com.parse.ParseException;
 
-import java.util.Date;
 import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {

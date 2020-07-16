@@ -120,6 +120,13 @@
                 android:layout_toEndOf="@id/ivPhoto1"
                 android:layout_alignTop="@id/ivPhoto0"/>
 
+            <TextView
+                android:id="@+id/tvHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivPhoto0"
+                tools:text="M 10:00-8:00\nT 10:00-8:00\nW 11:00-8:00\nT 10:00-8:00\nF 10:00-11:00"/>
+
         </RelativeLayout>
     </ScrollView>
 

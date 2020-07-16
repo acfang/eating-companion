@@ -31,8 +31,9 @@ public class YelpDetailResponse {
     private int numReviews;
     @SerializedName("photos")
     private List photos;
-//    @SerializedName("hours")
-//    private Hours hours;
+//    TODO: retrieve restaurant hours
+    @SerializedName("hours")
+    private List<Hours> hours;
 
 
     public String getId() {
@@ -80,7 +81,7 @@ public class YelpDetailResponse {
         return photos;
     }
 
-//    public Hours getHours() {
-//        return hours;
-//    }
+    public List<Hours> getHours() {
+        return hours;
+    }
 }
