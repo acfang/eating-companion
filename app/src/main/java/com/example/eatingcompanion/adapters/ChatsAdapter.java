@@ -2,6 +2,7 @@ package com.example.eatingcompanion.adapters;
 
 import android.content.Context;
 import android.media.Image;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,16 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
+import com.example.eatingcompanion.fragments.MessagesFragment;
+import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.DailyHours;
 import com.example.eatingcompanion.models.Message;
+import com.example.eatingcompanion.models.Restaurant;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -76,6 +82,25 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
             tvTime = itemView.findViewById(R.id.tvTime);
             tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
             tvMessagePreview = itemView.findViewById(R.id.tvMessagePreview);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i(TAG, "Chat clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get chat at the position
+                        Chat chat = chats.get(position);
+                        Fragment fragment;
+                        fragment = new MessagesFragment();
+                        // create bundle of post info to send to detail fragment
+                        Bundle args = new Bundle();
+                        args.putSerializable("chat", chat);
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
+                }
+            });
         }
 
         public void bind(Chat chat) {
@@ -113,6 +138,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
             query.getFirstInBackground(new GetCallback<Message>() {
                 @Override
                 public void done(Message object, ParseException e) {
+                    if (e != null) {
+                        Log.e(TAG, "Error when retrieving latest message", e);
+                        return;
+                    }
                     tvMessagePreview.setText(object.getBody());
                 }
             });

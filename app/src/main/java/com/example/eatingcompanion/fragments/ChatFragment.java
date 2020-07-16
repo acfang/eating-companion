@@ -65,7 +65,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void done(List<Chat> chats, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Error when querying new posts");
+                    Log.e(TAG, "Error when querying new chats", e);
                     return;
                 }
                 allChats.addAll(chats);

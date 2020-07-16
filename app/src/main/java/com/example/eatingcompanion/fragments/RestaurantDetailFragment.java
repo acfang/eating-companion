@@ -90,7 +90,7 @@ public class RestaurantDetailFragment extends Fragment {
                     Log.e(TAG, "Did not receive valid response body from Yelp API");
                     return;
                 }
-                Glide.with(getContext()).load(response.body().getImageUrl()).into(ivRestaurant);
+                Glide.with(getContext()).load(response.body().getImageUrl()).centerCrop().into(ivRestaurant);
                 tvRestaurantName.setText(response.body().getName());
                 rbRestaurant.setRating((float) response.body().getRating());
                 String numReviews = response.body().getNumReviews() + " Reviews";

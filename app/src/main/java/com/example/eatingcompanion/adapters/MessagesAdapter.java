@@ -3,6 +3,7 @@ package com.example.eatingcompanion.adapters;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull MessagesAdapter.ViewHolder holder, int position) {
         Message message = messages.get(position);
-        holder.bind(message);
+        try {
+            holder.bind(message);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -71,12 +76,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
-        public void bind(Message message) {
-            final boolean isMe = message.getUser() != null && message.getUser().equals((User) ParseUser.getCurrentUser());
+        public void bind(Message message) throws ParseException {
+            final boolean isMe = message.getUser() != null && message.getUser().fetchIfNeeded().getUsername().equals(((User) ParseUser.getCurrentUser()).getUsername());
+            Log.i(TAG, "Equal: " + message.getUser().equals((User) ParseUser.getCurrentUser()));
+            Log.i(TAG, "Current user: " + ((User) ParseUser.getCurrentUser()).getUsername());
+            Log.i(TAG, "Message sender: " +  message.getUser().fetchIfNeeded().getUsername());
             if (isMe) {
                 ivProfileMe.setVisibility(View.VISIBLE);
                 ivProfileOther.setVisibility(View.GONE);
-                ParseFile profilePicture = message.getUser().getProfilePicture();
+                ParseFile profilePicture = ((User) message.getUser().fetchIfNeeded()).getProfilePicture();
                 if (profilePicture != null) {
                     Glide.with(context)
                             .load(profilePicture.getUrl())
@@ -93,7 +101,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             } else {
                 ivProfileOther.setVisibility(View.VISIBLE);
                 ivProfileMe.setVisibility(View.GONE);
-                ParseFile profilePicture = message.getUser().getProfilePicture();
+                ParseFile profilePicture = ((User) message.getUser().fetchIfNeeded()).getProfilePicture();
                 if (profilePicture != null) {
                     Glide.with(context)
                             .load(profilePicture.getUrl())
