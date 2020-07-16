@@ -14,6 +14,7 @@ public class Chat extends ParseObject implements Serializable {
     public static final String KEY_CITY = "city";
     public static final String KEY_STATE = "state";
     public static final String KEY_USERS = "usersIn";
+    public static final String KEY_CREATED_AT = "createdAt";
 
     public String getRestaurantId() {
         return getString(KEY_RESTAURANT);
