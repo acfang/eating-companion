@@ -25,11 +25,11 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.parse.livequery.ParseLiveQueryClient;
+import com.parse.livequery.SubscriptionHandling;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class MessagesFragment extends Fragment {
 
@@ -82,9 +82,6 @@ public class MessagesFragment extends Fragment {
             }
         });
 
-//        // Show soft keyboard automatically and request focus to field
-//        etMessage.requestFocus();
-
         btnMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,5 +107,16 @@ public class MessagesFragment extends Fragment {
             }
         });
 
+        ParseLiveQueryClient parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient();
+        ParseQuery<Message> liveQuery = ParseQuery.getQuery(Message.class);
+        SubscriptionHandling<Message> subscriptionHandling = parseLiveQueryClient.subscribe(liveQuery);
+        subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<Message>() {
+            @Override
+            public void onEvent(ParseQuery<Message> query, Message object) {
+                // HANDLING create event
+                allMessages.add(object);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }
