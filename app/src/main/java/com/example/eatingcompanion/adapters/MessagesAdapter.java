@@ -3,6 +3,7 @@ package com.example.eatingcompanion.adapters;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,12 +14,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.fragments.OtherUserProfileFragment;
+import com.example.eatingcompanion.fragments.ProfileFragment;
+import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
+import com.example.eatingcompanion.models.Restaurant;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -73,6 +80,34 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             ivProfileMe = itemView.findViewById(R.id.ivProfileMe);
             tvBody = itemView.findViewById(R.id.tvBody);
             tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+
+            ivProfileOther.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.i(TAG, "Other user clicked");
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get restaurant at the position
+                        Message message = messages.get(position);
+                        Fragment fragment;
+                        fragment = new OtherUserProfileFragment();
+                        // create bundle of post info to send to detail fragment
+                        Bundle args = new Bundle();
+                        args.putSerializable("user", message.getUser());
+                        fragment.setArguments(args);
+                        ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                    }
+                }
+            });
+
+            ivProfileMe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment;
+                    fragment = new ProfileFragment();
+                    ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                }
+            });
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
