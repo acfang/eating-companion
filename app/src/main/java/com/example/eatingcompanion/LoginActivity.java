@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.ParseACL;
 import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
@@ -65,6 +66,12 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with login", e);
                     return;
                 }
+
+                ParseACL parseACL = new ParseACL(ParseUser.getCurrentUser());
+                parseACL.setPublicReadAccess(true);
+
+                ParseUser.getCurrentUser().setACL(parseACL);
+
                 // navigate to the main activity if the user has signed in properly
                 goMainActivity();
                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();

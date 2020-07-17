@@ -17,15 +17,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.DailyHours;
+import com.example.eatingcompanion.models.Restaurant;
 import com.example.eatingcompanion.models.User;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -155,26 +159,29 @@ public class RestaurantDetailFragment extends Fragment {
                 Chat chat = new Chat();
                 ParseRelation<User> usersIn = chat.getRelation(Chat.KEY_USERS);
                 usersIn.add((User)ParseUser.getCurrentUser());
-                ParseRelation<Chat> chatsIn = ParseUser.getCurrentUser().getRelation(User.KEY_CHAT);
-                chatsIn.add(chat);
                 chat.setRestaurantId(getArguments().getString("id"));
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DAY_OF_MONTH, spinnerChoice);
                 calendar.set(Calendar.HOUR, Integer.parseInt(setTime.substring(0,2)));
                 calendar.set(Calendar.MINUTE, Integer.parseInt(setTime.substring(3)));
                 chat.setTime(calendar.getTime());
-                chat.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Error while saving message", e);
-                        }
-                        Log.i(TAG, "chat save was successful!");
-                    }
-                });
+                try {
+                    chat.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                ParseRelation<Chat> chatsIn = ParseUser.getCurrentUser().getRelation(User.KEY_CHAT);
+                chatsIn.add(chat);
 
                 // go to chat fragment
-
+                Log.i(TAG, "Chat created");
+                Fragment fragment;
+                fragment = new MessagesFragment();
+                // create bundle of post info to send to detail fragment
+                Bundle args = new Bundle();
+                args.putSerializable("chat", chat);
+                fragment.setArguments(args);
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });
 

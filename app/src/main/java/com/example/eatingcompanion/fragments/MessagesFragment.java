@@ -2,6 +2,8 @@ package com.example.eatingcompanion.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.example.eatingcompanion.adapters.MessagesAdapter;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
 import com.parse.FindCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -94,9 +97,8 @@ public class MessagesFragment extends Fragment {
                     @Override
                     public void done(ParseException e) {
                         if (e != null) {
-                            Log.e(TAG, "Error while saving message", e);
+                            Log.e(TAG, "Error saving message", e);
                         }
-                        Log.i(TAG, "message save was successful!");
                     }
                 });
                 InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -107,6 +109,7 @@ public class MessagesFragment extends Fragment {
             }
         });
 
+
         ParseLiveQueryClient parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient();
         ParseQuery<Message> liveQuery = ParseQuery.getQuery(Message.class);
         SubscriptionHandling<Message> subscriptionHandling = parseLiveQueryClient.subscribe(liveQuery);
@@ -115,6 +118,11 @@ public class MessagesFragment extends Fragment {
             public void onEvent(ParseQuery<Message> query, Message object) {
                 // HANDLING create event
                 allMessages.add(object);
+            }
+        });
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
                 adapter.notifyDataSetChanged();
             }
         });
