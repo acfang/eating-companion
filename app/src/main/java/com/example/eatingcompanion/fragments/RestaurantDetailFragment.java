@@ -5,10 +5,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +23,16 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.models.Category;
+import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.DailyHours;
+import com.example.eatingcompanion.models.User;
+import com.parse.ParseException;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +59,11 @@ public class RestaurantDetailFragment extends Fragment {
     private ImageView ivPhoto1;
     private ImageView ivPhoto2;
     private TextView tvHours;
+    private EditText etSetTime;
+    private Button btnCreateChat;
+    private Spinner spinner;
+    private static final String[] paths = {"Today", "Tomorrow", "In 2 Days", "In 3 Days", "In 4 Days", "In 5 Days", "In 6 Days", "In a Week"};
+    private int spinnerChoice;
 
     public RestaurantDetailFragment() {
         // Required empty public constructor
@@ -75,6 +92,9 @@ public class RestaurantDetailFragment extends Fragment {
         ivPhoto1 = view.findViewById(R.id.ivPhoto1);
         ivPhoto2 = view.findViewById(R.id.ivPhoto2);
         tvHours = view.findViewById(R.id.tvHours);
+        etSetTime = view.findViewById(R.id.etSetTime);
+        btnCreateChat = view.findViewById(R.id.btnCreateChat);
+        spinner = view.findViewById(R.id.spinner);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -125,6 +145,53 @@ public class RestaurantDetailFragment extends Fragment {
             @Override
             public void onFailure(Call<YelpDetailResponse> call, Throwable t) {
                 Log.i(TAG, "onFailure " + t);
+            }
+        });
+
+        btnCreateChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String setTime = etSetTime.getText().toString();
+                Chat chat = new Chat();
+                ParseRelation<User> usersIn = chat.getRelation(Chat.KEY_USERS);
+                usersIn.add((User)ParseUser.getCurrentUser());
+                ParseRelation<Chat> chatsIn = ParseUser.getCurrentUser().getRelation(User.KEY_CHAT);
+                chatsIn.add(chat);
+                chat.setRestaurantId(getArguments().getString("id"));
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DAY_OF_MONTH, spinnerChoice);
+                calendar.set(Calendar.HOUR, Integer.parseInt(setTime.substring(0,2)));
+                calendar.set(Calendar.MINUTE, Integer.parseInt(setTime.substring(3)));
+                chat.setTime(calendar.getTime());
+                chat.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Error while saving message", e);
+                        }
+                        Log.i(TAG, "chat save was successful!");
+                    }
+                });
+
+                // go to chat fragment
+
+            }
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item,paths);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerChoice = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerChoice = 0;
             }
         });
     }

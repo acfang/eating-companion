@@ -20,16 +20,14 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.fragments.MessagesFragment;
-import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
-import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Chat;
-import com.example.eatingcompanion.models.DailyHours;
 import com.example.eatingcompanion.models.Message;
-import com.example.eatingcompanion.models.Restaurant;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,6 +40,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
 
     public static final String TAG = "ChatsAdapter";
     public static final String BASE_URL = "https://api.yelp.com/v3/";
+    private static final String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 
     private Context context;
     private List<Chat> chats;
@@ -104,7 +103,11 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
         }
 
         public void bind(Chat chat) {
-            tvTime.setText(chat.getTime());
+            Date date = chat.getTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            String time = daysOfWeek[calendar.get(Calendar.DAY_OF_WEEK)] + " " + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
+            tvTime.setText(time);
             String restaurantId = chat.getRestaurantId();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

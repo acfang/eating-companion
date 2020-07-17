@@ -127,6 +127,35 @@
                 android:layout_below="@id/ivPhoto0"
                 tools:text="M 10:00-8:00\nT 10:00-8:00\nW 11:00-8:00\nT 10:00-8:00\nF 10:00-11:00"/>
 
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/etSetTime"/>
+
+            <EditText
+                android:id="@+id/etSetTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Set a time..."
+                android:textSize="14sp"
+                android:layout_marginEnd="80dp"
+                android:layout_below="@id/tvHours"
+                android:layout_toEndOf="@+id/spinner"/>
+
+            <Button
+                android:id="@+id/btnCreateChat"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Create"
+                android:layout_alignTop="@+id/etSetTime"
+                android:layout_toEndOf="@id/etSetTime"
+                android:layout_marginStart="-80dp"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#458eff"
+                android:textAllCaps="false" />
+
         </RelativeLayout>
     </ScrollView>
 

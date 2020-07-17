@@ -1,5 +1,6 @@
 package com.example.eatingcompanion.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -62,6 +64,7 @@ public class RestaurantsFragment extends Fragment {
         btnSearch = view.findViewById(R.id.btnSearch);
         allRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), allRestaurants);
+        //adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY);
         rvRestaurants.setAdapter(adapter);
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -95,6 +98,9 @@ public class RestaurantsFragment extends Fragment {
                         Log.i(TAG, "onFailure " + t);
                     }
                 });
+
+                InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManager.hideSoftInputFromWindow(etLocation.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
             }
         });
     }

@@ -4,6 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @ParseClassName("Chat")
 public class Chat extends ParseObject implements Serializable {
@@ -24,11 +25,11 @@ public class Chat extends ParseObject implements Serializable {
         put(KEY_RESTAURANT, restaurant);
     }
 
-    public String getTime() {
-        return getString(KEY_TIME);
+    public Date getTime() {
+        return getDate(KEY_TIME);
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         put(KEY_TIME, time);
     }
 
