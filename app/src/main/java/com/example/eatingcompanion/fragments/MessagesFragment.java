@@ -93,6 +93,14 @@ public class MessagesFragment extends Fragment {
                 message.setUser(ParseUser.getCurrentUser());
                 message.setChat((Chat) getArguments().getSerializable("chat"));
                 message.setBody(messageBody);
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                currentUser.setACL(new ParseACL(currentUser));
+                ParseACL acl = new ParseACL(currentUser);
+                acl.setPublicReadAccess(false);
+                acl.setPublicWriteAccess(false);
+                acl.setRoleReadAccess("Administrator", true);
+                acl.setRoleWriteAccess("Administrator", true);
+                message.setACL(acl);
                 message.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
