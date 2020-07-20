@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.PictureFragment">
+
+    <RelativeLayout
+        android:id="@+id/rlPictureButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/btnCaptureImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take Picture"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/black"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Picture"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/black"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@id/btnCaptureImage"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_below="@id/rlPictureButtons"/>
+
+    <Button
+        android:id="@+id/btnSetPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Profile Picture"
+        android:layout_below="@id/ivPostImage"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@android:color/black"
+        android:textAllCaps="false" />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnSetPicture"/>
+
+</RelativeLayout>

@@ -1,9 +1,13 @@
 package com.example.eatingcompanion.fragments;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -27,6 +31,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.List;
 
 public class PictureFragment extends Fragment {
     public static final String TAG = "ComposeFragment";
@@ -36,7 +41,7 @@ public class PictureFragment extends Fragment {
     private Button btnCaptureImage;
     private Button btnGallery;
     private ImageView ivPostImage;
-    private Button btnSubmit;
+    private Button btnSetPicture;
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
@@ -58,7 +63,8 @@ public class PictureFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         btnGallery = view.findViewById(R.id.btnGallery);
         ivPostImage = view.findViewById(R.id.ivPostImage);
-        btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnSetPicture = view.findViewById(R.id.btnSetPicture);
+        final String photoType = getArguments().getString("photoType");
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +80,12 @@ public class PictureFragment extends Fragment {
             }
         });
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
+        if (photoType.equals("coverPicture")) {
+            String cover = "Set Cover Picture";
+            btnSetPicture.setText(cover);
+        }
+
+        btnSetPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
@@ -84,7 +95,11 @@ public class PictureFragment extends Fragment {
                 ParseFile parseFile = new ParseFile(photoFile);
                 parseFile.saveInBackground();
                 ParseUser user = ParseUser.getCurrentUser();
-                user.put("profilePicture", parseFile);
+                if (photoType.equals("profilePicture")) {
+                    user.put("profilePicture", parseFile);
+                } else {
+                    user.put("coverPicture", parseFile);
+                }
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -100,7 +115,7 @@ public class PictureFragment extends Fragment {
     }
 
     private void launchGallery() {
-        
+
     }
 
     private void launchCamera() {
@@ -112,8 +127,14 @@ public class PictureFragment extends Fragment {
         // wrap File object into a content provider
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider.eatingcompanion", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+
+//        List<ResolveInfo> resInfoList = getContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+//        for (ResolveInfo resolveInfo : resInfoList) {
+//            String packageName = resolveInfo.activityInfo.packageName;
+//            getContext().grantUriPermission(packageName, fileProvider, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//        }
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
