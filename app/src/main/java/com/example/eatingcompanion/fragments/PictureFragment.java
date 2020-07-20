@@ -4,8 +4,10 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -31,6 +34,12 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -116,7 +125,8 @@ public class PictureFragment extends Fragment {
     }
 
     private void launchGallery() {
-
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(intent, GALLERY_ACTIVITY_REQUEST_CODE);
     }
 
     private void launchCamera() {
@@ -139,6 +149,7 @@ public class PictureFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,11 +165,69 @@ public class PictureFragment extends Fragment {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == GALLERY_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImage = data.getData();
+                // Create a File reference for future access
+                photoFile = getPhotoFileUri(photoFileName);
+                Bitmap bitmap = null;
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                    ivPostImage.setImageBitmap(bitmap);
+                    btnGallery.setText("Reupload picture");
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    Log.d(TAG, "Error occurred while creating the file");
+                }
 
+                try {
+                    InputStream inputStream = null;
+                    inputStream = getActivity().getContentResolver().openInputStream(data.getData());
+                    FileOutputStream fileOutputStream = new FileOutputStream(photoFile);
+                    // Copying
+                    copyStream(inputStream, fileOutputStream);
+                    fileOutputStream.close();
+                    inputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Toast.makeText(getContext(), "Picture wasn't uploaded!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    // Returns the File for a photo stored on disk given the fileName
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        return image;
+    }
+
+    public static void copyStream(InputStream input, OutputStream output) throws IOException {
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = input.read(buffer)) != -1) {
+            output.write(buffer, 0, bytesRead);
+        }
+    }
+
+        // Returns the File for a photo stored on disk given the fileName
     // Uri = uniform resource identifier
     public File getPhotoFileUri(String fileName) {
         // Get safe storage directory for photos

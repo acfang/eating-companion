@@ -66,13 +66,13 @@ public class ProfileFragment extends Fragment {
             Glide.with(getContext())
                     .load(coverPicture.getUrl())
                     .fitCenter()
-                    .circleCrop()
+                    .centerCrop()
                     .into(ivCoverPicture);
         } else {
             Glide.with(getContext())
                     .load(R.drawable.default_avatar)
                     .fitCenter()
-                    .circleCrop()
+                    .centerCrop()
                     .into(ivCoverPicture);
         }
         tvFirstName.setText(user.getName());
