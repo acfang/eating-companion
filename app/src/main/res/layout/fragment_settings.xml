@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,4 +12,46 @@
         android:text="Log out"
         android:layout_marginTop="?attr/actionBarSize"/>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/btnChangeProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLogout"
+        android:text="Change profile picture"/>
+
+    <Button
+        android:id="@+id/btnChangeCover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChangeProfile"
+        android:text="Change cover picture"/>
+
+    <Button
+        android:id="@+id/btnChangeLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChangeCover"
+        android:text="Change location"/>
+
+    <Button
+        android:id="@+id/btnChangeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChangeLocation"
+        android:text="Change name"/>
+
+    <Button
+        android:id="@+id/btnChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChangeName"
+        android:text="Change password"/>
+
+    <Button
+        android:id="@+id/btnChangeBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnChangePassword"
+        android:text="Change Bio"/>
+
+</RelativeLayout>

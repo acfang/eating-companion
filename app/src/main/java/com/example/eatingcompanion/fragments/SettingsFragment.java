@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,34 +15,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.eatingcompanion.LoginActivity;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.models.Restaurant;
 import com.parse.ParseUser;
 
 public class SettingsFragment extends Fragment {
 
     public static final String TAG = "SettingsFragment";
     private Button btnLogout;
+    private Button btnChangeProfile;
+    private Button btnChangeCover;
+    private Button btnChangeLocation;
+    private Button btnChangeName;
+    private Button btnChangePassword;
+    private Button btnChangeBio;
 
     public SettingsFragment() {
         // Required empty public constructor
-    }
-
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
-        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -53,7 +44,13 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        btnLogout = (Button) view.findViewById(R.id.btnLogout);
+        btnLogout = view.findViewById(R.id.btnLogout);
+        btnChangeProfile = view.findViewById(R.id.btnChangeProfile);
+        btnChangeCover = view.findViewById(R.id.btnChangeCover);
+        btnChangeLocation = view.findViewById(R.id.btnChangeLocation);
+        btnChangeName = view.findViewById(R.id.btnChangeName);
+        btnChangePassword = view.findViewById(R.id.btnChangePassword);
+        btnChangeBio = view.findViewById(R.id.btnChangeBio);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +60,62 @@ public class SettingsFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnChangeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "Change profile button clicked");
+                Fragment fragment;
+                fragment = new PictureFragment();
+                // create bundle of post info to send to detail fragment
+                Bundle args = new Bundle();
+                args.putString("photoType", "profilePicture");
+                fragment.setArguments(args);
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
+
+        btnChangeCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "Change cover button clicked");
+                Fragment fragment;
+                fragment = new PictureFragment();
+                // create bundle of post info to send to detail fragment
+                Bundle args = new Bundle();
+                args.putString("photoType", "coverPicture");
+                fragment.setArguments(args);
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
+
+        btnChangeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnChangeName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnChangeBio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

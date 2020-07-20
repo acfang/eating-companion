@@ -59,8 +59,8 @@ public class MessagesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvMessages = view.findViewById(R.id.rvMessages);
-        etMessage = (EditText) view.findViewById(R.id.etMessage);
-        btnMessage = (Button) view.findViewById(R.id.btnMessage);
+        etMessage = view.findViewById(R.id.etMessage);
+        btnMessage = view.findViewById(R.id.btnMessage);
         allMessages = new ArrayList<>();
         adapter = new MessagesAdapter(getContext(), allMessages);
         rvMessages.setAdapter(adapter);
