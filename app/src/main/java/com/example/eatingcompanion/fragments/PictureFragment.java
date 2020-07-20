@@ -33,11 +33,12 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
+import static android.app.Activity.RESULT_OK;
+
 public class PictureFragment extends Fragment {
     public static final String TAG = "ComposeFragment";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final int GALLERY_ACTIVITY_REQUEST_CODE = 44;
-    public static final int RESULT_OK = 0;
     private Button btnCaptureImage;
     private Button btnGallery;
     private ImageView ivPostImage;
@@ -129,12 +130,6 @@ public class PictureFragment extends Fragment {
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider.eatingcompanion", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-//        List<ResolveInfo> resInfoList = getContext().getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-//        for (ResolveInfo resolveInfo : resInfoList) {
-//            String packageName = resolveInfo.activityInfo.packageName;
-//            getContext().grantUriPermission(packageName, fileProvider, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        }
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
