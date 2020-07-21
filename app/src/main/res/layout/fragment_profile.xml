@@ -42,7 +42,9 @@
             tools:text="Andrea"
             android:textSize="24sp"
             android:textColor="#655C5C"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/questrial_regular"
+            android:textAllCaps="false" />
 
         <TextView
             android:id="@+id/tvUsername"
@@ -52,8 +54,10 @@
             android:layout_toEndOf="@+id/tvFirstName"
             android:layout_alignTop="@id/tvFirstName"
             android:textSize="24sp"
-            android:layout_marginStart="10dp"
-            android:textColor="#ADA9A9" />
+            android:layout_marginStart="7dp"
+            android:textColor="#ADA9A9"
+            android:fontFamily="@font/questrial_regular"
+            android:textAllCaps="false" />
     </RelativeLayout>
 
     <TextView
@@ -65,8 +69,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"/>
+        android:layout_marginTop="9dp"
+        android:gravity="center"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false" />
 
     <View
         android:id="@+id/line"
@@ -78,5 +85,20 @@
         android:layout_alignStart="@+id/ivCoverPicture"
         android:layout_alignEnd="@+id/ivCoverPicture"
         android:layout_marginTop="15dp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:layout_marginTop="?attr/actionBarSize" />
+
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:text="Edit"/>
 
 </RelativeLayout>

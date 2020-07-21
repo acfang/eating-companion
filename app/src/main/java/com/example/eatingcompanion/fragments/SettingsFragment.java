@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -25,7 +26,7 @@ import com.example.eatingcompanion.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements EditDialogFragment.EditDialogListener {
 
     public static final String TAG = "SettingsFragment";
     private ImageView ivProfilePicture;
@@ -33,7 +34,6 @@ public class SettingsFragment extends Fragment {
     private TextView tvFirstName;
     private TextView tvUsername;
     private TextView tvBio;
-    private Button btnLogout;
     private Button btnChangeProfile;
     private Button btnChangeCover;
     private Button btnChangeLocation;
@@ -59,7 +59,6 @@ public class SettingsFragment extends Fragment {
         tvFirstName = view.findViewById(R.id.tvFirstName);
         tvUsername = view.findViewById(R.id.tvUsername);
         tvBio = view.findViewById(R.id.tvBio);
-        btnLogout = view.findViewById(R.id.btnLogout);
         btnChangeProfile = view.findViewById(R.id.btnChangeProfile);
         btnChangeCover = view.findViewById(R.id.btnChangeCover);
         btnChangeLocation = view.findViewById(R.id.btnChangeLocation);
@@ -101,17 +100,6 @@ public class SettingsFragment extends Fragment {
         tvUsername.setText(username);
         tvBio.setText(user.getBio());
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i(TAG, "onClick logout button");
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnChangeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,13 +132,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Change location button clicked");
-                Fragment fragment;
-                fragment = new EditProfileFragment();
-                // create bundle of post info to send to detail fragment
-                Bundle args = new Bundle();
-                args.putString("item", "location");
-                fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                showEditDialog("location");
             }
         });
 
@@ -158,13 +140,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Change name button clicked");
-                Fragment fragment;
-                fragment = new EditProfileFragment();
-                // create bundle of post info to send to detail fragment
-                Bundle args = new Bundle();
-                args.putString("item", "name");
-                fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                showEditDialog("name");
             }
         });
 
@@ -172,13 +148,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Change password button clicked");
-                Fragment fragment;
-                fragment = new EditProfileFragment();
-                // create bundle of post info to send to detail fragment
-                Bundle args = new Bundle();
-                args.putString("item", "password");
-                fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                showEditDialog("password");
             }
         });
 
@@ -186,14 +156,23 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Change bio button clicked");
-                Fragment fragment;
-                fragment = new EditProfileFragment();
-                // create bundle of post info to send to detail fragment
-                Bundle args = new Bundle();
-                args.putString("item", "bio");
-                fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                showEditDialog("bio");
             }
         });
+    }
+
+    private void showEditDialog(String item) {
+        FragmentManager fm = getFragmentManager();
+        EditDialogFragment editDialogFragment = EditDialogFragment.newInstance(item);
+        editDialogFragment.show(fm, "fragment_edit_dialog");
+    }
+
+    @Override
+    public void onFinishEditDialog(String item, String text) {
+        if (item.equals("name")) {
+            tvFirstName.setText(text);
+        } else if (item.equals("bio")) {
+            tvBio.setText(text);
+        }
     }
 }

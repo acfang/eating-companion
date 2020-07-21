@@ -1,30 +1,41 @@
 package com.example.eatingcompanion.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.eatingcompanion.LoginActivity;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.models.Restaurant;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
 
+    public static final String TAG = "ProfileFragment";
+
     private ImageView ivProfilePicture;
     private ImageView ivCoverPicture;
     private TextView tvFirstName;
     private TextView tvUsername;
     private TextView tvBio;
+    private Button btnLogout;
+    private Button btnEdit;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -44,6 +55,8 @@ public class ProfileFragment extends Fragment {
         tvFirstName = view.findViewById(R.id.tvFirstName);
         tvUsername = view.findViewById(R.id.tvUsername);
         tvBio = view.findViewById(R.id.tvBio);
+        btnLogout = view.findViewById(R.id.btnLogout);
+        btnEdit = view.findViewById(R.id.btnEdit);
 
         User user = (User) ParseUser.getCurrentUser();
 
@@ -79,5 +92,26 @@ public class ProfileFragment extends Fragment {
         String username = "@" + user.getUsername();
         tvUsername.setText(username);
         tvBio.setText(user.getBio());
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick logout button");
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick edit button");
+                Fragment fragment;
+                fragment = new SettingsFragment();
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+            }
+        });
     }
 }
