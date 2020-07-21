@@ -5,53 +5,252 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SettingsFragment">
 
+    <ImageView
+        android:id="@+id/ivCoverPicture"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <View
+        android:layout_width="138dp"
+        android:layout_height="138dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/ivProfilePicture"
+        android:layout_marginTop="-4dp"
+        android:background="@drawable/profile_border"/>
+
+    <ImageView
+        android:id="@+id/ivProfilePicture"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="165dp" />
+
+    <RelativeLayout
+        android:id="@+id/rlName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/ivProfilePicture">
+
+        <TextView
+            android:id="@+id/tvFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Andrea"
+            android:textSize="24sp"
+            android:textColor="#655C5C"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/questrial_regular"/>
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="\@axolotlfan"
+            android:layout_toEndOf="@+id/tvFirstName"
+            android:layout_alignTop="@id/tvFirstName"
+            android:textSize="24sp"
+            android:layout_marginStart="7dp"
+            android:textColor="#ADA9A9"
+            android:fontFamily="@font/questrial_regular" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvBio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="- FBU Engineering Intern\n- Likes graphic design, asian food, axolotls"
+        android:layout_below="@id/rlName"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:layout_marginTop="9dp"
+        android:gravity="center"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="#655C5C"/>
+
+    <Button
+        android:id="@+id/btnChangeProfile"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/vDividingLine"
+        android:text="    Change profile picture"
+        android:background="@android:color/white"
+        android:layout_marginTop="0dp"
+        android:gravity="left|center_vertical"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24px_outlined"
+        android:layout_marginEnd="5dp"/>
+
+    <View
+        android:id="@+id/vDividingLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/tvBio"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="15dp" />
+
+    <View
+        android:id="@+id/vProfileLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/vDividingLine"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:id="@+id/btnChangeCover"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/vProfileLine"
+        android:text="    Change cover picture"
+        android:background="@android:color/white"
+        android:gravity="left|center_vertical"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24px_outlined"
+        android:layout_marginEnd="5dp"/>
+
+    <View
+        android:id="@+id/vCoverLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/vProfileLine"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:id="@+id/btnChangeLocation"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/vCoverLine"
+        android:text="    Change location"
+        android:background="@android:color/white"
+        android:gravity="left|center_vertical"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24px_outlined"
+        android:layout_marginEnd="5dp"/>
+
+    <View
+        android:id="@+id/vLocationLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/vCoverLine"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:id="@+id/btnChangeName"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/vLocationLine"
+        android:text="    Change name"
+        android:background="@android:color/white"
+        android:gravity="left|center_vertical"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24px_outlined"
+        android:layout_marginEnd="5dp"/>
+
+    <View
+        android:id="@+id/vNameLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/vLocationLine"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:id="@+id/btnChangeBio"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/vNameLine"
+        android:text="    Change bio"
+        android:background="@android:color/white"
+        android:gravity="left|center_vertical"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24px_outlined"
+        android:layout_marginEnd="5dp"/>
+
+    <View
+        android:id="@+id/vBioLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/vNameLine"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:id="@+id/btnChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/vBioLine"
+        android:text="    Change password"
+        android:background="@android:color/white"
+        android:gravity="left|center_vertical"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_24px_outlined"
+        android:layout_marginEnd="5dp"/>
+
+    <View
+        android:id="@+id/vPasswordLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/vBioLine"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="45dp" />
+
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Log out"
-        android:layout_marginTop="?attr/actionBarSize"/>
-
-    <Button
-        android:id="@+id/btnChangeProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnLogout"
-        android:text="Change profile picture"/>
-
-    <Button
-        android:id="@+id/btnChangeCover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnChangeProfile"
-        android:text="Change cover picture"/>
-
-    <Button
-        android:id="@+id/btnChangeLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnChangeCover"
-        android:text="Change location"/>
-
-    <Button
-        android:id="@+id/btnChangeName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnChangeLocation"
-        android:text="Change name"/>
-
-    <Button
-        android:id="@+id/btnChangePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnChangeName"
-        android:text="Change password"/>
-
-    <Button
-        android:id="@+id/btnChangeBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnChangePassword"
-        android:text="Change Bio"/>
+        android:layout_marginTop="?attr/actionBarSize" />
 
 </RelativeLayout>
