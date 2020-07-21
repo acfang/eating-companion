@@ -8,45 +8,82 @@
     <ImageView
         android:id="@+id/ivCoverPicture"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+        android:layout_height="210dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+    <View
+        android:layout_width="138dp"
+        android:layout_height="138dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/ivProfilePicture"
+        android:layout_marginTop="-4dp"
+        android:background="@drawable/profile_border"/>
 
     <ImageView
         android:id="@+id/ivProfilePicture"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         tools:srcCompat="@tools:sample/avatars"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="225dp"/>
+        android:layout_marginTop="165dp" />
 
-    <TextView
-        android:id="@+id/tvFirstName"
+    <RelativeLayout
+        android:id="@+id/rlName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Andrea"
-        android:layout_below="@id/ivProfilePicture"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:layout_marginTop="5dp"/>
+        android:layout_below="@id/ivProfilePicture">
 
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="\@axolotlfan"
-        android:layout_below="@+id/tvFirstName"
-        android:layout_centerHorizontal="true"
-        android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tvFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Andrea"
+            android:textSize="24sp"
+            android:textColor="#655C5C"
+            android:layout_marginTop="7dp"
+            android:fontFamily="@font/questrial_regular"
+            android:textAllCaps="false" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="\@axolotlfan"
+            android:layout_toEndOf="@+id/tvFirstName"
+            android:layout_alignTop="@id/tvFirstName"
+            android:textSize="24sp"
+            android:layout_marginStart="7dp"
+            android:textColor="#ADA9A9"
+            android:fontFamily="@font/questrial_regular"
+            android:textAllCaps="false" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvBio"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="- FBU Engineering Intern\n- Likes graphic design, asian food, axolotls"
-        android:layout_below="@id/tvUsername"
+        android:layout_below="@id/rlName"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/tvBio"
+        android:layout_alignStart="@+id/ivCoverPicture"
+        android:layout_alignEnd="@+id/ivCoverPicture"
+        android:layout_marginTop="15dp" />
 
 </RelativeLayout>

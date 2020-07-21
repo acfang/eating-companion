@@ -31,14 +31,6 @@ public class OtherUserProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static OtherUserProfileFragment newInstance(User user) {
-        OtherUserProfileFragment fragment = new OtherUserProfileFragment();
-        Bundle args = new Bundle();
-        args.putSerializable("user", user);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

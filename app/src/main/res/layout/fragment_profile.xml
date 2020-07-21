@@ -69,7 +69,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="6dp"
         android:gravity="center"
         android:textColor="#655C5C"
         android:fontFamily="@font/questrial_regular"

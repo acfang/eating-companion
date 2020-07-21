@@ -5,13 +5,16 @@
     <item
         android:id="@+id/action_restaurant"
         android:icon="@drawable/ic_restaurant_24px"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:iconTint="#655C5C"/>
     <item
         android:id="@+id/action_chat"
         android:icon="@drawable/ic_chat_24px"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:iconTint="#655C5C"/>
     <item
         android:id="@+id/action_users"
         android:icon="@drawable/ic_group_24px"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:iconTint="#655C5C"/>
 </menu>
