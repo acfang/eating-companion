@@ -12,10 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.models.User;
@@ -23,29 +21,20 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-public class EditDialogFragment extends DialogFragment implements TextView.OnEditorActionListener {
+public class LocationDialogFragment extends DialogFragment implements TextView.OnEditorActionListener {
 
-    public static final String TAG = "EditDialogFragment";
+    public static final String TAG = "LocationDialogFragment";
 
-    EditText etSettings;
+    EditText etCity;
+    EditText etState;
     Button btnSettings;
 
-    String item;
-    String text;
-
-    public EditDialogFragment() {
+    public LocationDialogFragment() {
         // Empty constructor is required for DialogFragment
     }
 
-    public interface EditDialogListener {
-        void onFinishEditDialog(String item, String text);
-    }
-
-    public static EditDialogFragment newInstance(String item) {
-        EditDialogFragment frag = new EditDialogFragment();
-        Bundle args = new Bundle();
-        args.putString("item", item);
-        frag.setArguments(args);
+    public static LocationDialogFragment newInstance() {
+        LocationDialogFragment frag = new LocationDialogFragment();
         return frag;
     }
 
@@ -53,47 +42,33 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().setGravity(Gravity.LEFT | Gravity.RIGHT);
-        return inflater.inflate(R.layout.fragment_edit_dialog, container);
+        return inflater.inflate(R.layout.fragment_location_dialog, container);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        etSettings = (EditText) view.findViewById(R.id.etSettings);
+        etCity = (EditText) view.findViewById(R.id.etCity);
+        etState = (EditText) view.findViewById(R.id.etState);
         btnSettings = (Button) view.findViewById(R.id.btnSettings);
-        item = getArguments().getString("item");
-
-        if (item.equals("name")) {
-            etSettings.setHint("Change name...");
-        } else if (item.equals("password")) {
-            etSettings.setHint("Change password...");
-        } else if (item.equals("bio")) {
-            etSettings.setHint("Change bio...");
-        }
 
         // Show soft keyboard automatically and request focus to field
-        etSettings.requestFocus();
+        etCity.requestFocus();
 
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                text = etSettings.getText().toString();
                 User user = (User) ParseUser.getCurrentUser();
-                if (item.equals("name")) {
-                    user.setName(text);
-                } else if (item.equals("password")) {
-                    user.setPassword(text);
-                } else if (item.equals("bio")) {
-                    user.setBio(text);
-                }
+                user.setCity(etCity.getText().toString());
+                user.setState(etState.getText().toString());
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e != null) {
-                            Log.e(TAG, "Error while saving changes", e);
+                            Log.e(TAG, "Error while saving location", e);
                         }
-                        Log.i(TAG, "Save was successful!");
+                        Log.i(TAG, "Location save was successful!");
                     }
                 });
                 dismiss();
@@ -106,9 +81,6 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
     @Override
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         if (EditorInfo.IME_ACTION_DONE == i) {
-            // Return input text back to activity through the implemented listener
-            EditDialogListener listener = (EditDialogListener) getActivity();
-            listener.onFinishEditDialog(item, text);
             // Close the dialog and return back to the parent activity
             dismiss();
             return true;

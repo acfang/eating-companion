@@ -132,7 +132,7 @@ public class SettingsFragment extends Fragment implements EditDialogFragment.Edi
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Change location button clicked");
-                showEditDialog("location");
+                showLocationDialog();
             }
         });
 
@@ -174,5 +174,11 @@ public class SettingsFragment extends Fragment implements EditDialogFragment.Edi
         } else if (item.equals("bio")) {
             tvBio.setText(text);
         }
+    }
+
+    private void showLocationDialog() {
+        FragmentManager fm = getFragmentManager();
+        LocationDialogFragment locationDialogFragment = LocationDialogFragment.newInstance();
+        locationDialogFragment.show(fm, "fragment_edit_dialog");
     }
 }

@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="160dp"
     android:gravity="left|right">
 
     <EditText
-        android:id="@+id/etSettings"
+        android:id="@+id/etCity"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:hint="Type something..."
+        android:hint="Change city..."
         android:textSize="20sp"
-        android:layout_marginEnd="120dp"
         android:background="@drawable/input_box"
         android:fontFamily="@font/questrial_regular"
         android:textColor="#ADA9A9"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:paddingStart="12dp"/>
+
+    <EditText
+        android:id="@+id/etState"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="Change state..."
+        android:textSize="20sp"
+        android:background="@drawable/input_box"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="#ADA9A9"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@id/etCity"
+        android:layout_marginEnd="10dp"
         android:paddingStart="12dp"/>
 
     <Button
@@ -24,8 +39,7 @@
         android:layout_width="110dp"
         android:layout_height="40dp"
         android:text="Change"
-        android:layout_alignTop="@+id/etSettings"
-        android:layout_toEndOf="@id/etSettings"
+        android:layout_below="@id/etState"
         android:layout_marginStart="-110dp"
         android:textSize="20sp"
         android:textColor="@android:color/white"
@@ -33,6 +47,8 @@
         android:textAllCaps="false"
         android:fontFamily="@font/questrial_regular"
         android:background="@drawable/input_box"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>
