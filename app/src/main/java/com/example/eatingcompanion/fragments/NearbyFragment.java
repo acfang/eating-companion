@@ -49,8 +49,8 @@ public class NearbyFragment extends Fragment {
     private ChatsAdapter chatsAdapter;
     private List<User> allUsers;
     private List<Chat> allChats;
-
     private int i;
+    private List<String> alreadyIn;
 
     public NearbyFragment() {
         // Required empty public constructor
@@ -78,6 +78,25 @@ public class NearbyFragment extends Fragment {
         rvNearbyUsers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvNearbyChats.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        ParseRelation<ParseObject> chatsIn = ((User) ParseUser.getCurrentUser()).getRelation(User.KEY_CHAT);
+        ParseQuery query = chatsIn.getQuery();
+        query.setLimit(20);
+        query.addDescendingOrder(Chat.KEY_CREATED_AT);
+        query.findInBackground(new FindCallback<Chat>() {
+            @Override
+            public void done(List<Chat> chats, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Error when querying new chats", e);
+                    return;
+                }
+                Log.i(TAG, "Number of chats: " + chats.size());
+                for (i = 0; i < chats.size(); i++) {
+                    alreadyIn.add(chats.get(i).getId());
+                }
+            }
+        });
+
+
         ParseQuery<User> userQuery = ParseQuery.getQuery(User.class);
         userQuery.include(User.KEY_CITY);
         userQuery.include(User.KEY_STATE);
@@ -101,6 +120,7 @@ public class NearbyFragment extends Fragment {
         ParseQuery<Chat> chatsQuery = ParseQuery.getQuery(Chat.class);
         chatsQuery.include(Chat.KEY_TIME);
         chatsQuery.whereGreaterThanOrEqualTo(Chat.KEY_TIME, new Date());
+        chatsQuery.whereNotContainedIn(Chat.KEY_ID, alreadyIn);
         chatsQuery.findInBackground(new FindCallback<Chat>() {
             @Override
             public void done(final List<Chat> chats, ParseException e) {

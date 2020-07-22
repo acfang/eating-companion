@@ -10,12 +10,17 @@ import java.util.Date;
 public class Chat extends ParseObject implements Serializable {
     public Chat() {};
 
+    public static final String KEY_ID = "objectId";
     public static final String KEY_RESTAURANT = "restaurantId";
     public static final String KEY_TIME = "timeToGo";
     public static final String KEY_CITY = "city";
     public static final String KEY_STATE = "state";
     public static final String KEY_USERS = "usersIn";
     public static final String KEY_CREATED_AT = "createdAt";
+
+    public String getId() {
+        return getString(KEY_ID);
+    }
 
     public String getRestaurantId() {
         return getString(KEY_RESTAURANT);
