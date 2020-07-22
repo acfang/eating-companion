@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.eatingcompanion.fragments.ChatFragment;
-import com.example.eatingcompanion.fragments.NearbyUsersFragment;
+import com.example.eatingcompanion.fragments.NearbyFragment;
 import com.example.eatingcompanion.fragments.ProfileFragment;
 import com.example.eatingcompanion.fragments.RestaurantsFragment;
 import com.example.eatingcompanion.fragments.SettingsFragment;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_users:
                     default:
                         Log.i(TAG, "Nearby Users button clicked");
-                        fragment = new NearbyUsersFragment();
+                        fragment = new NearbyFragment();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();

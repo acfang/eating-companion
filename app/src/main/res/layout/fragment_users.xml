@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.NearbyFragment"
+    android:layout_marginTop="?attr/actionBarSize">
+
+    <TextView
+        android:id="@+id/tvNearbyUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nearby Users"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="#655C5C"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+
+    <View
+        android:id="@+id/vNearbyUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="3.5dp"
+        android:background="@color/colorAccent"
+        android:visibility="visible"
+        android:layout_toEndOf="@id/tvNearbyUsers"
+        android:layout_alignTop="@id/tvNearbyUsers"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNearbyUsers"
+        android:layout_width="match_parent"
+        android:layout_height="148dp"
+        android:layout_below="@id/tvNearbyUsers"
+        android:layout_marginTop="3dp"
+        tools:listitem="@layout/item_user" />
+
+    <TextView
+        android:id="@+id/tvNearbyChats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nearby Chats"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="#655C5C"
+        android:textSize="24sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_below="@id/rvNearbyUsers"/>
+
+    <View
+        android:id="@+id/vNearbyChats"
+        android:layout_width="wrap_content"
+        android:layout_height="3.5dp"
+        android:background="@color/colorAccent"
+        android:visibility="visible"
+        android:layout_toEndOf="@id/tvNearbyChats"
+        android:layout_alignTop="@id/tvNearbyChats"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNearbyChats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNearbyChats"
+        android:layout_marginTop="3dp"
+        tools:listitem="@layout/item_chat"
+        android:layout_marginBottom="?attr/actionBarSize"/>
+
+</RelativeLayout>
