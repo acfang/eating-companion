@@ -46,4 +46,7 @@ dependencies {
     compile 'com.parse.bolts:bolts-tasks:1.4.0'
     compile 'com.parse.bolts:bolts-applinks:1.4.0'
     implementation "androidx.recyclerview:recyclerview:1.2.0-alpha04"
+    implementation 'jp.wasabeef:glide-transformations:4.1.0'
+    // If you want to use the GPU Filters
+    implementation 'jp.co.cyberagent.android:gpuimage:2.0.4'
 }

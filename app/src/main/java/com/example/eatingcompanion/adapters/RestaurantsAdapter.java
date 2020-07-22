@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
@@ -24,6 +25,8 @@ import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Restaurant;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.ViewHolder> {
 
@@ -97,7 +100,10 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         }
 
         public void bind(Restaurant restaurant) {
-            Glide.with(context).load(restaurant.getImageUrl()).centerCrop().into(ivRestaurant);
+            Glide.with(context).load(restaurant.getImageUrl())
+                    .placeholder(R.drawable.default_avatar)
+                    .transform(new CenterCrop(), new RoundedCornersTransformation(10, 0))
+                    .into(ivRestaurant);
             tvRestaurantName.setText(restaurant.getName());
             rbRestaurant.setRating((float) restaurant.getRating());
             String numReviews = restaurant.getNumReviews() + " Reviews";

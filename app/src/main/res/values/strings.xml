@@ -10,8 +10,6 @@
     <string name="log_out">Log out</string>
     <string name="change_city">Change city...</string>
     <string name="change_state">Change state...</string>
-    <string name="change">Change</string>
     <string name="nearby_chats">Nearby Chats</string>
     <string name="nearby_users">Nearby Users</string>
-    <string name="eattogether">EatTogether</string>
 </resources>
