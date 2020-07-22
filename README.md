@@ -103,8 +103,8 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 
 ### [BONUS] Digital Wireframes & Mockups
 
-(Draft 2) https://www.figma.com/file/c8OVyJoGAeAJIfqzAGifkA/Eating-Companion?node-id=0%3A1
-(Draft 1) https://www.figma.com/file/h1cTCJ0Bk4bR0vQOLJ1JLv/Eating-Companion-App?node-id=0%3A1
+- (Draft 2) https://www.figma.com/file/c8OVyJoGAeAJIfqzAGifkA/Eating-Companion?node-id=0%3A1
+- (Draft 1) https://www.figma.com/file/h1cTCJ0Bk4bR0vQOLJ1JLv/Eating-Companion-App?node-id=0%3A1
 
 ### [BONUS] Interactive Prototype
 
