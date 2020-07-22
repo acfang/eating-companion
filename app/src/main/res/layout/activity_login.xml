@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity" >
+    tools:context=".LoginActivity"
+    android:background="@color/backgroundYellow">
 
     <TextView
         android:id="@+id/tvLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EatTogether"
-        android:layout_marginTop="100dp"
-        android:textColor="@android:color/black"
+        android:text="@string/eattogether"
+        android:layout_marginTop="200dp"
+        android:textColor="@color/darkGrayText"
         android:layout_centerHorizontal="true"
-        android:textSize="24sp"/>
+        android:textSize="42sp"
+        android:fontFamily="@font/questrial_regular"/>
 
     <EditText
         android:id="@+id/etUsername"
@@ -24,9 +25,16 @@
         android:layout_height="45dp"
         android:hint="Username"
         android:layout_below="@+id/tvLogo"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
+        android:backgroundTint="@android:color/white"
         android:layout_marginTop="5dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="22sp"
+        android:paddingTop="3dp"
+        android:textColor="@color/darkGrayText"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -36,44 +44,56 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:layout_below="@+id/etUsername"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
+        android:backgroundTint="@android:color/white"
         android:layout_marginTop="10dp"
-        android:paddingStart="15dp"/>
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log in"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:textColor="@android:color/white"
-        android:backgroundTint="#458eff"
-        android:layout_below="@+id/etPassword"
-        android:layout_marginTop="10dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="22sp"
+        android:paddingTop="3dp"
+        android:textColor="@color/darkGrayText"/>
 
     <RelativeLayout
-        android:id="@+id/rvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp">
+        android:layout_below="@id/etPassword"
+        android:layout_centerHorizontal="true">
 
-        <TextView
-            android:id="@+id/tvNoAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account? " />
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:text="Log in"
+            android:textAllCaps="false"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginEnd="10dp"
+            />
 
-        <TextView
-            android:id="@+id/tvSignUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sign up."
-            android:textStyle="bold"
-            android:layout_toEndOf="@+id/tvNoAccount"/>
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="120dp"
+            android:layout_height="45dp"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/lightGrayText"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_toEndOf="@id/btnLogin"/>
 
     </RelativeLayout>
+
+
 
 </RelativeLayout>

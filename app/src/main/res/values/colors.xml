@@ -5,4 +5,8 @@
     <color name="colorAccent">#99E75C</color>
     <color name="openGreen">#4CAF50</color>
     <color name="closedRed">#E43C3C</color>
+    <color name="backgroundYellow">#FFF48C</color>
+    <color name="darkGrayText">#655C5C</color>
+    <color name="lightGrayText">#ADA9A9</color>
+    <color name="grayLine">#B8B8B8</color>
 </resources>

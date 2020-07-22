@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private TextView tvSignUp;
+    private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
-        tvSignUp = findViewById(R.id.tvSignUp);
-        tvSignUp.setOnClickListener(new View.OnClickListener() {
+        btnSignup = findViewById(R.id.btnSignup);
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "onClick sign up button");

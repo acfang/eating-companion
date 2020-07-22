@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/backgroundYellow">
 
     <TextView
         android:id="@+id/tvLogo"
@@ -14,9 +14,10 @@
         android:layout_height="wrap_content"
         android:text="EatTogether"
         android:layout_marginTop="60dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/darkGrayText"
         android:layout_centerHorizontal="true"
-        android:textSize="24sp"/>
+        android:textSize="42sp"
+        android:fontFamily="@font/questrial_regular"/>
 
     <EditText
         android:id="@+id/etFirstName"
@@ -24,9 +25,16 @@
         android:layout_height="45dp"
         android:hint="First Name"
         android:layout_below="@+id/tvLogo"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
+        android:backgroundTint="@android:color/white"
+        android:textSize="22sp"
+        android:paddingTop="3dp"
         android:layout_marginTop="5dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        />
 
     <EditText
         android:id="@+id/etUsername"
@@ -34,9 +42,15 @@
         android:layout_height="45dp"
         android:hint="Username"
         android:layout_below="@+id/etFirstName"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
         android:layout_marginTop="10dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        android:backgroundTint="@android:color/white"
+        android:textSize="22sp"
+        android:paddingTop="3dp"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -46,9 +60,15 @@
         android:hint="Password"
         android:inputType="textPassword"
         android:layout_below="@+id/etUsername"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
         android:layout_marginTop="10dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        android:backgroundTint="@android:color/white"
+        android:textSize="22sp"
+        android:paddingTop="3dp"/>
 
     <EditText
         android:id="@+id/etCity"
@@ -56,9 +76,15 @@
         android:layout_height="45dp"
         android:hint="City"
         android:layout_below="@+id/etPassword"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
         android:layout_marginTop="10dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        android:backgroundTint="@android:color/white"
+        android:textSize="22sp"
+        android:paddingTop="3dp"/>
 
     <EditText
         android:id="@+id/etState"
@@ -66,9 +92,15 @@
         android:layout_height="45dp"
         android:hint="State"
         android:layout_below="@+id/etCity"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
         android:layout_marginTop="10dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:backgroundTint="@android:color/white"
+        android:textSize="22sp"
+        android:paddingTop="3dp"
+        android:fontFamily="@font/questrial_regular" />
 
     <ImageView
         android:id="@+id/ivProfilePicture"
@@ -85,20 +117,30 @@
         android:layout_height="45dp"
         android:hint="Set a bio"
         android:layout_below="@+id/ivProfilePicture"
-        android:background="@drawable/stroke_box"
+        android:background="@drawable/input_box"
         android:layout_marginTop="10dp"
-        android:paddingStart="15dp"/>
+        android:paddingStart="15dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:fontFamily="@font/questrial_regular"
+        android:backgroundTint="@android:color/white"
+        android:textSize="22sp"
+        android:paddingTop="3dp"/>
 
     <Button
         android:id="@+id/btnSignUp"
-        android:layout_width="match_parent"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:textAllCaps="false"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textColor="@android:color/white"
-        android:backgroundTint="#458eff"
-        android:layout_below="@+id/etBio"
-        android:layout_marginTop="10dp" />
+        android:backgroundTint="@color/colorAccent"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/questrial_regular"
+        android:background="@drawable/input_box"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_below="@id/etBio"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

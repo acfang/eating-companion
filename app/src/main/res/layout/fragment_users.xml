@@ -11,9 +11,9 @@
         android:id="@+id/tvNearbyUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nearby Users"
+        android:text="@string/nearby_users"
         android:fontFamily="@font/questrial_regular"
-        android:textColor="#655C5C"
+        android:textColor="@color/darkGrayText"
         android:textSize="24sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"/>
@@ -41,9 +41,9 @@
         android:id="@+id/tvNearbyChats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nearby Chats"
+        android:text="@string/nearby_chats"
         android:fontFamily="@font/questrial_regular"
-        android:textColor="#655C5C"
+        android:textColor="@color/darkGrayText"
         android:textSize="24sp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
@@ -60,12 +60,20 @@
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"/>
 
+    <View
+        android:id="@+id/vDividingLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLine"
+        android:visibility="visible"
+        android:layout_below="@+id/vNearbyChats"
+        android:layout_marginTop="19dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvNearbyChats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvNearbyChats"
-        android:layout_marginTop="3dp"
+        android:layout_below="@id/vDividingLine"
         tools:listitem="@layout/item_chat"
         android:layout_marginBottom="?attr/actionBarSize"/>
 

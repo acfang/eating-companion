@@ -48,7 +48,7 @@
         android:id="@+id/vDividingLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#4d4e4f"
+        android:background="@color/grayLine"
         android:visibility="visible"
         android:layout_marginStart="0dp"
         android:layout_below="@id/ivChatPicture" />

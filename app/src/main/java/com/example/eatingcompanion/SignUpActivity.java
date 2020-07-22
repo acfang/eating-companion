@@ -9,7 +9,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.example.eatingcompanion.fragments.PictureFragment;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -44,8 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
         etBio = findViewById(R.id.etBio);
         btnSignUp = findViewById(R.id.btnSignUp);
 
-        // TODO: let user set profile picture in sign up screen
-
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +57,20 @@ public class SignUpActivity extends AppCompatActivity {
                 String state = etState.getText().toString();
                 String bio = etBio.getText().toString();
                 signUpUser(firstName, username, password, city, state, bio);
+            }
+        });
+
+        ivProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "Set profile button clicked");
+                Fragment fragment;
+                fragment = new PictureFragment();
+                // create bundle of post info to send to detail fragment
+                Bundle args = new Bundle();
+                args.putString("photoType", "profilePicture");
+                fragment.setArguments(args);
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });
     }
