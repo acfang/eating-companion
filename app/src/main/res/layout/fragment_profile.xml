@@ -87,18 +87,37 @@
         android:layout_marginTop="15dp" />
 
     <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log out"
-        android:layout_marginTop="?attr/actionBarSize" />
+        android:id="@+id/btnEdit"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:text="Edit"
+        android:layout_marginTop="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:background="@drawable/input_box"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_marginStart="10dp"
+        android:layout_alignTop="@id/ivCoverPicture"/>
 
     <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnLogout"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:text="Edit"/>
+        android:layout_marginTop="10dp"
+        android:text="Log out"
+        style="?android:attr/borderlessButtonStyle"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:background="@drawable/input_box"
+        android:backgroundTint="@color/closedRed"
+        android:layout_marginStart="10dp"
+        android:layout_alignTop="@id/ivCoverPicture"
+        android:layout_marginEnd="10dp"/>
 
 </RelativeLayout>

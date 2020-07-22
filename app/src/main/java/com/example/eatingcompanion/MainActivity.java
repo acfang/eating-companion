@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     final FragmentManager fragmentManager = getSupportFragmentManager();
     private BottomNavigationView bottomNavigationView;
-    private ImageView ivSettings;
+    private ImageView ivCamera;
     private ImageView ivProfile;
 
     @Override
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-        ivSettings = findViewById(R.id.ivSettings);
+        ivCamera = findViewById(R.id.ivCamera);
         ivProfile = findViewById(R.id.ivProfile);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_restaurant);
 
-        ivSettings.setOnClickListener(new View.OnClickListener() {
+        ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Settings button clicked");

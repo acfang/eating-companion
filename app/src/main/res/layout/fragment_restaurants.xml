@@ -5,28 +5,72 @@
     android:layout_height="match_parent"
     tools:context=".fragments.RestaurantsFragment">
 
-    <EditText
-        android:id="@+id/etSearchTerm"
-        android:layout_width="160dp"
+    <View
+        android:id="@+id/vFormat"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Search..."
         android:layout_marginTop="?attr/actionBarSize"/>
 
     <EditText
+        android:id="@+id/etSearchTerm"
+        android:layout_width="150dp"
+        android:layout_height="36dp"
+        android:hint="Search"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/input_box"
+        android:layout_marginStart="10dp"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:backgroundTint="#EAEAEA"
+        android:paddingStart="12dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignTop="@+id/vFormat"
+        android:layout_marginBottom="10dp"/>
+
+    <EditText
         android:id="@+id/etLocation"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="36dp"
         android:layout_toEndOf="@id/etSearchTerm"
-        android:hint="Location..."
-        android:layout_alignTop="@id/etSearchTerm"/>
+        android:hint="Location"
+        android:layout_alignTop="@id/etSearchTerm"
+        android:background="@drawable/input_box"
+        android:textColor="#655C5C"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:backgroundTint="#EAEAEA"
+        android:paddingStart="12dp"
+        android:layout_marginStart="5dp"/>
 
     <Button
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
+        android:layout_height="36dp"
+        android:text="Go"
         android:layout_toEndOf="@+id/etLocation"
-        android:layout_alignTop="@id/etSearchTerm"/>
+        android:layout_alignTop="@id/etSearchTerm"
+        android:background="@drawable/input_box"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/questrial_regular"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_marginEnd="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_marginStart="10dp"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#B8B8B8"
+        android:visibility="visible"
+        android:layout_below="@+id/etSearchTerm"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRestaurants"

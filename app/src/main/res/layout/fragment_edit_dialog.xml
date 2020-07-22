@@ -13,7 +13,7 @@
         android:layout_marginEnd="120dp"
         android:background="@drawable/input_box"
         android:fontFamily="@font/questrial_regular"
-        android:textColor="#ADA9A9"
+        android:textColor="#655C5C"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
@@ -33,6 +33,7 @@
         android:textAllCaps="false"
         android:fontFamily="@font/questrial_regular"
         android:background="@drawable/input_box"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>

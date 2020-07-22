@@ -25,11 +25,10 @@
             app:titleTextColor="@android:color/black">
 
             <ImageView
-                android:id="@+id/ivSettings"
+                android:id="@+id/ivCamera"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_settings_24px"
-                android:tint="#655C5C"/>
+                android:src="@drawable/ic_camera_alt_24px_outlined" />
 
             <TextView
                 android:id="@+id/tvLogo"
