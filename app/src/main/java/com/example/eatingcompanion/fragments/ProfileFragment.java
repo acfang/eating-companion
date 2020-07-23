@@ -36,6 +36,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvBio;
     private Button btnLogout;
     private Button btnEdit;
+    private RecyclerView rvPosts;
 
     public ProfileFragment() {
         // Required empty public constructor

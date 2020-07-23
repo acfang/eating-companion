@@ -39,8 +39,9 @@ import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
-public class PictureFragment extends Fragment {
-    public static final String TAG = "PictureFragment";
+public class PostFragment extends Fragment {
+
+    public static final String TAG = "PostFragment";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final int GALLERY_ACTIVITY_REQUEST_CODE = 44;
     private Button btnCaptureImage;
@@ -51,7 +52,7 @@ public class PictureFragment extends Fragment {
     private String photoFileName = "photo.jpg";
 
 
-    public PictureFragment() {
+    public PostFragment() {
         // Required empty public constructor
     }
 
@@ -59,7 +60,7 @@ public class PictureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_picture, container, false);
+        return inflater.inflate(R.layout.fragment_post, container, false);
     }
 
     @Override
@@ -222,7 +223,7 @@ public class PictureFragment extends Fragment {
         }
     }
 
-        // Returns the File for a photo stored on disk given the fileName
+    // Returns the File for a photo stored on disk given the fileName
     // Uri = uniform resource identifier
     public File getPhotoFileUri(String fileName) {
         // Get safe storage directory for photos

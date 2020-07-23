@@ -1,7 +1,6 @@
 package com.example.eatingcompanion.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -127,7 +126,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
                     }
                     Glide.with(context).load(response.body().getImageUrl())
                             .placeholder(R.drawable.default_avatar)
-                            .transform(new CenterCrop(), new RoundedCornersTransformation(10, 0))
+                            .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
                             .into(ivChatPicture);
                     tvRestaurantName.setText(response.body().getName());
                 }

@@ -102,7 +102,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         public void bind(Restaurant restaurant) {
             Glide.with(context).load(restaurant.getImageUrl())
                     .placeholder(R.drawable.default_avatar)
-                    .transform(new CenterCrop(), new RoundedCornersTransformation(10, 0))
+                    .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
                     .into(ivRestaurant);
             tvRestaurantName.setText(restaurant.getName());
             rbRestaurant.setRating((float) restaurant.getRating());

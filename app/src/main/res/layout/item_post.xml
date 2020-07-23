@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:padding="12dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic"/>
+
+    <ImageView
+        android:id="@+id/ivProfilePicture"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_below="@id/ivPostImage"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"/>
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/ivProfilePicture"
+        android:layout_below="@id/ivPostImage"
+        tools:text="Andrea"
+        android:textColor="@color/darkGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tvWasAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" was at "
+        android:textColor="@color/lightGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvUser"
+        android:layout_alignTop="@id/tvUser"/>
+
+    <TextView
+        android:id="@+id/tvRestaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Tomukun"
+        android:textColor="@color/darkGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvWasAt"
+        android:layout_alignTop="@id/tvUser"/>
+
+    <TextView
+        android:id="@+id/tvWith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" with "
+        android:textColor="@color/lightGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvRestaurant"
+        android:layout_alignTop="@id/tvUser"/>
+
+    <TextView
+        android:id="@+id/tvOtherUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Taylor"
+        android:textColor="@color/darkGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/tvWith"
+        android:layout_alignTop="@+id/tvUser"/>
+
+    <TextView
+        android:id="@+id/tvCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="had some great Tonkotsu ramen!!"
+        android:textColor="@color/lightGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:textSize="16sp"
+        android:layout_alignStart="@id/tvUser"
+        android:layout_below="@id/tvUser"/>
+
+</RelativeLayout>
