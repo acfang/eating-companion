@@ -17,28 +17,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.eatingcompanion.MainActivity;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.DailyHours;
-import com.example.eatingcompanion.models.Restaurant;
 import com.example.eatingcompanion.models.User;
-import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +46,6 @@ public class RestaurantDetailFragment extends Fragment {
     public static final String TAG = "DetailFragment";
     public static final String BASE_URL = "https://api.yelp.com/v3/";
 
-    private ImageView ivRestaurant;
     private TextView tvRestaurantName;
     private RatingBar rbRestaurant;
     private TextView tvReviews;
@@ -83,7 +78,6 @@ public class RestaurantDetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivRestaurant = view.findViewById(R.id.ivRestaurant);
         tvRestaurantName = view.findViewById(R.id.tvRestaurantName);
         rbRestaurant = view.findViewById(R.id.rbRestaurant);
         tvReviews = view.findViewById(R.id.tvReviews);
@@ -114,7 +108,6 @@ public class RestaurantDetailFragment extends Fragment {
                     Log.e(TAG, "Did not receive valid response body from Yelp API");
                     return;
                 }
-                Glide.with(getContext()).load(response.body().getImageUrl()).centerCrop().into(ivRestaurant);
                 tvRestaurantName.setText(response.body().getName());
                 rbRestaurant.setRating((float) response.body().getRating());
                 String numReviews = response.body().getNumReviews() + " Reviews";
@@ -135,9 +128,18 @@ public class RestaurantDetailFragment extends Fragment {
                 tvRestaurantType.setText(concatenatedCategories);
                 tvPhone.setText(response.body().getPhone());
                 List photos = response.body().getPhotos();
-                Glide.with(getContext()).load(photos.get(0)).centerCrop().into(ivPhoto0);
-                Glide.with(getContext()).load(photos.get(1)).centerCrop().into(ivPhoto1);
-                Glide.with(getContext()).load(photos.get(2)).centerCrop().into(ivPhoto2);
+                Glide.with(getContext()).load(photos.get(0))
+                        .placeholder(R.drawable.default_avatar)
+                        .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
+                        .into(ivPhoto0);
+                Glide.with(getContext()).load(photos.get(1))
+                        .placeholder(R.drawable.default_avatar)
+                        .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
+                        .into(ivPhoto1);
+                Glide.with(getContext()).load(photos.get(2))
+                        .placeholder(R.drawable.default_avatar)
+                        .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
+                        .into(ivPhoto2);
                 String concatenatedHours = "";
                 List<DailyHours> dailyHours = response.body().getHours().get(0).getOpenHours();
                 for (int i = 0; i < dailyHours.size(); i++) {

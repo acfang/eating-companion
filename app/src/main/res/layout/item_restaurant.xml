@@ -21,7 +21,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/darkGrayText"
-        android:fontFamily="@font/questrial_regular"/>
+        android:fontFamily="@font/questrial_regular"
+        android:layout_toStartOf="@id/tvDistance"/>
 
     <RatingBar
         android:id="@+id/rbRestaurant"
@@ -101,6 +102,7 @@
         android:background="@color/grayLine"
         android:visibility="visible"
         android:layout_marginStart="0dp"
-        android:layout_below="@id/ivRestaurant" />
+        android:layout_below="@id/tvRestaurantType"
+        android:layout_marginTop="12dp"/>
 
 </RelativeLayout>

@@ -13,23 +13,52 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            <ImageView
-                android:id="@+id/ivRestaurant"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:padding="5dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlImages"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp">
+
+                <ImageView
+                    android:id="@+id/ivPhoto0"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_marginTop="12dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="-6dp"/>
+
+                <ImageView
+                    android:id="@+id/ivPhoto1"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_alignTop="@id/ivPhoto0"
+                    android:layout_centerInParent="true"/>
+
+                <ImageView
+                    android:id="@+id/ivPhoto2"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    android:layout_alignTop="@id/ivPhoto0"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="-6dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvRestaurantName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="In-N-Out Burger"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_toEndOf="@id/ivRestaurant"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="6dp"/>
+                android:textSize="26sp"
+                android:layout_below="@id/rlImages"
+                android:layout_alignStart="@id/rlImages"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/darkGrayText"
+                android:fontFamily="@font/questrial_regular"/>
 
             <RatingBar
                 android:id="@+id/rbRestaurant"
@@ -38,9 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvRestaurantName"
                 android:layout_alignStart="@id/tvRestaurantName"
-                android:layout_marginStart="-3dp"
-                android:layout_marginTop="3dp"
-                tools:rating="4.5"/>
+                tools:rating="4.5" />
 
             <TextView
                 android:id="@+id/tvReviews"
@@ -50,26 +77,33 @@
                 tools:text="200 Reviews"
                 android:layout_alignBottom="@id/rbRestaurant"
                 android:layout_marginStart="4dp"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="123 Sesame Street\nLos Angeles, CA 90082"
-                android:layout_below="@+id/rbRestaurant"
-                android:textSize="14sp"
-                android:layout_alignStart="@id/rbRestaurant"
-                android:layout_marginTop="2dp"/>
+                android:textSize="12sp"
+                android:textColor="@color/lightGrayText"
+                android:fontFamily="@font/questrial_regular"/>
 
             <TextView
                 android:id="@+id/tvRestaurantType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="American, Fast Food"
-                android:layout_below="@+id/tvAddress"
-                android:textSize="14sp"
-                android:layout_alignStart="@id/rbRestaurant"/>
+                android:layout_below="@+id/rbRestaurant"
+                android:textSize="16sp"
+                android:layout_alignStart="@id/rbRestaurant"
+                android:textColor="@color/lightGrayText"
+                android:fontFamily="@font/questrial_regular"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="123 Sesame Street\nLos Angeles, CA 90082"
+                android:layout_below="@+id/tvRestaurantType"
+                android:textSize="18sp"
+                android:layout_alignStart="@id/rbRestaurant"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/darkGrayText"
+                android:fontFamily="@font/questrial_regular" />
 
             <TextView
                 android:id="@+id/tvDistance"
@@ -78,54 +112,49 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@id/tvRestaurantName"
                 tools:text="1.23 mi"
-                android:layout_marginEnd="6dp" />
+                android:paddingEnd="12dp"
+                android:textColor="@color/lightGrayText"
+                android:fontFamily="@font/questrial_regular"
+                android:textSize="18sp"
+                android:layout_marginTop="3dp"/>
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="$"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@id/tvDistance"
-                android:layout_marginEnd="6dp"/>
+                android:paddingEnd="12dp"
+                android:textColor="@color/lightGrayText"
+                android:fontFamily="@font/questrial_regular"
+                android:layout_marginTop="-3dp"/>
 
             <TextView
                 android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="(818) 555-1234"
-                android:layout_below="@id/ivRestaurant"/>
-
-            <ImageView
-                android:id="@+id/ivPhoto0"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_below="@id/tvPhone"/>
-
-            <ImageView
-                android:id="@+id/ivPhoto1"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_toEndOf="@id/ivPhoto0"
-                android:layout_alignTop="@id/ivPhoto0"/>
-
-            <ImageView
-                android:id="@+id/ivPhoto2"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_toEndOf="@id/ivPhoto1"
-                android:layout_alignTop="@id/ivPhoto0"/>
+                android:layout_below="@id/tvAddress"
+                android:textColor="@color/darkGrayText"
+                android:fontFamily="@font/questrial_regular"
+                android:textSize="18sp"
+                android:layout_alignStart="@id/tvRestaurantName"
+                android:layout_marginTop="4dp"/>
 
             <TextView
                 android:id="@+id/tvHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ivPhoto0"
-                tools:text="M 10:00-8:00\nT 10:00-8:00\nW 11:00-8:00\nT 10:00-8:00\nF 10:00-11:00"/>
+                android:layout_below="@id/tvPhone"
+                tools:text="M 10:00-8:00\nT 10:00-8:00\nW 11:00-8:00\nT 10:00-8:00\nF 10:00-11:00"
+                android:textColor="@color/lightGrayText"
+                android:fontFamily="@font/questrial_regular"
+                android:layout_alignStart="@id/tvRestaurantName"
+                android:textSize="16sp"
+                android:lineSpacingExtra="8dp"
+                android:layout_marginTop="6dp"/>
 
             <Spinner
                 android:id="@+id/spinner"
@@ -145,16 +174,21 @@
 
             <Button
                 android:id="@+id/btnCreateChat"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:text="Create"
-                android:layout_alignTop="@+id/etSetTime"
-                android:layout_toEndOf="@id/etSetTime"
+                android:text="Create Chat"
                 android:layout_marginStart="-80dp"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textColor="@android:color/white"
-                android:backgroundTint="#458eff"
-                android:textAllCaps="false" />
+                android:backgroundTint="@color/colorAccent"
+                android:textAllCaps="false"
+                android:fontFamily="@font/questrial_regular"
+                android:background="@drawable/input_box"
+                android:layout_marginEnd="10dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_below="@id/etSetTime"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="1dp"/>
 
         </RelativeLayout>
     </ScrollView>
