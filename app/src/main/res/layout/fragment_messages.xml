@@ -4,20 +4,58 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <View
+        android:id="@+id/vFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvRestaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="?attr/actionBarSize"
-        tools:text="12:15, In-N-Out Burger"
-        android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:layout_alignTop="@id/vFormat"
+        android:layout_marginTop="5dp"
+        tools:text="Marugame Udon"
+        android:textSize="26sp"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="@color/darkGrayText"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="7/12/20, 12:15pm"
+        android:textSize="20sp"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="@color/darkGrayText"
+        android:layout_below="@id/tvRestaurant"
+        android:layout_marginTop="-5dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="6dp"/>
+
+    <View
+        android:id="@+id/vTitleLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLine"
+        android:visibility="visible"
+        android:layout_above="@id/rvMessages" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMessages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvTitle"
+        android:layout_below="@id/tvTime"
+        android:layout_above="@id/rlMessage"/>
+
+    <View
+        android:id="@+id/vMessageLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLine"
+        android:visibility="visible"
         android:layout_above="@id/rlMessage"/>
 
     <RelativeLayout
@@ -29,23 +67,35 @@
         <EditText
             android:id="@+id/etMessage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:hint="Write a message..."
-            android:textSize="14sp"
-            android:layout_marginEnd="80dp"/>
+            android:textSize="20sp"
+            android:layout_marginEnd="100dp"
+            android:background="@drawable/input_box"
+            android:fontFamily="@font/questrial_regular"
+            android:textColor="@color/darkGrayText"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="12dp"
+            android:paddingTop="3dp"/>
 
         <Button
             android:id="@+id/btnMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_width="90dp"
+            android:layout_height="36dp"
             android:text="Send"
-            android:layout_alignTop="@+id/etMessage"
+            android:layout_alignBottom="@+id/etMessage"
             android:layout_toEndOf="@id/etMessage"
-            android:layout_marginStart="-80dp"
-            android:textSize="14sp"
+            android:layout_marginStart="-90dp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
-            android:backgroundTint="#458eff"
-            android:textAllCaps="false" />
+            android:backgroundTint="@color/colorAccent"
+            android:textAllCaps="false"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            android:layout_marginEnd="10dp"
+            style="?android:attr/borderlessButtonStyle" />
     </RelativeLayout>
 
 </RelativeLayout>

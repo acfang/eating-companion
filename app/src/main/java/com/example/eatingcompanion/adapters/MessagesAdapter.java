@@ -32,6 +32,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
 
@@ -72,14 +73,16 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         private ImageView ivProfileOther;
         private ImageView ivProfileMe;
         private TextView tvBody;
-        private TextView tvTimestamp;
+        private TextView tvTimestampOther;
+        private TextView tvTimestampMe;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivProfileOther = itemView.findViewById(R.id.ivProfileOther);
             ivProfileMe = itemView.findViewById(R.id.ivProfileMe);
             tvBody = itemView.findViewById(R.id.tvBody);
-            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+            tvTimestampOther = itemView.findViewById(R.id.tvTimestampOther);
+            tvTimestampMe = itemView.findViewById(R.id.tvTimestampMe);
 
             ivProfileOther.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,6 +122,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             if (isMe) {
                 ivProfileMe.setVisibility(View.VISIBLE);
                 ivProfileOther.setVisibility(View.GONE);
+                tvTimestampOther.setVisibility(View.GONE);
+                tvTimestampMe.setVisibility(View.VISIBLE);
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mma", Locale.US);
+                String date = sdf.format(message.getCreatedAt());
+                tvTimestampMe.setText(date);
                 ParseFile profilePicture = ((User) message.getUser().fetchIfNeeded()).getProfilePicture();
                 if (profilePicture != null) {
                     Glide.with(context)
@@ -136,6 +144,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             } else {
                 ivProfileOther.setVisibility(View.VISIBLE);
                 ivProfileMe.setVisibility(View.GONE);
+                tvTimestampOther.setVisibility(View.VISIBLE);
+                tvTimestampMe.setVisibility(View.GONE);
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mma", Locale.US);
+                String date = sdf.format(message.getCreatedAt());
+                tvTimestampOther.setText(date);
                 ParseFile profilePicture = ((User) message.getUser().fetchIfNeeded()).getProfilePicture();
                 if (profilePicture != null) {
                     Glide.with(context)
@@ -153,9 +166,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             }
 
             tvBody.setText(message.getBody());
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-            String date = sdf.format(message.getCreatedAt());
-            tvTimestamp.setText(date);
         }
     }
 }

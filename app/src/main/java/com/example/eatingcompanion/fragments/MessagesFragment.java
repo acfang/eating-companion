@@ -1,6 +1,8 @@
 package com.example.eatingcompanion.fragments;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,17 +13,22 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.YelpDetailResponse;
+import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.MessagesAdapter;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
+import com.example.eatingcompanion.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
@@ -33,11 +40,21 @@ import com.parse.livequery.SubscriptionHandling;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessagesFragment extends Fragment {
 
     public static final String TAG = "MessagesFragment";
+    public static final String BASE_URL = "https://api.yelp.com/v3/";
 
+    private TextView tvRestaurant;
+    private TextView tvTime;
     private RecyclerView rvMessages;
     private MessagesAdapter adapter;
     private List<Message> allMessages;
@@ -55,9 +72,12 @@ public class MessagesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_messages, container, false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        tvRestaurant = view.findViewById(R.id.tvRestaurant);
+        tvTime = view.findViewById(R.id.tvTime);
         rvMessages = view.findViewById(R.id.rvMessages);
         etMessage = view.findViewById(R.id.etMessage);
         btnMessage = view.findViewById(R.id.btnMessage);
@@ -67,6 +87,34 @@ public class MessagesFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setReverseLayout(true);
         rvMessages.setLayoutManager(llm);
+
+        String restaurantId = ((Chat) getArguments().getSerializable("chat")).getRestaurantId();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy, hh:mma", Locale.US);
+        String date = sdf.format(((Chat) getArguments().getSerializable("chat")).getTime());
+        tvTime.setText(date);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final YelpService yelpService = retrofit.create(YelpService.class);
+
+        yelpService.getRestaurantDetail("Bearer " + getContext().getString(R.string.yelp_api_key), restaurantId).enqueue(new Callback<YelpDetailResponse>() {
+            @Override
+            public void onResponse(Call<YelpDetailResponse> call, Response<YelpDetailResponse> response) {
+                Log.i(TAG, "onResponse " + response);
+                if (response.body() == null) {
+                    Log.e(TAG, "Did not receive valid response body from Yelp API");
+                    return;
+                }
+                tvRestaurant.setText(response.body().getName());
+            }
+
+            @Override
+            public void onFailure(Call<YelpDetailResponse> call, Throwable t) {
+                Log.i(TAG, "onFailure query restaurants for nearby chats" + t);
+            }
+        });
 
         // query messages in the chat, look for the latest one
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);

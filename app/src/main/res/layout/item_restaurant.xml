@@ -9,10 +9,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         tools:srcCompat="@tools:sample/avatars"
-        android:paddingStart="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingEnd="6dp"/>
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/tvRestaurantName"
@@ -21,7 +18,7 @@
         tools:text="In-N-Out Burger"
         android:textSize="22sp"
         android:layout_toEndOf="@id/ivRestaurant"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
         android:textColor="@color/darkGrayText"
         android:fontFamily="@font/questrial_regular"/>
@@ -33,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvRestaurantName"
         android:layout_alignStart="@id/tvRestaurantName"
-        android:layout_marginStart="-3dp"
+        android:layout_marginStart="-1dp"
         tools:rating="4.5"
         />
 

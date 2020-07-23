@@ -77,6 +77,7 @@ public class NearbyFragment extends Fragment {
         rvNearbyChats.setAdapter(chatsAdapter);
         rvNearbyUsers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvNearbyChats.setLayoutManager(new LinearLayoutManager(getContext()));
+        alreadyIn = new ArrayList<>();
 
         ParseRelation<ParseObject> chatsIn = ((User) ParseUser.getCurrentUser()).getRelation(User.KEY_CHAT);
         ParseQuery query = chatsIn.getQuery();
