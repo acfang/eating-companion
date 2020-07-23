@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
@@ -30,6 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,7 +125,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
                         Log.e(TAG, "Did not receive valid response body from Yelp API");
                         return;
                     }
-                    Glide.with(context).load(response.body().getImageUrl()).centerCrop().into(ivChatPicture);
+                    Glide.with(context).load(response.body().getImageUrl())
+                            .placeholder(R.drawable.default_avatar)
+                            .transform(new CenterCrop(), new RoundedCornersTransformation(10, 0))
+                            .into(ivChatPicture);
                     tvRestaurantName.setText(response.body().getName());
                 }
 
@@ -136,6 +141,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
             // query messages in the chat, look for the latest one
             ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
             query.include(Message.KEY_CHAT);
+            query.include(Message.KEY_USER);
             query.whereEqualTo(Message.KEY_CHAT, chat);
             query.addDescendingOrder(Message.KEY_CREATED_KEY);
             query.getFirstInBackground(new GetCallback<Message>() {
@@ -145,7 +151,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
                         Log.e(TAG, "Error when retrieving latest message", e);
                         return;
                     }
-                    tvMessagePreview.setText(object.getBody());
+                    String messagePreview = object.getUser().getName() + ": " + object.getBody();
+                    tvMessagePreview.setText(messagePreview);
                 }
             });
         }

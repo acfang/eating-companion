@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/ivProfileOther"
         android:layout_toStartOf="@id/ivProfileMe"
-        android:padding="10dp"
+        android:padding="7dp"
         android:paddingStart="15dp"
         android:paddingEnd="15dp"
         tools:text="Yeah, let's meet up by the front entrance! I'll be wearing a white shirt..."

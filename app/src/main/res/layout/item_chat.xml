@@ -6,21 +6,10 @@
 
     <ImageView
         android:id="@+id/ivChatPicture"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         tools:srcCompat="@tools:sample/avatars"
-        android:padding="5dp"/>
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="12:15pm, "
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_toEndOf="@id/ivChatPicture"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"/>
+        android:padding="10dp"/>
 
     <TextView
         android:id="@+id/tvRestaurantName"
@@ -28,21 +17,36 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         tools:text="In-N-Out Burger"
-        android:layout_toEndOf="@+id/tvTime"
-        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_toEndOf="@id/ivChatPicture"
+        android:textColor="@color/darkGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="7/10/20, 12:15pm"
         android:textSize="18sp"
-        android:layout_alignTop="@id/tvTime"/>
+        android:layout_below="@id/tvRestaurantName"
+        android:textColor="@color/darkGrayText"
+        android:fontFamily="@font/questrial_regular"
+        android:layout_alignStart="@id/tvRestaurantName"
+        android:layout_marginTop="-5dp"/>
 
     <TextView
         android:id="@+id/tvMessagePreview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="3"
+        android:maxLines="2"
         tools:text="Taylor: Yeah, let's meet up by the front entrance! I'll be wearing a white shirt..."
         android:layout_below="@+id/tvTime"
         android:layout_alignStart="@id/tvTime"
         android:textSize="16sp"
-        android:layout_marginTop="4dp"/>
+        android:textColor="@color/lightGrayText"
+        android:fontFamily="@font/questrial_regular"/>
 
     <View
         android:id="@+id/vDividingLine"
