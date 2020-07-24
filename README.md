@@ -196,3 +196,11 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    Week 3 | - Finish building out and polishing any views you haven't finished in previous weeks<br>- Integrate with a SDK<br>- Integrate a more complex algorithm into your app<br>- Begin adding visual polish<br>- Begin adding an animation<br>- Begin adding a gesture recognizer
    Week 4 | - Finish adding animations / gestures<br>- Finish visual polish<br>- Bring in an external library or two that you can use to make your UI look fancier
    
+## Progress
+   
+   Week   | Milestones
+   -------|-----------
+   Week 1 | - Set up data models and validated they work<br>- Set up user login, signup, and logout<br>- Set up navigational and skeleton views<br>- Set up recycler views and adapters<br>- Implemented Yelp Fusion API calls and other restaurant-related functionality<br>- Set up chat rooms (live querying, chat creation, other users) and other chat-related functionality
+   Week 2 | - Implemented photo upload<br>- Implemented settings to change user information<br>- Updated UI to match my Figma wireframe<br>- Added a page to see nearby users & chats for nearby restaurants<br>- Added a Post class for users to post food photos on their profile pages
+   Week 3 | 
+   Week 4 | 
