@@ -154,11 +154,12 @@
                 android:layout_alignStart="@id/tvRestaurantName"
                 android:textSize="16sp"
                 android:lineSpacingExtra="8dp"
-                android:layout_marginTop="6dp"/>
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="-10dp"/>
 
             <EditText
                 android:id="@+id/etSetDate"
-                android:layout_width="260dp"
+                android:layout_width="240dp"
                 android:layout_height="36dp"
                 android:textSize="18sp"
                 android:layout_below="@id/tvHours"
@@ -166,7 +167,6 @@
                 android:fontFamily="@font/questrial_regular"
                 android:textColor="@color/darkGrayText"
                 android:layout_alignStart="@id/tvRestaurantName"
-                android:layout_marginTop="10dp"
                 android:paddingStart="12dp"
                 tools:text="07/23/20"/>
 
@@ -189,7 +189,7 @@
 
             <EditText
                 android:id="@+id/etSetTime"
-                android:layout_width="260dp"
+                android:layout_width="240dp"
                 android:layout_height="36dp"
                 android:textSize="18sp"
                 android:layout_below="@id/etSetDate"
@@ -234,7 +234,8 @@
                 android:layout_below="@id/etSetTime"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="1dp"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="12dp"
+                />
 
         </RelativeLayout>
     </ScrollView>

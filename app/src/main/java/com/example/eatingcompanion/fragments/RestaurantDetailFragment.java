@@ -105,6 +105,8 @@ public class RestaurantDetailFragment extends Fragment {
         btnSetTime = view.findViewById(R.id.btnSetTime);
         btnCreateChat = view.findViewById(R.id.btnCreateChat);
 
+        calendar = Calendar.getInstance();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -182,7 +184,6 @@ public class RestaurantDetailFragment extends Fragment {
                                                   int monthOfYear, int dayOfMonth) {
 
                                 etSetDate.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
-                                Calendar calendar = Calendar.getInstance();
                                 calendar.set(year, monthOfYear + 1, dayOfMonth);
                             }
                         }, mYear, mMonth, mDay);
@@ -205,9 +206,17 @@ public class RestaurantDetailFragment extends Fragment {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-
-                                etSetTime.setText(hourOfDay + ":" + minute);
-                                calendar.set(Calendar.HOUR, hourOfDay);
+                                int hour;
+                                String amOrPm;
+                                if (hourOfDay < 12) {
+                                    hour = hourOfDay;
+                                    amOrPm = "AM";
+                                } else {
+                                    hour = hourOfDay - 12;
+                                    amOrPm = "PM";
+                                }
+                                etSetTime.setText(hour + ":" + minute + amOrPm);
+                                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                                 calendar.set(Calendar.MINUTE, minute);
                             }
                         }, mHour, mMinute, false);
@@ -215,7 +224,6 @@ public class RestaurantDetailFragment extends Fragment {
             }
         });
 
-        // TODO: fix the date input!
         btnCreateChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
