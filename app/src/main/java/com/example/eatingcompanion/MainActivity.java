@@ -13,9 +13,9 @@ import android.widget.ImageView;
 
 import com.example.eatingcompanion.fragments.ChatFragment;
 import com.example.eatingcompanion.fragments.NearbyFragment;
+import com.example.eatingcompanion.fragments.PostFragment;
 import com.example.eatingcompanion.fragments.ProfileFragment;
 import com.example.eatingcompanion.fragments.RestaurantsFragment;
-import com.example.eatingcompanion.fragments.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.i(TAG, "Settings button clicked");
-                Fragment fragment = new SettingsFragment();
+                Fragment fragment = new PostFragment();
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
             }
         });

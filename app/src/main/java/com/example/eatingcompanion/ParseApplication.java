@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
+import com.example.eatingcompanion.models.Post;
 import com.example.eatingcompanion.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -18,6 +19,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Message.class);
         ParseObject.registerSubclass(Chat.class);
+        ParseObject.registerSubclass(Post.class);
 
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured

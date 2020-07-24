@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -47,7 +49,10 @@ public class PostFragment extends Fragment {
     private Button btnCaptureImage;
     private Button btnGallery;
     private ImageView ivPostImage;
-    private Button btnSetPicture;
+    private EditText etRestaurant;
+    private EditText etOtherUser;
+    private EditText etCaption;
+    private Button btnPost;
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
@@ -69,8 +74,10 @@ public class PostFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         btnGallery = view.findViewById(R.id.btnGallery);
         ivPostImage = view.findViewById(R.id.ivPostImage);
-        btnSetPicture = view.findViewById(R.id.btnSetPicture);
-        final String photoType = getArguments().getString("photoType");
+        etRestaurant = view.findViewById(R.id.etRestaurant);
+        etOtherUser = view.findViewById(R.id.etOtherUser);
+        etCaption = view.findViewById(R.id.etCaption);
+        btnPost = view.findViewById(R.id.btnPost);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +93,7 @@ public class PostFragment extends Fragment {
             }
         });
 
-        if (photoType.equals("coverPicture")) {
-            String cover = "Set Cover Picture";
-            btnSetPicture.setText(cover);
-        }
-
-        btnSetPicture.setOnClickListener(new View.OnClickListener() {
+        btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
@@ -101,19 +103,19 @@ public class PostFragment extends Fragment {
                 ParseFile parseFile = new ParseFile(photoFile);
                 parseFile.saveInBackground();
                 ParseUser user = ParseUser.getCurrentUser();
-                if (photoType.equals("profilePicture")) {
-                    user.put("profilePicture", parseFile);
-                } else {
-                    user.put("coverPicture", parseFile);
-                }
-                user.saveInBackground(new SaveCallback() {
+                Post post = new Post();
+                post.setImage(parseFile);
+                post.setUser(user);
+                post.setRestaurant(etRestaurant.getText().toString());
+                post.setCaption(etCaption.getText().toString());
+                post.setOtherUser(etOtherUser.getText().toString());
+                post.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        if (e == null) {
-                            Toast.makeText(getContext(), "Successfully set profile picture!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            e.printStackTrace();
+                        if (e != null) {
+                            Log.e(TAG, "Error while saving post", e);
                         }
+                        Toast.makeText(getContext(), "Post saved!", Toast.LENGTH_SHORT);
                     }
                 });
             }

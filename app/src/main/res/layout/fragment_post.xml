@@ -1,5 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="?attr/actionBarSize">
+
+    <RelativeLayout
+        android:id="@+id/rlPictureButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/btnCaptureImage"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Take Picture"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:textAllCaps="false"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"/>
+
+        <Button
+            android:id="@+id/btnGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Upload Picture"
+            android:layout_centerHorizontal="true"
+            android:layout_toEndOf="@id/btnCaptureImage"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:textAllCaps="false"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginTop="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_below="@id/rlPictureButtons"
+        android:layout_margin="12dp" />
+
+    <TextView
+        android:id="@+id/tvAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="@color/darkGrayText"
+        android:textSize="22sp"
+        android:text="at"
+        android:layout_below="@id/ivPostImage"
+        android:layout_alignStart="@id/ivPostImage"
+        android:layout_marginTop="4dp"/>
+
+    <EditText
+        android:id="@+id/etRestaurant"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/input_box"
+        android:hint="Restaurant"
+        android:textColor="@color/darkGrayText"
+        android:textSize="22sp"
+        android:fontFamily="@font/questrial_regular"
+        android:layout_alignTop="@id/tvAt"
+        android:layout_toEndOf="@id/tvAt"
+        android:paddingStart="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="-4dp"
+        android:layout_marginEnd="12dp"/>
+
+    <TextView
+        android:id="@+id/tvWith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="@color/darkGrayText"
+        android:textSize="22sp"
+        android:text="with"
+        android:layout_below="@id/tvAt"
+        android:layout_alignStart="@id/ivPostImage"
+        android:layout_marginTop="19dp" />
+
+    <EditText
+        android:id="@+id/etOtherUser"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/input_box"
+        android:hint="Name(s)"
+        android:textColor="@color/darkGrayText"
+        android:textSize="22sp"
+        android:fontFamily="@font/questrial_regular"
+        android:layout_alignTop="@id/tvWith"
+        android:layout_toEndOf="@id/tvWith"
+        android:paddingStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="-4dp"/>
+
+    <EditText
+        android:id="@+id/etCaption"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/input_box"
+        android:hint="Add a caption..."
+        android:textColor="@color/darkGrayText"
+        android:textSize="22sp"
+        android:fontFamily="@font/questrial_regular"
+        android:layout_below="@id/tvWith"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="15dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:gravity="top|left"
+        android:paddingTop="3dp"/>
+
+    <Button
+        android:id="@+id/btnPost"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Post"
+        android:layout_below="@id/etCaption"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
+        android:textAllCaps="false"
+        android:fontFamily="@font/questrial_regular"
+        android:background="@drawable/input_box"
+        android:layout_marginEnd="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="?attr/actionBarSize"/>
 
 </RelativeLayout>
