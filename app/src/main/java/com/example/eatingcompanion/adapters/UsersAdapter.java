@@ -81,7 +81,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         }
 
         public void bind(User user) {
-            Glide.with(context).load(user.getProfilePicture()).circleCrop().into(ivProfilePicture);
+            Glide.with(context).load(user.getProfilePicture().getUrl()).circleCrop().into(ivProfilePicture);
             tvName.setText(user.getName());
         }
     }

@@ -69,11 +69,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         }
 
         public void bind(Post post) {
-            Glide.with(context).load(post.getImage())
+            Glide.with(context).load(post.getImage().getUrl())
                     .placeholder(R.drawable.default_avatar)
                     .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
                     .into(ivPostImage);
-            Glide.with(context).load(post.getUser().getProfilePicture())
+            Glide.with(context).load(post.getUser().getProfilePicture().getUrl())
                     .placeholder(R.drawable.default_avatar)
                     .circleCrop()
                     .into(ivProfilePicture);
