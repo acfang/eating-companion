@@ -82,7 +82,7 @@
 
         <Button
             android:id="@+id/btnMessage"
-            android:layout_width="90dp"
+            android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="Send"
             android:layout_alignBottom="@+id/etMessage"
@@ -95,7 +95,9 @@
             android:fontFamily="@font/questrial_regular"
             android:background="@drawable/input_box"
             android:layout_marginEnd="10dp"
-            style="?android:attr/borderlessButtonStyle" />
+            style="?android:attr/borderlessButtonStyle"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"/>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -142,7 +142,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void done(List<Post> posts, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Error when querying messages", e);
+                    Log.e(TAG, "Error when querying posts", e);
                     return;
                 }
                 allPosts.addAll(posts);

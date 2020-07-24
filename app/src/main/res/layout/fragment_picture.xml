@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PictureFragment">
+    tools:context=".fragments.PictureFragment"
+    android:layout_marginTop="?attr/actionBarSize">
 
     <RelativeLayout
         android:id="@+id/rlPictureButtons"
@@ -15,47 +16,65 @@
         <Button
             android:id="@+id/btnCaptureImage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Take Picture"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textColor="@android:color/white"
-            android:backgroundTint="@android:color/black"
-            android:textAllCaps="false" />
+            android:backgroundTint="@color/colorAccent"
+            android:textAllCaps="false"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"/>
 
         <Button
             android:id="@+id/btnGallery"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Upload Picture"
-            android:layout_marginTop="?attr/actionBarSize"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@android:color/black"
-            android:textAllCaps="false"
             android:layout_centerHorizontal="true"
-            android:layout_toEndOf="@id/btnCaptureImage"/>
+            android:layout_toEndOf="@id/btnCaptureImage"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:textAllCaps="false"
+            android:fontFamily="@font/questrial_regular"
+            android:background="@drawable/input_box"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginTop="12dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"/>
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="470dp"
         tools:srcCompat="@tools:sample/avatars"
-        android:layout_below="@id/rlPictureButtons"/>
+        android:layout_below="@id/rlPictureButtons"
+        android:layout_margin="12dp" />
 
     <Button
         android:id="@+id/btnSetPicture"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="Set Profile Picture"
         android:layout_below="@id/ivPostImage"
         android:layout_centerHorizontal="true"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/black"
-        android:textAllCaps="false" />
+        android:backgroundTint="@color/colorAccent"
+        android:textAllCaps="false"
+        android:fontFamily="@font/questrial_regular"
+        android:background="@drawable/input_box"
+        android:layout_marginEnd="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
 
     <ProgressBar
         android:id="@+id/pbLoading"

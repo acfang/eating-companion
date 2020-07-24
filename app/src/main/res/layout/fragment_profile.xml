@@ -88,7 +88,7 @@
 
     <Button
         android:id="@+id/btnEdit"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="@string/edit"
         android:layout_marginTop="10dp"
@@ -100,11 +100,13 @@
         android:background="@drawable/input_box"
         android:backgroundTint="@color/colorAccent"
         android:layout_marginStart="10dp"
-        android:layout_alignTop="@id/ivCoverPicture"/>
+        android:layout_alignTop="@id/ivCoverPicture"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
@@ -118,7 +120,9 @@
         android:backgroundTint="@color/closedRed"
         android:layout_marginStart="10dp"
         android:layout_alignTop="@id/ivCoverPicture"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPosts"

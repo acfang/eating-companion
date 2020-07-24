@@ -168,6 +168,8 @@ public class MessagesFragment extends Fragment {
 
         ParseLiveQueryClient parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient();
         ParseQuery<Message> liveQuery = ParseQuery.getQuery(Message.class);
+        liveQuery.include(Message.KEY_CHAT);
+        liveQuery.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
         SubscriptionHandling<Message> subscriptionHandling = parseLiveQueryClient.subscribe(liveQuery);
         subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<Message>() {
             @Override

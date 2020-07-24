@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/btnSettings"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="@string/change"
         android:layout_below="@id/etState"
@@ -50,6 +50,8 @@
         android:layout_marginEnd="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
 
 </RelativeLayout>

@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/btnSettings"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="@string/change"
         android:layout_alignTop="@+id/etSettings"
@@ -34,6 +34,8 @@
         android:fontFamily="@font/questrial_regular"
         android:background="@drawable/input_box"
         android:layout_marginEnd="10dp"
-        style="?android:attr/borderlessButtonStyle"/>
+        style="?android:attr/borderlessButtonStyle"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
 
 </RelativeLayout>
