@@ -1,6 +1,8 @@
 package com.example.eatingcompanion.adapters;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +32,7 @@ import com.parse.ParseQuery;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
@@ -58,6 +62,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat = chats.get(position);
@@ -103,12 +108,11 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
             });
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         public void bind(Chat chat) {
-            Date date = chat.getTime();
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(date);
-            String time = daysOfWeek[calendar.get(Calendar.DAY_OF_WEEK)] + " " + calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE);
-            tvTime.setText(time);
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy, hh:mma", Locale.US);
+            String date = sdf.format(chat.getTime());
+            tvTime.setText(date);
             String restaurantId = chat.getRestaurantId();
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

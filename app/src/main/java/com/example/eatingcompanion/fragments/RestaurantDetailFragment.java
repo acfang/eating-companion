@@ -1,18 +1,19 @@
 package com.example.eatingcompanion.fragments;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,7 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -58,11 +60,18 @@ public class RestaurantDetailFragment extends Fragment {
     private ImageView ivPhoto1;
     private ImageView ivPhoto2;
     private TextView tvHours;
+    private EditText etSetDate;
+    private Button btnSetDate;
     private EditText etSetTime;
+    private Button btnSetTime;
     private Button btnCreateChat;
-    private Spinner spinner;
-    private static final String[] paths = {"Today", "Tomorrow", "In 2 Days", "In 3 Days", "In 4 Days", "In 5 Days", "In 6 Days", "In a Week"};
-    private int spinnerChoice;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mHour;
+    private int mMinute;
+    private Date date;
+    private Calendar calendar;
 
     public RestaurantDetailFragment() {
         // Required empty public constructor
@@ -90,9 +99,11 @@ public class RestaurantDetailFragment extends Fragment {
         ivPhoto1 = view.findViewById(R.id.ivPhoto1);
         ivPhoto2 = view.findViewById(R.id.ivPhoto2);
         tvHours = view.findViewById(R.id.tvHours);
+        etSetDate = view.findViewById(R.id.etSetDate);
+        btnSetDate = view.findViewById(R.id.btnSetDate);
         etSetTime = view.findViewById(R.id.etSetTime);
+        btnSetTime = view.findViewById(R.id.btnSetTime);
         btnCreateChat = view.findViewById(R.id.btnCreateChat);
-        spinner = view.findViewById(R.id.spinner);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -154,19 +165,66 @@ public class RestaurantDetailFragment extends Fragment {
             }
         });
 
+        btnSetDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+
+                                etSetDate.setText((monthOfYear + 1) + "/" + dayOfMonth + "/" + year);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(year, monthOfYear + 1, dayOfMonth);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
+
+        btnSetTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Get Current Time
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                etSetTime.setText(hourOfDay + ":" + minute);
+                                calendar.set(Calendar.HOUR, hourOfDay);
+                                calendar.set(Calendar.MINUTE, minute);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+        });
+
+        // TODO: fix the date input!
         btnCreateChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String setTime = etSetTime.getText().toString();
                 Chat chat = new Chat();
                 ParseRelation<User> usersIn = chat.getRelation(Chat.KEY_USERS);
                 usersIn.add((User)ParseUser.getCurrentUser());
                 chat.setRestaurantId(getArguments().getString("id"));
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.DAY_OF_MONTH, spinnerChoice);
-                calendar.set(Calendar.HOUR, Integer.parseInt(setTime.substring(0,2)));
-                calendar.set(Calendar.MINUTE, Integer.parseInt(setTime.substring(3)));
-                chat.setTime(calendar.getTime());
+                date = calendar.getTime();
+                chat.setTime(date);
                 try {
                     chat.save();
                 } catch (ParseException e) {
@@ -184,23 +242,6 @@ public class RestaurantDetailFragment extends Fragment {
                 args.putSerializable("chat", chat);
                 fragment.setArguments(args);
                 getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
-            }
-        });
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item,paths);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinnerChoice = i;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                spinnerChoice = 0;
             }
         });
     }

@@ -156,21 +156,66 @@
                 android:lineSpacingExtra="8dp"
                 android:layout_marginTop="6dp"/>
 
-            <Spinner
-                android:id="@+id/spinner"
+            <EditText
+                android:id="@+id/etSetDate"
+                android:layout_width="260dp"
+                android:layout_height="36dp"
+                android:textSize="18sp"
+                android:layout_below="@id/tvHours"
+                android:background="@drawable/input_box"
+                android:fontFamily="@font/questrial_regular"
+                android:textColor="@color/darkGrayText"
+                android:layout_alignStart="@id/tvRestaurantName"
+                android:layout_marginTop="10dp"
+                android:paddingStart="12dp"
+                tools:text="07/23/20"/>
+
+            <Button
+                android:id="@+id/btnSetDate"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/etSetTime"/>
+                android:layout_height="36dp"
+                android:layout_toEndOf="@id/etSetDate"
+                android:layout_alignTop="@id/etSetDate"
+                android:background="@drawable/input_box"
+                android:layout_marginStart="12dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="Select Date"
+                android:textAllCaps="false"
+                android:fontFamily="@font/questrial_regular"
+                android:backgroundTint="@color/lightGrayText"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:layout_alignEnd="@id/rlImages"/>
 
             <EditText
                 android:id="@+id/etSetTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Set a time..."
-                android:textSize="14sp"
-                android:layout_marginEnd="80dp"
-                android:layout_below="@id/tvHours"
-                android:layout_toEndOf="@+id/spinner"/>
+                android:layout_width="260dp"
+                android:layout_height="36dp"
+                android:textSize="18sp"
+                android:layout_below="@id/etSetDate"
+                android:background="@drawable/input_box"
+                android:fontFamily="@font/questrial_regular"
+                android:textColor="@color/darkGrayText"
+                android:layout_marginTop="12dp"
+                android:layout_alignStart="@id/tvRestaurantName"
+                android:paddingStart="12dp"/>
+
+            <Button
+                android:id="@+id/btnSetTime"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_toEndOf="@id/etSetTime"
+                android:layout_alignTop="@id/etSetTime"
+                android:background="@drawable/input_box"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="Select Time"
+                android:textAllCaps="false"
+                android:fontFamily="@font/questrial_regular"
+                android:backgroundTint="@color/lightGrayText"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:layout_marginStart="12dp"
+                android:layout_alignEnd="@id/rlImages"/>
 
             <Button
                 android:id="@+id/btnCreateChat"
@@ -188,7 +233,8 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_below="@id/etSetTime"
                 android:layout_centerHorizontal="true"
-                android:paddingTop="1dp"/>
+                android:paddingTop="1dp"
+                android:layout_marginTop="12dp"/>
 
         </RelativeLayout>
     </ScrollView>
