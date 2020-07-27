@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Bundle args = new Bundle();
                 args.putString("photoType", "profilePicture");
                 fragment.setArguments(args);
-                getSupportFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
     }

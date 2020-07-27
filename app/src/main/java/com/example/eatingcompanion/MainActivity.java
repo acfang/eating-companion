@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new NearbyFragment();
                         break;
                 }
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
                 return true;
             }
         });
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 uncheckAllItems();
                 cbProfile.setChecked(false);
                 Fragment fragment = new PostFragment();
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 uncheckAllItems();
                 cbCamera.setChecked(false);
                 Fragment fragment = new ProfileFragment();
-                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
     }

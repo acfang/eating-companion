@@ -130,7 +130,7 @@ public class ProfileFragment extends Fragment {
                 Log.i(TAG, "onClick edit button");
                 Fragment fragment;
                 fragment = new SettingsFragment();
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
 
