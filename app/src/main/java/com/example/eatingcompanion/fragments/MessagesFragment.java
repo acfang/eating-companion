@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,11 +53,14 @@ public class MessagesFragment extends Fragment {
 
     private TextView tvRestaurant;
     private TextView tvTime;
+    private ImageView ivInfo;
     private RecyclerView rvMessages;
     private MessagesAdapter adapter;
     private List<Message> allMessages;
     private EditText etMessage;
     private Button btnMessage;
+    private ImageView ivAddMedia;
+
 
     public MessagesFragment() {
         // Required empty public constructor
@@ -75,9 +79,11 @@ public class MessagesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tvRestaurant = view.findViewById(R.id.tvRestaurant);
         tvTime = view.findViewById(R.id.tvTime);
+        ivInfo = view.findViewById(R.id.ivInfo);
         rvMessages = view.findViewById(R.id.rvMessages);
         etMessage = view.findViewById(R.id.etMessage);
         btnMessage = view.findViewById(R.id.btnMessage);
+        ivAddMedia = view.findViewById(R.id.ivAddMedia);
         allMessages = new ArrayList<>();
         adapter = new MessagesAdapter(getContext(), allMessages);
         rvMessages.setAdapter(adapter);
@@ -179,6 +185,20 @@ public class MessagesFragment extends Fragment {
             @Override
             public void run() {
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        ivInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        ivAddMedia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

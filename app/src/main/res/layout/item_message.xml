@@ -52,7 +52,7 @@
             tools:text="Yeah, let's meet up by the front entrance! I'll be wearing a white shirt..."
             android:fontFamily="@font/questrial_regular"
             android:textColor="@color/darkGrayText"
-            android:textSize="16dp"/>
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/ivMedia"

@@ -21,7 +21,19 @@
         android:textSize="26sp"
         android:fontFamily="@font/questrial_regular"
         android:textColor="@color/darkGrayText"
-        android:layout_marginStart="12dp" />
+        android:layout_marginStart="12dp"
+        android:layout_toStartOf="@id/ivInfo"
+        android:layout_marginEnd="8dp"/>
+
+    <ImageView
+        android:id="@+id/ivInfo"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/info_24px2_outlined"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/tvRestaurant"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/tvTime"
@@ -64,22 +76,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+        
+        <ImageView
+            android:id="@+id/ivAddMedia"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/add_circle_24px"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:tint="@color/colorAccent"
+            android:alpha="1"/>
 
         <EditText
             android:id="@+id/etMessage"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:hint="Write a message..."
-            android:textSize="20sp"
-            android:layout_marginEnd="100dp"
+            android:textSize="16sp"
+            android:layout_marginEnd="90dp"
             android:background="@drawable/input_box"
             android:fontFamily="@font/questrial_regular"
             android:textColor="@color/darkGrayText"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
-            android:paddingStart="12dp"
-            android:paddingTop="3dp"/>
+            android:paddingStart="10dp"
+            android:layout_toEndOf="@id/ivAddMedia"/>
 
         <Button
             android:id="@+id/btnMessage"
@@ -88,8 +110,8 @@
             android:text="Send"
             android:layout_alignBottom="@+id/etMessage"
             android:layout_toEndOf="@id/etMessage"
-            android:layout_marginStart="-90dp"
-            android:textSize="20sp"
+            android:layout_marginStart="-80dp"
+            android:textSize="18sp"
             android:textColor="@android:color/white"
             android:backgroundTint="@color/colorAccent"
             android:textAllCaps="false"
