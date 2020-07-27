@@ -115,6 +115,25 @@ public class ChatFragment extends Fragment {
                             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy, hh:mma", Locale.US);
                             String date = sdf.format(deleted.getTime());
                             snackbarText = response.body().getName() + ", " + date;
+                            allChats.remove(position);
+                            adapter.notifyItemRemoved(position);
+                            Log.i(TAG, "Just before snackbar");
+                            Snackbar.make(rvChats, "Left \"" + snackbarText + "\"", Snackbar.LENGTH_LONG)
+                                    .setAction("Undo", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            allChats.add(position, deleted);
+                                            adapter.notifyItemInserted(position);
+                                            Log.i(TAG, "undo delete action taken");
+                                        }
+                                    }).show();
+                            ParseRelation<Chat> chatsIn = ParseUser.getCurrentUser().getRelation(User.KEY_CHAT);
+                            chatsIn.remove(deleted);
+                            try {
+                                ParseUser.getCurrentUser().save();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
@@ -122,29 +141,6 @@ public class ChatFragment extends Fragment {
                             Log.i(TAG, "onFailure query restaurants for nearby chats" + t);
                         }
                     });
-
-                    allChats.remove(position);
-                    adapter.notifyItemRemoved(position);
-                    Snackbar snackbar = Snackbar.make(rvChats, "Left \"" + snackbarText + "\"", Snackbar.LENGTH_LONG)
-                            .setAction("Undo", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    allChats.add(position, deleted);
-                                    adapter.notifyItemInserted(position);
-                                }
-                            });
-                    snackbar.show();
-
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            // This method will be executed once the timer is over
-                        }
-                    }, SPLASH_TIME_OUT);
-
-                    snackbar.dismiss();
-                    ParseRelation<Chat> chatsIn = ParseUser.getCurrentUser().getRelation(User.KEY_CHAT);
-                    chatsIn.remove(deleted);
                 }
             }
 
