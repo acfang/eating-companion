@@ -122,12 +122,14 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    | Property       | Type     | Description |
    | -------------- | -------- | ------------|
    | userId         | String   | unique id for the user (default field) |
-   | username       | String   | user's screenname/display name |
+   | username       | String   | user's username |
    | password       | String   | user's password for login |
    | profilePicture | File     | user's profile image |
    | bio            | String   | user's description |
    | city           | String   | user's default city |
    | state          | String   | user's default state |
+   | firstName      | String   | user's display name |
+   | chatsIn        | Relation | chats the user is in |
 #### Message
 
    | Property       | Type     | Description |
@@ -144,6 +146,7 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    | chatId         | String   | unique chat id (default field) |
    | restaurantId   | String   | unique restaurant id (from Google Maps API) |
    | timeToGo       | DateTime | time the meetup is set for |
+   | usersIn        | Relation | users in the chat |
 #### Post
 
    | Property       | Type     | Description |
