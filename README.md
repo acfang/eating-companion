@@ -59,12 +59,15 @@ This mobile app lets users find people near them to grab a bite with. Users can 
     * User can message other users for a specific restaurant and time to meet
 * Profile Screen
     * User can set up a profile (photos, bio)
+    * User can see their posts
+    * User can edit their account information
 * Other User Profile Screen
     * User can see other profiles (photos, bio)
     * User can message this user
+    * User can see this user's posts
 * Camera Screen
-    * User can take pictures
-    * User can upload pictures
+    * User can take pictures to post
+    * User can upload pictures to post
 
 ### 3. Navigation
 
@@ -73,7 +76,8 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 * Restaurants Nearby
 * Messages
 * User Profile
-* (Stretch) Users Nearby
+* Users/Chats Nearby
+* Camera
 
 **Flow Navigation** (Screen to Screen)
 
@@ -137,8 +141,15 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    | chatId         | String   | unique chat id (default field) |
    | restaurantId   | String   | unique restaurant id (from Google Maps API) |
    | timeToGo       | DateTime | time the meetup is set for |
-   | city           | String   | city where the restaurant is |
-   | state          | String   | state where the restaurant is |
+#### Post
+
+   | Property       | Type     | Description |
+   | -------------- | -------- | ------------|
+   | userId         | Pointer  | unique user id |
+   | restaurant     | String   | restaurant name |
+   | otherUser      | String   | who the user ate with |
+   | image          | File     | picture of food |
+
 ### Networking
 #### List of network requests by screen
    - Login Screen
@@ -201,6 +212,6 @@ This mobile app lets users find people near them to grab a bite with. Users can 
    Week   | Milestones
    -------|-----------
    Week 1 | - Set up data models and validated they work<br>- Set up user login, signup, and logout<br>- Set up navigational and skeleton views<br>- Set up recycler views and adapters<br>- Implemented Yelp Fusion API calls and other restaurant-related functionality<br>- Set up chat rooms (live querying, chat creation, other users) and other chat-related functionality
-   Week 2 | - Implemented photo upload<br>- Implemented settings to change user information<br>- Updated UI to match my Figma wireframe<br>- Added a page to see nearby users & chats for nearby restaurants<br>- Added a Post class for users to post food photos on their profile pages
+   Week 2 | - Implemented photo upload<br>- Implemented settings to change user information<br>- Updated UI to match my Figma wireframe<br>- Added a page to see nearby users & chats for nearby restaurants<br>- Added a Post class for users to post food photos on their profile pages<br>- Added swipe to delete chats
    Week 3 | 
    Week 4 | 
