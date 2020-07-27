@@ -24,11 +24,13 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextColor="@android:color/black">
 
-            <ImageView
-                android:id="@+id/ivCamera"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_camera_alt_24px_outlined" />
+            <CheckBox
+                android:id="@+id/cbCamera"
+                android:layout_width="24dp"
+                android:layout_height="21dp"
+                android:background="@drawable/camera_alt_24px"
+                android:button="@null"
+                android:backgroundTint="@color/bottom_nav_color" />
 
             <TextView
                 android:id="@+id/tvLogo"
@@ -40,14 +42,15 @@
                 android:textSize="28sp"
                 android:fontFamily="@font/questrial_regular"/>
 
-            <ImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_person_outline_24px"
-                android:layout_marginEnd="15dp"
+            <CheckBox
+                android:id="@+id/cbProfile"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="19dp"
                 android:layout_gravity="end"
-                android:tint="@color/darkGrayText"/>
+                android:background="@drawable/person_outline_24px"
+                android:button="@null"
+                android:backgroundTint="@color/bottom_nav_color"/>
 
         </androidx.appcompat.widget.Toolbar>
 

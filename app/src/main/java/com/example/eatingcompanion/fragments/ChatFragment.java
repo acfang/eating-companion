@@ -79,7 +79,7 @@ public class ChatFragment extends Fragment {
         rvChats = view.findViewById(R.id.rvChats);
         allChats = new ArrayList<>();
         adapter = new ChatsAdapter(getContext(), allChats);
-        //adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY);
+        adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);
         rvChats.setAdapter(adapter);
         rvChats.setLayoutManager(new LinearLayoutManager(getContext()));
 

@@ -110,7 +110,7 @@ public class SettingsFragment extends Fragment implements EditDialogFragment.Edi
                 Bundle args = new Bundle();
                 args.putString("photoType", "profilePicture");
                 fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -124,7 +124,7 @@ public class SettingsFragment extends Fragment implements EditDialogFragment.Edi
                 Bundle args = new Bundle();
                 args.putString("photoType", "coverPicture");
                 fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
 

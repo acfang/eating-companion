@@ -249,7 +249,7 @@ public class RestaurantDetailFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putSerializable("chat", chat);
                 fragment.setArguments(args);
-                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
     }

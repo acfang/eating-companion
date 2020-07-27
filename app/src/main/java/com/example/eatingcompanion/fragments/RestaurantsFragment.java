@@ -64,7 +64,7 @@ public class RestaurantsFragment extends Fragment {
         btnSearch = view.findViewById(R.id.btnSearch);
         allRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), allRestaurants);
-        //adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY);
+        adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);
         rvRestaurants.setAdapter(adapter);
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -80,6 +80,8 @@ public class RestaurantsFragment extends Fragment {
                 Log.i(TAG, "onClick search button");
                 String searchTerm = etSearchTerm.getText().toString();
                 String location = etLocation.getText().toString();
+
+                allRestaurants.clear();
 
                 yelpService.searchRestaurants("Bearer " + getString(R.string.yelp_api_key), searchTerm, location).enqueue(new Callback<YelpSearchResponse>() {
                     @Override
