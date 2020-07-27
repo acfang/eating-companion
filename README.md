@@ -83,23 +83,26 @@ This mobile app lets users find people near them to grab a bite with. Users can 
 
 * Login screen
    => Registration screen
-   => Chat screen
+   => Restaurant Search screen
 * Registration screen
-   => Chat screen
+   => Restaurant Search screen
 * Chat screen
-   => Nearby Restaurants screen
-   => Chat room/detail screen
-   => Profile screen
-* Nearby Restaurants screen
-  => Detailed restaurant screen
-  => Chat screen
+   => Chat room screen
+* Chat room screen
+   => Restaurant detail screen
+   => Other User Profile screen
+* Restaurant Search screen
+   => Detailed restaurant screen
+* Restaurant detail screen
+   => Chat room screen
 * Self Profile Screen
-  => Edit profile screen
-  => Camera screen
+   => Edit profile screen
+   => Login screen (after logging out)
+* Edit Profile Screen
+   => Camera screen
 * Other User Profile screen
-  => Message screen
+   => Chat room screen
 * Camera screen
-  => Self Profile screen
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
