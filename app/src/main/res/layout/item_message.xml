@@ -27,34 +27,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/input_box"
-        android:layout_alignStart="@+id/tvBody"
-        android:layout_alignEnd="@id/tvBody"
-        android:layout_alignBottom="@id/tvBody"
-        android:layout_alignTop="@id/tvBody"
+        android:layout_alignStart="@+id/rlMessage"
+        android:layout_alignEnd="@id/rlMessage"
+        android:layout_alignBottom="@id/rlMessage"
+        android:layout_alignTop="@id/rlMessage"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"/>
+        android:layout_marginEnd="5dp"
+        />
 
-    <TextView
-        android:id="@+id/tvBody"
+    <RelativeLayout
+        android:id="@+id/rlMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/ivProfileOther"
-        android:layout_toStartOf="@id/ivProfileMe"
-        android:padding="7dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        tools:text="Yeah, let's meet up by the front entrance! I'll be wearing a white shirt..."
-        android:fontFamily="@font/questrial_regular"
-        android:textColor="@color/darkGrayText"
-        android:textSize="16dp"/>
+        android:layout_toStartOf="@id/ivProfileMe">
+
+        <TextView
+            android:id="@+id/tvBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="7dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            tools:text="Yeah, let's meet up by the front entrance! I'll be wearing a white shirt..."
+            android:fontFamily="@font/questrial_regular"
+            android:textColor="@color/darkGrayText"
+            android:textSize="16dp"/>
+
+        <ImageView
+            android:id="@+id/ivMedia"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_below="@id/tvBody"
+            tools:srcCompat="@tools:sample/backgrounds/scenic"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="-2dp" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvTimestampOther"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvBody"
+        android:layout_below="@id/vMessageBox"
         tools:text="12:00pm"
-        android:layout_alignStart="@id/tvBody"
+        android:layout_alignStart="@id/rlMessage"
         android:fontFamily="@font/questrial_regular"
         android:layout_marginStart="5dp"
         android:textSize="12sp"/>
@@ -63,9 +82,9 @@
         android:id="@+id/tvTimestampMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvBody"
+        android:layout_below="@id/vMessageBox"
         tools:text="12:00pm"
-        android:layout_alignEnd="@id/tvBody"
+        android:layout_alignEnd="@id/rlMessage"
         android:fontFamily="@font/questrial_regular"
         android:layout_marginEnd="5dp"
         android:textSize="12sp"/>

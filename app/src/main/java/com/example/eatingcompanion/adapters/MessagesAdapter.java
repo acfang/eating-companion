@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.fragments.OtherUserProfileFragment;
@@ -33,6 +34,8 @@ import com.parse.ParseUser;
 
 import java.util.List;
 import java.util.Locale;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
 
@@ -73,6 +76,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         private ImageView ivProfileOther;
         private ImageView ivProfileMe;
         private TextView tvBody;
+        private ImageView ivMedia;
         private TextView tvTimestampOther;
         private TextView tvTimestampMe;
 
@@ -81,6 +85,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             ivProfileOther = itemView.findViewById(R.id.ivProfileOther);
             ivProfileMe = itemView.findViewById(R.id.ivProfileMe);
             tvBody = itemView.findViewById(R.id.tvBody);
+            ivMedia = itemView.findViewById(R.id.ivMedia);
             tvTimestampOther = itemView.findViewById(R.id.tvTimestampOther);
             tvTimestampMe = itemView.findViewById(R.id.tvTimestampMe);
 
@@ -165,6 +170,15 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                 }
             }
 
+            if (message.getMedia() != null) {
+                ivMedia.setVisibility(View.VISIBLE);
+                Glide.with(context).load(message.getMedia().getUrl())
+                        .placeholder(R.drawable.default_avatar)
+                        .transform(new CenterCrop(), new RoundedCornersTransformation(30, 0))
+                        .into(ivMedia);
+            } else {
+                ivMedia.setVisibility(View.GONE);
+            }
             tvBody.setText(message.getBody());
         }
     }
