@@ -222,7 +222,7 @@ public class PictureFragment extends Fragment {
         }
     }
 
-        // Returns the File for a photo stored on disk given the fileName
+    // Returns the File for a photo stored on disk given the fileName
     // Uri = uniform resource identifier
     public File getPhotoFileUri(String fileName) {
         // Get safe storage directory for photos

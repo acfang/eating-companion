@@ -82,10 +82,35 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/add_circle_24px"
-            android:layout_centerVertical="true"
+            android:layout_alignBottom="@id/etMessage"
             android:layout_marginStart="10dp"
             android:tint="@color/colorAccent"
-            android:alpha="1"/>
+            android:alpha="1"
+            android:layout_marginBottom="3dp"/>
+
+        <ImageView
+            android:id="@+id/ivCamera"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/camera_alt_24px_rounded"
+            android:layout_alignBottom="@id/etMessage"
+            android:layout_marginStart="10dp"
+            android:tint="@color/colorAccent"
+            android:alpha="1"
+            android:layout_toEndOf="@id/ivAddMedia"
+            android:layout_marginBottom="4dp"/>
+
+        <ImageView
+            android:id="@+id/ivGallery"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/photo_24px_rounded"
+            android:layout_alignBottom="@id/etMessage"
+            android:layout_marginStart="10dp"
+            android:tint="@color/colorAccent"
+            android:alpha="1"
+            android:layout_toEndOf="@id/ivCamera"
+            android:layout_marginBottom="4dp"/>
 
         <EditText
             android:id="@+id/etMessage"
@@ -101,7 +126,27 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:paddingStart="10dp"
-            android:layout_toEndOf="@id/ivAddMedia"/>
+            android:layout_toEndOf="@id/ivGallery"
+            android:layout_below="@id/ivPhoto"/>
+
+        <ImageView
+            android:id="@+id/ivPhoto"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:layout_alignStart="@id/etMessage"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/ivRemovePhoto"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignTop="@id/ivPhoto"
+            android:layout_alignEnd="@id/ivPhoto"
+            android:src="@drawable/cancel_24px_rounded"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="2dp"
+            android:tint="@android:color/white"/>
 
         <Button
             android:id="@+id/btnMessage"
