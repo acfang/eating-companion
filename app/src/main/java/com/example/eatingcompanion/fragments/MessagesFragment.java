@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -204,6 +205,8 @@ public class MessagesFragment extends Fragment {
                 view.clearFocus();
                 rvMessages.requestFocus();
                 etMessage.setText("");
+                ivPhoto.setVisibility(View.GONE);
+                photoFile = null;
             }
         });
 
@@ -230,7 +233,7 @@ public class MessagesFragment extends Fragment {
         ivInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showInfoDialog((Chat) getArguments().getSerializable("chat"), ((Chat) getArguments().getSerializable("chat")).getRestaurantId());
             }
         });
 
@@ -382,5 +385,11 @@ public class MessagesFragment extends Fragment {
 
         // Return the file target for the photo based on filename
         return new File(mediaStorageDir.getPath() + File.separator + fileName);
+    }
+
+    private void showInfoDialog(Chat chat, String id) {
+        FragmentManager fm = getFragmentManager();
+        InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(chat, id);
+        infoDialogFragment.show(fm, "fragment_info_dialog");
     }
 }

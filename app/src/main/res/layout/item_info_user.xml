@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/ivProfilePicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        tools:text="John"
+        android:layout_toEndOf="@id/ivProfilePicture"
+        android:fontFamily="@font/questrial_regular"
+        android:textColor="#655C5C"
+        android:textSize="18sp"
+        android:layout_marginStart="5dp"/>
+
+</RelativeLayout>
