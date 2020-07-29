@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,6 +59,7 @@ public class ChatFragment extends Fragment {
     private String snackbarText;
     private int position;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private SwipeRefreshLayout swipeContainer;
 
     FragmentChatBinding binding;
 
@@ -77,12 +79,44 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvChats = binding.rvChats;
+        swipeContainer = binding.swipeContainer;
         allChats = new ArrayList<>();
         adapter = new ChatsAdapter(getContext(), allChats);
         adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);
         rvChats.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvChats.setLayoutManager(linearLayoutManager);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                allChats.clear();
+                adapter.clear();
+                ParseRelation<ParseObject> chatsIn = ((User) ParseUser.getCurrentUser()).getRelation(User.KEY_CHAT);
+                ParseQuery query = chatsIn.getQuery();
+                query.setLimit(20);
+                query.addDescendingOrder(Chat.KEY_CREATED_AT);
+                query.findInBackground(new FindCallback<Chat>() {
+                    @Override
+                    public void done(List<Chat> chats, ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Error when querying new chats", e);
+                            return;
+                        }
+                        Log.i(TAG, "Number of chats: " + chats.size());
+                        allChats.addAll(chats);
+                        adapter.notifyDataSetChanged();
+                        swipeContainer.setRefreshing(false);
+                    }
+                });
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override

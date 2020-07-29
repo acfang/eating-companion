@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ public class ProfileFragment extends Fragment {
     private PostsAdapter adapter;
     private List<Post> allPosts;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private SwipeRefreshLayout swipeContainer;
 
     FragmentProfileBinding binding;
 
@@ -76,12 +78,44 @@ public class ProfileFragment extends Fragment {
         btnLogout = binding.btnLogout;
         btnEdit = binding.btnEdit;
         rvPosts = binding.rvPosts;
+        swipeContainer = binding.swipeContainer;
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPosts.setLayoutManager(linearLayoutManager);
         User user = (User) ParseUser.getCurrentUser();
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                allPosts.clear();
+                adapter.clear();
+                ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+                query.include(Post.KEY_USER);
+                query.whereEqualTo(Post.KEY_USER, (User) ParseUser.getCurrentUser());
+                query.setLimit(20);
+                query.addDescendingOrder(Message.KEY_CREATED_KEY);
+                query.findInBackground(new FindCallback<Post>() {
+                    @Override
+                    public void done(List<Post> posts, ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Error when querying posts", e);
+                            return;
+                        }
+                        allPosts.addAll(posts);
+                        adapter.notifyDataSetChanged();
+                        swipeContainer.setRefreshing(false);
+                    }
+                });
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         // Retain an instance so that you can call `resetState()` for fresh searches
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {

@@ -99,7 +99,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
                         .circleCrop()
                         .into(ivProfilePicture);
             }
-            //Glide.with(context).load(user.getProfilePicture().getUrl()).circleCrop().into(ivProfilePicture);
             tvName.setText(user.getName());
         }
     }

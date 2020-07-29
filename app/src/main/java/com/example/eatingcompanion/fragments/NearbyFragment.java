@@ -100,10 +100,10 @@ public class NearbyFragment extends Fragment {
         });
 
         ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
-//        userQuery.include(User.KEY_CITY);
-//        userQuery.include(User.KEY_STATE);
-//        userQuery.whereEqualTo(User.KEY_CITY, ((User) ParseUser.getCurrentUser()).getCity());
-//        userQuery.whereEqualTo(User.KEY_STATE, ((User) ParseUser.getCurrentUser()).getState());
+        userQuery.include(User.KEY_CITY);
+        userQuery.include(User.KEY_STATE);
+        userQuery.whereEqualTo(User.KEY_CITY, ((User) ParseUser.getCurrentUser()).getCity());
+        userQuery.whereEqualTo(User.KEY_STATE, ((User) ParseUser.getCurrentUser()).getState());
         userQuery.setLimit(20);
         userQuery.addDescendingOrder(Chat.KEY_CREATED_AT);
         userQuery.findInBackground(new FindCallback<ParseUser>() {

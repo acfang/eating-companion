@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,7 @@ public class OtherUserProfileFragment extends Fragment {
     private PostsAdapter adapter;
     private List<Post> allPosts;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private SwipeRefreshLayout swipeContainer;
 
     FragmentOtherUserProfileBinding binding;
 
@@ -76,11 +79,38 @@ public class OtherUserProfileFragment extends Fragment {
         tvUsername = binding.tvUsername;
         tvBio = binding.tvBio;
         rvPosts = binding.rvPosts;
+        swipeContainer = binding.swipeContainer;
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPosts.setLayoutManager(linearLayoutManager);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                allPosts.clear();
+                adapter.clear();
+                ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+                query.include(Post.KEY_USER);
+                query.whereEqualTo(Post.KEY_USER, user);
+                query.setLimit(20);
+                query.addDescendingOrder(Message.KEY_CREATED_KEY);
+                query.findInBackground(new FindCallback<Post>() {
+                    @Override
+                    public void done(List<Post> posts, ParseException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Error when querying posts", e);
+                            return;
+                        }
+                        allPosts.addAll(posts);
+                        adapter.notifyDataSetChanged();
+                        swipeContainer.setRefreshing(false);
+                    }
+                });
+            }
+        });
 
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override

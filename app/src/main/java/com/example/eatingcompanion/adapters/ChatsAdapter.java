@@ -160,4 +160,16 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
             });
         }
     }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        chats.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Chat> list) {
+        chats.addAll(list);
+        notifyDataSetChanged();
+    }
 }
