@@ -122,7 +122,8 @@ public class MessagesFragment extends Fragment {
         adapter = new MessagesAdapter(getContext(), allMessages);
         rvMessages.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setReverseLayout(true);
+        //llm.setReverseLayout(true);
+        //llm.setStackFromEnd(true);
         rvMessages.setLayoutManager(llm);
 
         ivCamera.setVisibility(View.GONE);
@@ -162,7 +163,7 @@ public class MessagesFragment extends Fragment {
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
         query.include(Message.KEY_CHAT);
         query.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
-        query.addDescendingOrder(Message.KEY_CREATED_KEY);
+        query.addAscendingOrder(Message.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Message>() {
             @Override
             public void done(List<Message> objects, ParseException e) {
@@ -196,14 +197,11 @@ public class MessagesFragment extends Fragment {
                 acl.setRoleReadAccess("Administrator", true);
                 acl.setRoleWriteAccess("Administrator", true);
                 message.setACL(acl);
-                message.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            Log.e(TAG, "Error saving message", e);
-                        }
-                    }
-                });
+                try {
+                    message.save();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 InputMethodManager inputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(etMessage.getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
                 view.clearFocus();
@@ -219,6 +217,7 @@ public class MessagesFragment extends Fragment {
         ParseQuery<Message> liveQuery = ParseQuery.getQuery(Message.class);
         liveQuery.include(Message.KEY_CHAT);
         liveQuery.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
+        liveQuery.addDescendingOrder(Message.KEY_CREATED_KEY);
         SubscriptionHandling<Message> subscriptionHandling = parseLiveQueryClient.subscribe(liveQuery);
         subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<Message>() {
             @Override
@@ -230,7 +229,8 @@ public class MessagesFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                adapter.notifyDataSetChanged();
+                adapter.notifyItemInserted(0);
+                rvMessages.smoothScrollToPosition(0);
             }
         });
 

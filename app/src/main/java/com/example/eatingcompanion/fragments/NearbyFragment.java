@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,6 @@ public class NearbyFragment extends Fragment {
         allChats = new ArrayList<>();
         usersAdapter = new UsersAdapter(getContext(), allUsers);
         chatsAdapter = new ChatsAdapter(getContext(), allChats);
-        //adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY);
         rvNearbyUsers.setAdapter(usersAdapter);
         rvNearbyChats.setAdapter(chatsAdapter);
         rvNearbyUsers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -93,19 +93,17 @@ public class NearbyFragment extends Fragment {
                     Log.e(TAG, "Error when querying new chats", e);
                     return;
                 }
-                Log.i(TAG, "Number of chats: " + chats.size());
                 for (i = 0; i < chats.size(); i++) {
                     alreadyIn.add(chats.get(i).getId());
                 }
             }
         });
 
-
         ParseQuery<User> userQuery = ParseQuery.getQuery(User.class);
-        userQuery.include(User.KEY_CITY);
-        userQuery.include(User.KEY_STATE);
-        userQuery.whereEqualTo(User.KEY_CITY, ((User) ParseUser.getCurrentUser()).getCity());
-        userQuery.whereEqualTo(User.KEY_STATE, ((User) ParseUser.getCurrentUser()).getState());
+//        userQuery.include(User.KEY_CITY);
+//        userQuery.include(User.KEY_STATE);
+//        userQuery.whereEqualTo(User.KEY_CITY, ((User) ParseUser.getCurrentUser()).getCity());
+//        userQuery.whereEqualTo(User.KEY_STATE, ((User) ParseUser.getCurrentUser()).getState());
         userQuery.setLimit(20);
         userQuery.addDescendingOrder(Chat.KEY_CREATED_AT);
         userQuery.findInBackground(new FindCallback<User>() {
@@ -123,7 +121,7 @@ public class NearbyFragment extends Fragment {
 
         ParseQuery<Chat> chatsQuery = ParseQuery.getQuery(Chat.class);
         chatsQuery.include(Chat.KEY_TIME);
-        chatsQuery.whereGreaterThanOrEqualTo(Chat.KEY_TIME, new Date());
+        //chatsQuery.whereGreaterThanOrEqualTo(Chat.KEY_TIME, new Date());
         chatsQuery.whereNotContainedIn(Chat.KEY_ID, alreadyIn);
         chatsQuery.findInBackground(new FindCallback<Chat>() {
             @Override
@@ -132,7 +130,9 @@ public class NearbyFragment extends Fragment {
                     Log.e(TAG, "Error when querying nearby chats", e);
                     return;
                 }
+                Log.i(TAG, "Number of chats: " + chats.size());
                 for (i = 0; i < chats.size(); i++) {
+                    final Chat chat = chats.get(i);
                     String restaurantId = chats.get(i).getRestaurantId();
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(BASE_URL)
@@ -149,8 +149,12 @@ public class NearbyFragment extends Fragment {
                                 return;
                             }
                             User user = (User) ParseUser.getCurrentUser();
+                            Log.i(TAG, "restaurant city: " + response.body().getLocation().getCity());
+                            Log.i(TAG, "restaurant state: " + response.body().getLocation().getState());
+                            Log.i(TAG, "user city: " + user.getCity());
+                            Log.i(TAG, "user state: " + user.getState());
                             if (response.body().getLocation().getCity().equals(user.getCity()) && response.body().getLocation().getState().equals(user.getState())) {
-                                allChats.add(chats.get(i));
+                                allChats.add(chat);
                                 chatsAdapter.notifyDataSetChanged();
                             }
                         }
@@ -160,8 +164,16 @@ public class NearbyFragment extends Fragment {
                             Log.i(TAG, "onFailure query restaurants for nearby chats" + t);
                         }
                     });
-                }
 
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.i(TAG, "sleep");
+                        }
+                    }, 10000);
+                }
+                Log.i(TAG, "allChats size: " + allChats.size());
             }
         });
     }
