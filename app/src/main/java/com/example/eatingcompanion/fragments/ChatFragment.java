@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.eatingcompanion.EndlessRecyclerViewScrollListener;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
@@ -56,6 +57,7 @@ public class ChatFragment extends Fragment {
     private Chat deleted;
     private String snackbarText;
     private int position;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     FragmentChatBinding binding;
 
@@ -79,7 +81,19 @@ public class ChatFragment extends Fragment {
         adapter = new ChatsAdapter(getContext(), allChats);
         adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);
         rvChats.setAdapter(adapter);
-        rvChats.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvChats.setLayoutManager(linearLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextData();
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvChats.addOnScrollListener(scrollListener);
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
@@ -170,6 +184,25 @@ public class ChatFragment extends Fragment {
                     return;
                 }
                 Log.i(TAG, "Number of chats: " + chats.size());
+                allChats.addAll(chats);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void loadNextData() {
+        ParseRelation<ParseObject> chatsIn = ((User) ParseUser.getCurrentUser()).getRelation(User.KEY_CHAT);
+        ParseQuery query = chatsIn.getQuery();
+        query.setSkip(adapter.getItemCount());
+        query.setLimit(20);
+        query.addDescendingOrder(Chat.KEY_CREATED_AT);
+        query.findInBackground(new FindCallback<Chat>() {
+            @Override
+            public void done(List<Chat> chats, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
                 allChats.addAll(chats);
                 adapter.notifyDataSetChanged();
             }

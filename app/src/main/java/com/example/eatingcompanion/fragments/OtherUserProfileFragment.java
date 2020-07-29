@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.eatingcompanion.EndlessRecyclerViewScrollListener;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.adapters.PostsAdapter;
 import com.example.eatingcompanion.databinding.FragmentOtherUserProfileBinding;
@@ -32,7 +33,7 @@ import java.util.List;
 
 public class OtherUserProfileFragment extends Fragment {
 
-    public static final String TAG = "OtherUserProfileFragment";
+    public static final String TAG = "OtherProfileFragment";
 
     private ImageView ivProfilePicture;
     private ImageView ivCoverPicture;
@@ -43,6 +44,7 @@ public class OtherUserProfileFragment extends Fragment {
     private RecyclerView rvPosts;
     private PostsAdapter adapter;
     private List<Post> allPosts;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     FragmentOtherUserProfileBinding binding;
 
@@ -77,7 +79,19 @@ public class OtherUserProfileFragment extends Fragment {
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextData();
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvPosts.addOnScrollListener(scrollListener);
 
         ParseFile profilePicture = user.getProfilePicture();
         if (profilePicture != null) {
@@ -115,12 +129,32 @@ public class OtherUserProfileFragment extends Fragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, user);
+        query.setLimit(20);
         query.addDescendingOrder(Message.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Error when querying posts", e);
+                    return;
+                }
+                allPosts.addAll(posts);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void loadNextData() {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.setSkip(adapter.getItemCount());
+        query.setLimit(20);
+        query.addDescendingOrder(Post.KEY_CREATED_KEY);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
                 allPosts.addAll(posts);
