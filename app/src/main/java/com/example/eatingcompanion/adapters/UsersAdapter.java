@@ -19,6 +19,7 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.databinding.ItemUserBinding;
 import com.example.eatingcompanion.fragments.OtherUserProfileFragment;
 import com.example.eatingcompanion.models.User;
+import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -84,7 +85,21 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         }
 
         public void bind(User user) {
-            Glide.with(context).load(user.getProfilePicture().getUrl()).circleCrop().into(ivProfilePicture);
+            ParseFile profilePicture = user.getProfilePicture();
+            if (profilePicture != null) {
+                Glide.with(context)
+                        .load(profilePicture.getUrl())
+                        .fitCenter()
+                        .circleCrop()
+                        .into(ivProfilePicture);
+            } else {
+                Glide.with(context)
+                        .load(R.drawable.default_avatar)
+                        .fitCenter()
+                        .circleCrop()
+                        .into(ivProfilePicture);
+            }
+            //Glide.with(context).load(user.getProfilePicture().getUrl()).circleCrop().into(ivProfilePicture);
             tvName.setText(user.getName());
         }
     }
