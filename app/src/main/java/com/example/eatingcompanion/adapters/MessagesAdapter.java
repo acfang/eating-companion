@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.ItemMessageBinding;
 import com.example.eatingcompanion.fragments.OtherUserProfileFragment;
 import com.example.eatingcompanion.fragments.ProfileFragment;
 import com.example.eatingcompanion.models.Message;
@@ -39,6 +40,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     private Context context;
     private List<Message> messages;
 
+    ItemMessageBinding binding;
+
     public MessagesAdapter(Context context, List<Message> messages) {
         this.context = context;
         this.messages = messages;
@@ -47,8 +50,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     @NonNull
     @Override
     public MessagesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_message, parent, false);
-        return new MessagesAdapter.ViewHolder(view);
+        binding = ItemMessageBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new MessagesAdapter.ViewHolder(binding.getRoot());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -78,12 +81,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfileOther = itemView.findViewById(R.id.ivProfileOther);
-            ivProfileMe = itemView.findViewById(R.id.ivProfileMe);
-            tvBody = itemView.findViewById(R.id.tvBody);
-            ivMedia = itemView.findViewById(R.id.ivMedia);
-            tvTimestampOther = itemView.findViewById(R.id.tvTimestampOther);
-            tvTimestampMe = itemView.findViewById(R.id.tvTimestampMe);
+            ivProfileOther = binding.ivProfileOther;
+            ivProfileMe = binding.ivProfileMe;
+            tvBody = binding.tvBody;
+            ivMedia = binding.ivMedia;
+            tvTimestampOther = binding.tvTimestampOther;
+            tvTimestampMe = binding.tvTimestampMe;
 
             ivProfileOther.setOnClickListener(new View.OnClickListener() {
                 @Override

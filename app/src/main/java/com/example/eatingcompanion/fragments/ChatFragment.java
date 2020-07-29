@@ -1,6 +1,5 @@
 package com.example.eatingcompanion.fragments;
 
-import android.content.ClipData;
 import android.graphics.Canvas;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +23,11 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.ChatsAdapter;
+import com.example.eatingcompanion.databinding.FragmentChatBinding;
 import com.example.eatingcompanion.models.Chat;
-import com.example.eatingcompanion.models.Message;
 import com.example.eatingcompanion.models.User;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -53,7 +49,6 @@ public class ChatFragment extends Fragment {
 
     public static final String TAG = "ChatFragment";
     public static final String BASE_URL = "https://api.yelp.com/v3/";
-    static int SPLASH_TIME_OUT = 7000; // snackbar shows for 7 seconds
 
     private RecyclerView rvChats;
     private ChatsAdapter adapter;
@@ -61,6 +56,8 @@ public class ChatFragment extends Fragment {
     private Chat deleted;
     private String snackbarText;
     private int position;
+
+    FragmentChatBinding binding;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -70,13 +67,14 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        binding = FragmentChatBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvChats = view.findViewById(R.id.rvChats);
+        rvChats = binding.rvChats;
         allChats = new ArrayList<>();
         adapter = new ChatsAdapter(getContext(), allChats);
         adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);

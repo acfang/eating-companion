@@ -23,7 +23,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.FragmentPictureBinding;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -50,6 +50,7 @@ public class PictureFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
+    FragmentPictureBinding binding;
 
     public PictureFragment() {
         // Required empty public constructor
@@ -59,16 +60,17 @@ public class PictureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_picture, container, false);
+        binding = FragmentPictureBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
-        btnGallery = view.findViewById(R.id.btnGallery);
-        ivPostImage = view.findViewById(R.id.ivPostImage);
-        btnSetPicture = view.findViewById(R.id.btnSetPicture);
+        btnCaptureImage = binding.btnCaptureImage;
+        btnGallery = binding.btnGallery;
+        ivPostImage = binding.ivPostImage;
+        btnSetPicture = binding.btnSetPicture;
         final String photoType = getArguments().getString("photoType");
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {

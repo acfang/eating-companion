@@ -12,12 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.FragmentEditDialogBinding;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -32,6 +30,8 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
 
     String item;
     String text;
+
+    FragmentEditDialogBinding binding;
 
     public EditDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -53,15 +53,16 @@ public class EditDialogFragment extends DialogFragment implements TextView.OnEdi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().setGravity(Gravity.LEFT | Gravity.RIGHT);
-        return inflater.inflate(R.layout.fragment_edit_dialog, container);
+        binding = FragmentEditDialogBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        etSettings = (EditText) view.findViewById(R.id.etSettings);
-        btnSettings = (Button) view.findViewById(R.id.btnSettings);
+        etSettings = binding.etSettings;
+        btnSettings = binding.btnSettings;
         item = getArguments().getString("item");
 
         if (item.equals("name")) {

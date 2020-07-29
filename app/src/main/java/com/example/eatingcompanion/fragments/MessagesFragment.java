@@ -34,6 +34,7 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.MessagesAdapter;
+import com.example.eatingcompanion.databinding.FragmentMessagesBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
 import com.parse.FindCallback;
@@ -88,6 +89,8 @@ public class MessagesFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
+    FragmentMessagesBinding binding;
+
     public MessagesFragment() {
         // Required empty public constructor
     }
@@ -96,24 +99,25 @@ public class MessagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages, container, false);
+        binding = FragmentMessagesBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvRestaurant = view.findViewById(R.id.tvRestaurant);
-        tvTime = view.findViewById(R.id.tvTime);
-        ivInfo = view.findViewById(R.id.ivInfo);
-        rvMessages = view.findViewById(R.id.rvMessages);
-        etMessage = view.findViewById(R.id.etMessage);
-        btnMessage = view.findViewById(R.id.btnMessage);
-        ivAddMedia = view.findViewById(R.id.ivAddMedia);
-        ivCamera = view.findViewById(R.id.ivCamera);
-        ivGallery = view.findViewById(R.id.ivGallery);
-        ivPhoto = view.findViewById(R.id.ivPhoto);
-        ivRemovePhoto = view.findViewById(R.id.ivRemovePhoto);
+        tvRestaurant = binding.tvRestaurant;
+        tvTime = binding.tvTime;
+        ivInfo = binding.ivInfo;
+        rvMessages = binding.rvMessages;
+        etMessage = binding.etMessage;
+        btnMessage = binding.btnMessage;
+        ivAddMedia = binding.ivAddMedia;
+        ivCamera = binding.ivCamera;
+        ivGallery = binding.ivGallery;
+        ivPhoto = binding.ivPhoto;
+        ivRemovePhoto = binding.ivRemovePhoto;
         allMessages = new ArrayList<>();
         adapter = new MessagesAdapter(getContext(), allMessages);
         rvMessages.setAdapter(adapter);

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.ItemPostBinding;
 import com.example.eatingcompanion.models.Post;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     private Context context;
     private List<Post> posts;
 
+    ItemPostBinding binding;
+
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
@@ -34,8 +37,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     @NonNull
     @Override
     public PostsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_post, parent, false);
-        return new PostsAdapter.ViewHolder(view);
+        binding = ItemPostBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new PostsAdapter.ViewHolder(binding.getRoot());
     }
 
     @Override
@@ -60,12 +63,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivPostImage = itemView.findViewById(R.id.ivPostImage);
-            ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
-            tvUser = itemView.findViewById(R.id.tvUser);
-            tvRestaurant = itemView.findViewById(R.id.tvRestaurant);
-            tvOtherUser = itemView.findViewById(R.id.tvOtherUser);
-            tvCaption = itemView.findViewById(R.id.tvCaption);
+            ivPostImage = binding.ivPostImage;
+            ivProfilePicture = binding.ivProfilePicture;
+            tvUser = binding.tvUser;
+            tvRestaurant = binding.tvRestaurant;
+            tvOtherUser = binding.tvOtherUser;
+            tvCaption = binding.tvCaption;
         }
 
         public void bind(Post post) {

@@ -19,13 +19,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.eatingcompanion.LoginActivity;
-import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.adapters.PostsAdapter;
-import com.example.eatingcompanion.models.Chat;
+import com.example.eatingcompanion.databinding.FragmentProfileBinding;
 import com.example.eatingcompanion.models.Message;
 import com.example.eatingcompanion.models.Post;
-import com.example.eatingcompanion.models.Restaurant;
 import com.example.eatingcompanion.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -51,6 +49,8 @@ public class ProfileFragment extends Fragment {
     private PostsAdapter adapter;
     private List<Post> allPosts;
 
+    FragmentProfileBinding binding;
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -59,21 +59,21 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        binding = FragmentProfileBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
-        ivCoverPicture = view.findViewById(R.id.ivCoverPicture);
-        tvFirstName = view.findViewById(R.id.tvFirstName);
-        tvUsername = view.findViewById(R.id.tvUsername);
-        tvBio = view.findViewById(R.id.tvBio);
-        btnLogout = view.findViewById(R.id.btnLogout);
-        btnEdit = view.findViewById(R.id.btnEdit);
-        rvPosts = view.findViewById(R.id.rvPosts);
-
+        ivProfilePicture = binding.ivProfilePicture;
+        ivCoverPicture = binding.ivCoverPicture;
+        tvFirstName = binding.tvFirstName;
+        tvUsername = binding.tvUsername;
+        tvBio = binding.tvBio;
+        btnLogout = binding.btnLogout;
+        btnEdit = binding.btnEdit;
+        rvPosts = binding.rvPosts;
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);

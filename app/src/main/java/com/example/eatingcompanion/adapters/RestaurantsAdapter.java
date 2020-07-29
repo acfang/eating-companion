@@ -1,9 +1,7 @@
 package com.example.eatingcompanion.adapters;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.ItemRestaurantBinding;
 import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Restaurant;
@@ -34,6 +33,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private Context context;
     private List<Restaurant> restaurants;
 
+    ItemRestaurantBinding binding;
+
     public RestaurantsAdapter(Context context, List<Restaurant> restaurants) {
         this.context = context;
         this.restaurants = restaurants;
@@ -42,8 +43,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     @NonNull
     @Override
     public RestaurantsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant, parent, false);
-        return new RestaurantsAdapter.ViewHolder(view);
+        binding = ItemRestaurantBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new RestaurantsAdapter.ViewHolder(binding.getRoot());
     }
 
     @Override
@@ -70,14 +71,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivRestaurant = itemView.findViewById(R.id.ivRestaurant);
-            tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
-            rbRestaurant = itemView.findViewById(R.id.rbRestaurant);
-            tvReviews = itemView.findViewById(R.id.tvReviews);
-            tvAddress = itemView.findViewById(R.id.tvAddress);
-            tvDistance = itemView.findViewById(R.id.tvDistance);
-            tvPrice = itemView.findViewById(R.id.tvPrice);
-            tvRestaurantType = itemView.findViewById(R.id.tvRestaurantType);
+            ivRestaurant = binding.ivRestaurant;
+            tvRestaurantName = binding.tvRestaurantName;
+            rbRestaurant = binding.rbRestaurant;
+            tvReviews = binding.tvReviews;
+            tvAddress = binding.tvAddress;
+            tvDistance = binding.tvDistance;
+            tvPrice = binding.tvPrice;
+            tvRestaurantType = binding.tvRestaurantType;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

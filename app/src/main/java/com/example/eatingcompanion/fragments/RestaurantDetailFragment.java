@@ -24,6 +24,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
+import com.example.eatingcompanion.databinding.FragmentRestaurantDetailBinding;
 import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.DailyHours;
@@ -73,6 +74,8 @@ public class RestaurantDetailFragment extends Fragment {
     private Date date;
     private Calendar calendar;
 
+    FragmentRestaurantDetailBinding binding;
+
     public RestaurantDetailFragment() {
         // Required empty public constructor
     }
@@ -81,29 +84,30 @@ public class RestaurantDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
+        binding = FragmentRestaurantDetailBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvRestaurantName = view.findViewById(R.id.tvRestaurantName);
-        rbRestaurant = view.findViewById(R.id.rbRestaurant);
-        tvReviews = view.findViewById(R.id.tvReviews);
-        tvAddress = view.findViewById(R.id.tvAddress);
-        tvDistance = view.findViewById(R.id.tvDistance);
-        tvPrice = view.findViewById(R.id.tvPrice);
-        tvRestaurantType = view.findViewById(R.id.tvRestaurantType);
-        tvPhone = view.findViewById(R.id.tvPhone);
-        ivPhoto0 = view.findViewById(R.id.ivPhoto0);
-        ivPhoto1 = view.findViewById(R.id.ivPhoto1);
-        ivPhoto2 = view.findViewById(R.id.ivPhoto2);
-        tvHours = view.findViewById(R.id.tvHours);
-        etSetDate = view.findViewById(R.id.etSetDate);
-        btnSetDate = view.findViewById(R.id.btnSetDate);
-        etSetTime = view.findViewById(R.id.etSetTime);
-        btnSetTime = view.findViewById(R.id.btnSetTime);
-        btnCreateChat = view.findViewById(R.id.btnCreateChat);
+        tvRestaurantName = binding.tvRestaurantName;
+        rbRestaurant = binding.rbRestaurant;
+        tvReviews = binding.tvReviews;
+        tvAddress = binding.tvAddress;
+        tvDistance = binding.tvDistance;
+        tvPrice = binding.tvPrice;
+        tvRestaurantType = binding.tvRestaurantType;
+        tvPhone = binding.tvPhone;
+        ivPhoto0 = binding.ivPhoto0;
+        ivPhoto1 = binding.ivPhoto1;
+        ivPhoto2 = binding.ivPhoto2;
+        tvHours = binding.tvHours;
+        etSetDate = binding.etSetDate;
+        btnSetDate = binding.btnSetDate;
+        etSetTime = binding.etSetTime;
+        btnSetTime = binding.btnSetTime;
+        btnCreateChat = binding.btnCreateChat;
 
         calendar = Calendar.getInstance();
 

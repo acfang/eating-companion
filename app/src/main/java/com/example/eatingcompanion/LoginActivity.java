@@ -3,15 +3,14 @@ package com.example.eatingcompanion;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.ParseException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.eatingcompanion.databinding.ActivityLoginBinding;
 import com.parse.LogInCallback;
 import com.parse.ParseACL;
 import com.parse.ParseUser;
@@ -27,15 +26,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        ActivityLoginBinding binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
 
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
+        etUsername = binding.etUsername;
+        etPassword = binding.etPassword;
+        btnLogin = binding.btnLogin;
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
-        btnSignup = findViewById(R.id.btnSignup);
+        btnSignup = binding.btnSignup;
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

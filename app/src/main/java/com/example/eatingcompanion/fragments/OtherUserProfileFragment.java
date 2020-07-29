@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.adapters.PostsAdapter;
+import com.example.eatingcompanion.databinding.FragmentOtherUserProfileBinding;
 import com.example.eatingcompanion.models.Message;
 import com.example.eatingcompanion.models.Post;
 import com.example.eatingcompanion.models.User;
@@ -25,7 +26,6 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +44,8 @@ public class OtherUserProfileFragment extends Fragment {
     private PostsAdapter adapter;
     private List<Post> allPosts;
 
+    FragmentOtherUserProfileBinding binding;
+
     public OtherUserProfileFragment() {
         // Required empty public constructor
     }
@@ -60,18 +62,18 @@ public class OtherUserProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other_user_profile, container, false);
+        binding = FragmentOtherUserProfileBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
-        ivCoverPicture = view.findViewById(R.id.ivCoverPicture);
-        tvFirstName = view.findViewById(R.id.tvFirstName);
-        tvUsername = view.findViewById(R.id.tvUsername);
-        tvBio = view.findViewById(R.id.tvBio);
-        rvPosts = view.findViewById(R.id.rvPosts);
-
+        ivProfilePicture = binding.ivProfilePicture;
+        ivCoverPicture = binding.ivCoverPicture;
+        tvFirstName = binding.tvFirstName;
+        tvUsername = binding.tvUsername;
+        tvBio = binding.tvBio;
+        rvPosts = binding.rvPosts;
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);

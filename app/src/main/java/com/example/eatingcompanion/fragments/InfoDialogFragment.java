@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.adapters.InfoUsersAdapter;
+import com.example.eatingcompanion.databinding.FragmentInfoDialogBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.User;
 import com.parse.FindCallback;
@@ -39,6 +40,8 @@ public class InfoDialogFragment extends DialogFragment {
     private static Chat chat;
     private static String restaurantId;
 
+    FragmentInfoDialogBinding binding;
+
     public InfoDialogFragment() {
         // Empty constructor is required for DialogFragment
     }
@@ -54,16 +57,17 @@ public class InfoDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().setGravity(Gravity.LEFT | Gravity.RIGHT);
-        return inflater.inflate(R.layout.fragment_info_dialog, container);
+        binding = FragmentInfoDialogBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        btnRestaurantDetail = view.findViewById(R.id.btnRestaurantDetail);
-        ivClose = view.findViewById(R.id.ivClose);
-        rvUsers = view.findViewById(R.id.rvUsers);
+        btnRestaurantDetail = binding.btnRestaurantDetail;
+        ivClose = binding.ivClose;
+        rvUsers = binding.rvUsers;
         allUsers = new ArrayList<>();
         adapter = new InfoUsersAdapter(getContext(), allUsers);
         rvUsers.setAdapter(adapter);

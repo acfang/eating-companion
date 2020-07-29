@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.ItemUserBinding;
 import com.example.eatingcompanion.fragments.OtherUserProfileFragment;
 import com.example.eatingcompanion.models.User;
 
@@ -27,6 +28,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     private Context context;
     private List<User> users;
 
+    ItemUserBinding binding;
+
     public UsersAdapter(Context context, List<User> users) {
         this.context = context;
         this.users = users;
@@ -35,8 +38,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     @NonNull
     @Override
     public UsersAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_user, parent, false);
-        return new UsersAdapter.ViewHolder(view);
+        binding = ItemUserBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new UsersAdapter.ViewHolder(binding.getRoot());
     }
 
     @Override
@@ -57,8 +60,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
-            tvName = itemView.findViewById(R.id.tvName);
+            ivProfilePicture = binding.ivProfilePicture;
+            tvName = binding.tvName;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

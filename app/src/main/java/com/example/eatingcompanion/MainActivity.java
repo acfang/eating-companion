@@ -5,15 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
+import com.example.eatingcompanion.databinding.ActivityMainBinding;
 import com.example.eatingcompanion.fragments.ChatFragment;
 import com.example.eatingcompanion.fragments.NearbyFragment;
 import com.example.eatingcompanion.fragments.PostFragment;
@@ -33,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
-        cbCamera = findViewById(R.id.cbCamera);
-        cbProfile = findViewById(R.id.cbProfile);
+        bottomNavigationView = binding.bottomNavigation;
+        cbCamera = binding.cbCamera;
+        cbProfile = binding.cbProfile;
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

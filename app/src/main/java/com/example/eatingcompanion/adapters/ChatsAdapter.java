@@ -22,6 +22,7 @@ import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
+import com.example.eatingcompanion.databinding.ItemChatBinding;
 import com.example.eatingcompanion.fragments.MessagesFragment;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
@@ -47,6 +48,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
     private Context context;
     private List<Chat> chats;
 
+    ItemChatBinding binding;
+
     public ChatsAdapter(Context context, List<Chat> chats) {
         this.context = context;
         this.chats = chats;
@@ -55,8 +58,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_chat, parent, false);
-        return new ViewHolder(view);
+        binding = ItemChatBinding.inflate(LayoutInflater.from(context), parent, false);
+        return new ViewHolder(binding.getRoot());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -80,10 +83,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivChatPicture = itemView.findViewById(R.id.ivChatPicture);
-            tvTime = itemView.findViewById(R.id.tvTime);
-            tvRestaurantName = itemView.findViewById(R.id.tvRestaurantName);
-            tvMessagePreview = itemView.findViewById(R.id.tvMessagePreview);
+            ivChatPicture = binding.ivChatPicture;
+            tvTime = binding.tvTime;
+            tvRestaurantName = binding.tvRestaurantName;
+            tvMessagePreview = binding.tvMessagePreview;
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -21,6 +21,7 @@ import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpSearchResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.RestaurantsAdapter;
+import com.example.eatingcompanion.databinding.FragmentRestaurantsBinding;
 import com.example.eatingcompanion.models.Restaurant;
 
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class RestaurantsFragment extends Fragment {
     private EditText etLocation;
     private Button btnSearch;
 
+    FragmentRestaurantsBinding binding;
+
     public RestaurantsFragment() {
         // Required empty public constructor
     }
@@ -52,16 +55,17 @@ public class RestaurantsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restaurants, container, false);
+        binding = FragmentRestaurantsBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvRestaurants = view.findViewById(R.id.rvRestaurants);
-        etSearchTerm = view.findViewById(R.id.etSearchTerm);
-        etLocation = view.findViewById(R.id.etLocation);
-        btnSearch = view.findViewById(R.id.btnSearch);
+        rvRestaurants = binding.rvRestaurants;
+        etSearchTerm = binding.etSearchTerm;
+        etLocation = binding.etLocation;
+        btnSearch = binding.btnSearch;
         allRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), allRestaurants);
         adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);

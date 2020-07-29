@@ -13,12 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.ChatsAdapter;
 import com.example.eatingcompanion.adapters.UsersAdapter;
+import com.example.eatingcompanion.databinding.FragmentUsersBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.User;
 import com.parse.FindCallback;
@@ -52,6 +52,8 @@ public class NearbyFragment extends Fragment {
     private int i;
     private List<String> alreadyIn;
 
+    FragmentUsersBinding binding;
+
     public NearbyFragment() {
         // Required empty public constructor
     }
@@ -60,14 +62,15 @@ public class NearbyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_users, container, false);
+        binding = FragmentUsersBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvNearbyUsers = view.findViewById(R.id.rvNearbyUsers);
-        rvNearbyChats = view.findViewById(R.id.rvNearbyChats);
+        rvNearbyUsers = binding.rvNearbyUsers;
+        rvNearbyChats = binding.rvNearbyChats;
         allUsers = new ArrayList<>();
         allChats = new ArrayList<>();
         usersAdapter = new UsersAdapter(getContext(), allUsers);

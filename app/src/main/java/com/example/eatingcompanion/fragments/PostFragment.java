@@ -24,7 +24,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.FragmentPostBinding;
 import com.example.eatingcompanion.models.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -56,6 +56,7 @@ public class PostFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
+    FragmentPostBinding binding;
 
     public PostFragment() {
         // Required empty public constructor
@@ -65,19 +66,20 @@ public class PostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_post, container, false);
+        binding = FragmentPostBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
-        btnGallery = view.findViewById(R.id.btnGallery);
-        ivPostImage = view.findViewById(R.id.ivPostImage);
-        etRestaurant = view.findViewById(R.id.etRestaurant);
-        etOtherUser = view.findViewById(R.id.etOtherUser);
-        etCaption = view.findViewById(R.id.etCaption);
-        btnPost = view.findViewById(R.id.btnPost);
+        btnCaptureImage = binding.btnCaptureImage;
+        btnGallery = binding.btnGallery;
+        ivPostImage = binding.ivPostImage;
+        etRestaurant = binding.etRestaurant;
+        etOtherUser = binding.etOtherUser;
+        etCaption = binding.etCaption;
+        btnPost = binding.btnPost;
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,7 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.eatingcompanion.R;
+import com.example.eatingcompanion.databinding.FragmentLocationDialogBinding;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -28,6 +28,8 @@ public class LocationDialogFragment extends DialogFragment implements TextView.O
     EditText etCity;
     EditText etState;
     Button btnSettings;
+
+    FragmentLocationDialogBinding binding;
 
     public LocationDialogFragment() {
         // Empty constructor is required for DialogFragment
@@ -42,16 +44,17 @@ public class LocationDialogFragment extends DialogFragment implements TextView.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         getDialog().getWindow().setGravity(Gravity.LEFT | Gravity.RIGHT);
-        return inflater.inflate(R.layout.fragment_location_dialog, container);
+        binding = FragmentLocationDialogBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        etCity = (EditText) view.findViewById(R.id.etCity);
-        etState = (EditText) view.findViewById(R.id.etState);
-        btnSettings = (Button) view.findViewById(R.id.btnSettings);
+        etCity = binding.etCity;
+        etState = binding.etState;
+        btnSettings = binding.btnSettings;
 
         // Show soft keyboard automatically and request focus to field
         etCity.requestFocus();

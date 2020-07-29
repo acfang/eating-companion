@@ -1,13 +1,11 @@
 package com.example.eatingcompanion.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.eatingcompanion.LoginActivity;
-import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.R;
-import com.example.eatingcompanion.models.Restaurant;
+import com.example.eatingcompanion.databinding.FragmentSettingsBinding;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -41,6 +37,8 @@ public class SettingsFragment extends Fragment implements EditDialogFragment.Edi
     private Button btnChangePassword;
     private Button btnChangeBio;
 
+    FragmentSettingsBinding binding;
+
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -49,22 +47,23 @@ public class SettingsFragment extends Fragment implements EditDialogFragment.Edi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        binding = FragmentSettingsBinding.inflate(LayoutInflater.from(getContext()), container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ivProfilePicture = view.findViewById(R.id.ivProfilePicture);
-        ivCoverPicture = view.findViewById(R.id.ivCoverPicture);
-        tvFirstName = view.findViewById(R.id.tvFirstName);
-        tvUsername = view.findViewById(R.id.tvUsername);
-        tvBio = view.findViewById(R.id.tvBio);
-        btnChangeProfile = view.findViewById(R.id.btnChangeProfile);
-        btnChangeCover = view.findViewById(R.id.btnChangeCover);
-        btnChangeLocation = view.findViewById(R.id.btnChangeLocation);
-        btnChangeName = view.findViewById(R.id.btnChangeName);
-        btnChangePassword = view.findViewById(R.id.btnChangePassword);
-        btnChangeBio = view.findViewById(R.id.btnChangeBio);
+        ivProfilePicture = binding.ivProfilePicture;
+        ivCoverPicture = binding.ivCoverPicture;
+        tvFirstName = binding.tvFirstName;
+        tvUsername = binding.tvUsername;
+        tvBio = binding.tvBio;
+        btnChangeProfile = binding.btnChangeProfile;
+        btnChangeCover = binding.btnChangeCover;
+        btnChangeLocation = binding.btnChangeLocation;
+        btnChangeName = binding.btnChangeName;
+        btnChangePassword = binding.btnChangePassword;
+        btnChangeBio = binding.btnChangeBio;
         User user = (User) ParseUser.getCurrentUser();
 
         ParseFile profilePicture = user.getProfilePicture();

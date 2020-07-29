@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.eatingcompanion.databinding.ActivitySignUpBinding;
 import com.example.eatingcompanion.fragments.PictureFragment;
 import com.example.eatingcompanion.models.User;
 import com.parse.ParseException;
@@ -31,20 +32,21 @@ public class SignUpActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        ActivitySignUpBinding binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
 
-        etFirstName = findViewById(R.id.etFirstName);
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
-        etCity = findViewById(R.id.etCity);
-        etState = findViewById(R.id.etState);
-        ivProfilePicture = findViewById(R.id.ivProfilePicture);
-        etBio = findViewById(R.id.etBio);
-        btnSignUp = findViewById(R.id.btnSignUp);
+        etFirstName = binding.etFirstName;
+        etUsername = binding.etUsername;
+        etPassword = binding.etPassword;
+        etCity = binding.etCity;
+        etState = binding.etState;
+        ivProfilePicture = binding.ivProfilePicture;
+        etBio = binding.etBio;
+        btnSignUp = binding.btnSignUp;
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
