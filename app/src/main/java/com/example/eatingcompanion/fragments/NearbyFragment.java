@@ -8,15 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.eatingcompanion.R;
-import com.example.eatingcompanion.YelpDetailResponse;
-import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.ChatsAdapter;
 import com.example.eatingcompanion.adapters.UsersAdapter;
 import com.example.eatingcompanion.databinding.FragmentUsersBinding;
@@ -32,12 +28,6 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NearbyFragment extends Fragment {
 
@@ -86,18 +76,29 @@ public class NearbyFragment extends Fragment {
         ParseQuery query = chatsIn.getQuery();
         query.setLimit(20);
         query.addDescendingOrder(Chat.KEY_CREATED_AT);
-        query.findInBackground(new FindCallback<Chat>() {
-            @Override
-            public void done(List<Chat> chats, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error when querying new chats", e);
-                    return;
-                }
-                for (i = 0; i < chats.size(); i++) {
-                    alreadyIn.add(chats.get(i).getId());
-                }
+//        query.findInBackground(new FindCallback<Chat>() {
+//            @Override
+//            public void done(List<Chat> chats, ParseException e) {
+//                if (e != null) {
+//                    Log.e(TAG, "Error when querying new chats", e);
+//                    return;
+//                }
+//                for (i = 0; i < chats.size(); i++) {
+//                    alreadyIn.add(chats.get(i).getObjectId());
+//                    Log.i(TAG, "chat id already in: " + chats.get(i).getObjectId());
+//                }
+//                Log.i(TAG, "chats already in: " + alreadyIn.size());
+//            }
+//        });
+        try {
+            List results = query.find();
+            for (int i = 0; i < results.size(); i++) {
+                Chat chat = (Chat) results.get(i);
+                alreadyIn.add(chat.getObjectId());
             }
-        });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
         userQuery.include(User.KEY_CITY);
@@ -121,9 +122,16 @@ public class NearbyFragment extends Fragment {
             }
         });
 
+        //Log.i(TAG, "chats already in: " + alreadyIn.size() + " " + alreadyIn.get(0));
+
         ParseQuery<Chat> chatsQuery = ParseQuery.getQuery(Chat.class);
         chatsQuery.include(Chat.KEY_TIME);
-        //chatsQuery.whereGreaterThanOrEqualTo(Chat.KEY_TIME, new Date());
+        chatsQuery.include(Chat.KEY_CITY);
+        chatsQuery.include(Chat.KEY_STATE);
+        chatsQuery.include(Chat.KEY_ID);
+        chatsQuery.whereGreaterThanOrEqualTo(Chat.KEY_TIME, new Date());
+        chatsQuery.whereEqualTo(Chat.KEY_CITY, ((User)ParseUser.getCurrentUser()).getCity());
+        chatsQuery.whereEqualTo(Chat.KEY_STATE, ((User)ParseUser.getCurrentUser()).getState());
         chatsQuery.whereNotContainedIn(Chat.KEY_ID, alreadyIn);
         chatsQuery.findInBackground(new FindCallback<Chat>() {
             @Override
@@ -133,49 +141,8 @@ public class NearbyFragment extends Fragment {
                     return;
                 }
                 Log.i(TAG, "Number of chats: " + chats.size());
-                for (i = 0; i < chats.size(); i++) {
-                    final Chat chat = chats.get(i);
-                    String restaurantId = chats.get(i).getRestaurantId();
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(BASE_URL)
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    final YelpService yelpService = retrofit.create(YelpService.class);
-
-                    yelpService.getRestaurantDetail("Bearer " + getContext().getString(R.string.yelp_api_key), restaurantId).enqueue(new Callback<YelpDetailResponse>() {
-                        @Override
-                        public void onResponse(Call<YelpDetailResponse> call, Response<YelpDetailResponse> response) {
-                            Log.i(TAG, "onResponse " + response);
-                            if (response.body() == null) {
-                                Log.e(TAG, "Did not receive valid response body from Yelp API");
-                                return;
-                            }
-                            User user = (User) ParseUser.getCurrentUser();
-                            Log.i(TAG, "restaurant city: " + response.body().getLocation().getCity());
-                            Log.i(TAG, "restaurant state: " + response.body().getLocation().getState());
-                            Log.i(TAG, "user city: " + user.getCity());
-                            Log.i(TAG, "user state: " + user.getState());
-                            if (response.body().getLocation().getCity().equals(user.getCity()) && response.body().getLocation().getState().equals(user.getState())) {
-                                allChats.add(chat);
-                                chatsAdapter.notifyDataSetChanged();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<YelpDetailResponse> call, Throwable t) {
-                            Log.i(TAG, "onFailure query restaurants for nearby chats" + t);
-                        }
-                    });
-
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.i(TAG, "sleep");
-                        }
-                    }, 10000);
-                }
-                Log.i(TAG, "allChats size: " + allChats.size());
+                allChats.addAll(chats);
+                chatsAdapter.notifyDataSetChanged();
             }
         });
     }

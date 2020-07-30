@@ -73,6 +73,8 @@ public class RestaurantDetailFragment extends Fragment {
     private int mMinute;
     private Date date;
     private Calendar calendar;
+    private String city;
+    private String state;
 
     FragmentRestaurantDetailBinding binding;
 
@@ -133,6 +135,8 @@ public class RestaurantDetailFragment extends Fragment {
                         response.body().getLocation().getCity() + ", " +
                         response.body().getLocation().getState() + " " +
                         response.body().getLocation().getZipCode();
+                city = response.body().getLocation().getCity();
+                state = response.body().getLocation().getState();
                 tvAddress.setText(address);
                 tvDistance.setText(response.body().getDistance());
                 tvPrice.setText(response.body().getPrice());
@@ -237,6 +241,8 @@ public class RestaurantDetailFragment extends Fragment {
                 chat.setRestaurantId(getArguments().getString("id"));
                 date = calendar.getTime();
                 chat.setTime(date);
+                chat.setCity(city);
+                chat.setState(state);
                 try {
                     chat.save();
                 } catch (ParseException e) {
