@@ -1,5 +1,6 @@
 package com.example.eatingcompanion.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,6 +34,7 @@ public class InfoDialogFragment extends DialogFragment {
     public static final String TAG = "InfoDialogFragment";
 
     private static Button btnRestaurantDetail;
+    private static Button btnInviteLink;
     private static ImageView ivClose;
     private static RecyclerView rvUsers;
     private static InfoUsersAdapter adapter;
@@ -66,6 +68,7 @@ public class InfoDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         btnRestaurantDetail = binding.btnRestaurantDetail;
+        btnInviteLink = binding.btnInviteLink;
         ivClose = binding.ivClose;
         rvUsers = binding.rvUsers;
         allUsers = new ArrayList<>();
@@ -87,6 +90,18 @@ public class InfoDialogFragment extends DialogFragment {
             }
         });
 
+        btnInviteLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String link = "https://www.eattogether.com/invite?id=" + chat.getObjectId();
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, link);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
+
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,28 +111,27 @@ public class InfoDialogFragment extends DialogFragment {
 
         ParseRelation<ParseObject> usersIn = chat.getRelation(Chat.KEY_USERS);
         ParseQuery query = usersIn.getQuery();
-        query.findInBackground(new FindCallback() {
-            @Override
-            public void done(List objects, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Error when querying users in chat", e);
-                    return;
-                }
-                Log.i(TAG, "Number of users: " + objects.size());
-                allUsers.addAll(objects);
-                adapter.notifyDataSetChanged();
+        try {
+            List result = query.find();
+            Log.i(TAG, "result size: " + result.size());
+            for (int i = 0; i < result.size(); i++) {
+                User user = (User) result.get(i);
+                allUsers.add(user);
             }
-
-            @Override
-            public void done(Object o, Throwable throwable) {
-                if (throwable != null) {
-                    Log.e(TAG, "Error when querying users in chat", throwable);
-                    return;
-                }
-                Log.i(TAG, "Number of users: " + 1);
-                allUsers.addAll((List<User>) o);
-                adapter.notifyDataSetChanged();
-            }
-        });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+//        query.findInBackground(new FindCallback() {
+//            @Override
+//            public void done(List objects, ParseException e) {
+//                if (e != null) {
+//                    Log.e(TAG, "Error when querying users in chat", e);
+//                    return;
+//                }
+//                Log.i(TAG, "Number of users: " + objects.size());
+//                allUsers.addAll(objects);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
     }
 }

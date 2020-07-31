@@ -41,6 +41,7 @@ import com.parse.FindCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -88,6 +89,7 @@ public class MessagesFragment extends Fragment {
     private ImageView ivRemovePhoto;
     private File photoFile;
     private String photoFileName = "photo.jpg";
+    private Chat chat;
 
     FragmentMessagesBinding binding;
 
@@ -131,9 +133,26 @@ public class MessagesFragment extends Fragment {
         ivPhoto.setVisibility(View.GONE);
         ivRemovePhoto.setVisibility(View.GONE);
 
-        String restaurantId = ((Chat) getArguments().getSerializable("chat")).getRestaurantId();
+        if (getArguments() != null && getArguments().containsKey("id")) {
+            // user arrived via deep link
+            ParseQuery<Chat> chatQuery = ParseQuery.getQuery(Chat.class);
+            chatQuery.include(Chat.KEY_ID);
+            chatQuery.whereEqualTo(Chat.KEY_ID, getArguments().getString("id"));
+            try {
+                List results = chatQuery.find();
+                chat = (Chat) results.get(0);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } else {
+            chat = (Chat) getArguments().getSerializable("chat");
+        }
+
+        //String restaurantId = ((Chat) getArguments().getSerializable("chat")).getRestaurantId();
+        String restaurantId = chat.getRestaurantId();
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy, hh:mma", Locale.US);
-        String date = sdf.format(((Chat) getArguments().getSerializable("chat")).getTime());
+        //String date = sdf.format(((Chat) getArguments().getSerializable("chat")).getTime());
+        String date = sdf.format(chat.getTime());
         tvTime.setText(date);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -162,7 +181,9 @@ public class MessagesFragment extends Fragment {
         // query messages in the chat, look for the latest one
         ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
         query.include(Message.KEY_CHAT);
-        query.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
+        //query.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
+        query.whereEqualTo(Message.KEY_CHAT, Chat.createWithoutData(Chat.class, chat.getObjectId()));
+        //query.whereEqualTo(Message.KEY_CHAT, ParseObject.createWithoutData(Chat.class, ((Chat) getArguments().getSerializable("chat")).getObjectId()));
         query.addAscendingOrder(Message.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Message>() {
             @Override
@@ -171,6 +192,7 @@ public class MessagesFragment extends Fragment {
                     Log.e(TAG, "Error when querying messages", e);
                     return;
                 }
+                Log.i(TAG, "num messages: "+ objects.size());
                 allMessages.addAll(objects);
                 adapter.notifyDataSetChanged();
             }
@@ -182,7 +204,8 @@ public class MessagesFragment extends Fragment {
                 String messageBody = etMessage.getText().toString();
                 Message message = new Message();
                 message.setUser(ParseUser.getCurrentUser());
-                message.setChat((Chat) getArguments().getSerializable("chat"));
+                //message.setChat((Chat) getArguments().getSerializable("chat"));
+                message.setChat(chat);
                 message.setBody(messageBody);
                 if (photoFile != null) {
                     ParseFile parseFile = new ParseFile(photoFile);
@@ -216,7 +239,8 @@ public class MessagesFragment extends Fragment {
         ParseLiveQueryClient parseLiveQueryClient = ParseLiveQueryClient.Factory.getClient();
         ParseQuery<Message> liveQuery = ParseQuery.getQuery(Message.class);
         liveQuery.include(Message.KEY_CHAT);
-        liveQuery.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
+        //liveQuery.whereEqualTo(Message.KEY_CHAT, (Chat) getArguments().getSerializable("chat"));
+        liveQuery.whereEqualTo(Message.KEY_CHAT, chat);
         liveQuery.addDescendingOrder(Message.KEY_CREATED_KEY);
         SubscriptionHandling<Message> subscriptionHandling = parseLiveQueryClient.subscribe(liveQuery);
         subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<Message>() {
@@ -237,7 +261,8 @@ public class MessagesFragment extends Fragment {
         ivInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInfoDialog((Chat) getArguments().getSerializable("chat"), ((Chat) getArguments().getSerializable("chat")).getRestaurantId());
+                //showInfoDialog((Chat) getArguments().getSerializable("chat"), ((Chat) getArguments().getSerializable("chat")).getRestaurantId());
+                showInfoDialog(chat, chat.getRestaurantId());
             }
         });
 

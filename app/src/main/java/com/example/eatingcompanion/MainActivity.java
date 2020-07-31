@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Notification;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,9 +17,11 @@ import android.widget.CheckBox;
 
 import com.example.eatingcompanion.databinding.ActivityMainBinding;
 import com.example.eatingcompanion.fragments.ChatFragment;
+import com.example.eatingcompanion.fragments.MessagesFragment;
 import com.example.eatingcompanion.fragments.NearbyFragment;
 import com.example.eatingcompanion.fragments.PostFragment;
 import com.example.eatingcompanion.fragments.ProfileFragment;
+import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.fragments.RestaurantsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -91,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
             }
         });
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Log.i(TAG, "Intent received from deep link");
+            parseIntent(intent);
+        }
     }
 
     private void uncheckAllItems() {
@@ -109,6 +121,22 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i("MainActivity", "nothing on backstack, calling super");
             super.onBackPressed();
+        }
+    }
+
+    private void parseIntent(Intent intent) {
+        final String action = intent.getAction();
+
+        if (action != null) {
+            Uri data = intent.getData();
+            String chatId = data.getQueryParameter("id");
+            Fragment fragment;
+            fragment = new MessagesFragment();
+            // create bundle of post info to send to detail fragment
+            Bundle args = new Bundle();
+            args.putString("id", chatId);
+            fragment.setArguments(args);
+            fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
         }
     }
 }

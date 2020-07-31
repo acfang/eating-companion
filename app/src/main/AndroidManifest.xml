@@ -23,7 +23,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:label="Main Activity">
+            <intent-filter android:label="Deep Link">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "https://www.eattogether.com/invite” -->
+                <data android:scheme="https"
+                    android:host="www.eattogether.com"
+                    android:pathPrefix="/invite" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+            </intent-filter>
+        </activity>
         <activity android:name=".SignUpActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"

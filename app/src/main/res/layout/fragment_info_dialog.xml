@@ -20,6 +20,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
+    <Button
+        android:id="@+id/btnInviteLink"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Share Invite Link"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
+        android:textAllCaps="false"
+        android:fontFamily="@font/questrial_regular"
+        android:background="@drawable/input_box"
+        android:layout_marginEnd="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/btnRestaurantDetail"/>
+
     <ImageView
         android:id="@+id/ivClose"
         android:layout_width="30dp"
@@ -39,7 +58,7 @@
         android:fontFamily="@font/questrial_regular"
         android:textColor="@color/darkGrayText"
         android:textSize="20sp"
-        android:layout_below="@id/btnRestaurantDetail"
+        android:layout_below="@id/btnInviteLink"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"/>
 
