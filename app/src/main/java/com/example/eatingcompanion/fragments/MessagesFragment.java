@@ -27,6 +27,7 @@ import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +35,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.eatingcompanion.MainActivity;
 import com.example.eatingcompanion.MySingleton;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
@@ -499,5 +501,8 @@ public class MessagesFragment extends Fragment {
             }
         };
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+        Intent msgIntent = new Intent(getContext(), MainActivity.class);
+        Intent broadcast = new Intent("broadcaster");
+        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(broadcast);
     }
 }

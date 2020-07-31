@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Notification;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private CheckBox cbCamera;
     private CheckBox cbProfile;
+
+    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +109,18 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "Intent received from deep link");
             parseIntent(intent);
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter("broadcaster"));
+
+
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Fragment fragment;
+                fragment = new ChatFragment();
+                fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
+            }
+        };
     }
 
     private void uncheckAllItems() {
