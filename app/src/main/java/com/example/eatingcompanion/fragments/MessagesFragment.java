@@ -30,6 +30,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.eatingcompanion.MySingleton;
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpDetailResponse;
 import com.example.eatingcompanion.YelpService;
@@ -37,16 +42,18 @@ import com.example.eatingcompanion.adapters.MessagesAdapter;
 import com.example.eatingcompanion.databinding.FragmentMessagesBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
+import com.example.eatingcompanion.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.livequery.ParseLiveQueryClient;
 import com.parse.livequery.SubscriptionHandling;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,16 +63,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.Activity.RESULT_OK;
+import static com.parse.Parse.getApplicationContext;
 
 public class MessagesFragment extends Fragment {
 
@@ -73,6 +82,14 @@ public class MessagesFragment extends Fragment {
     public static final String BASE_URL = "https://api.yelp.com/v3/";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final int GALLERY_ACTIVITY_REQUEST_CODE = 44;
+
+    final private String FCM_API = "https://fcm.googleapis.com/fcm/send";
+    final private String serverKey = "key=" + "AAAAhrdBc5g:APA91bHgDfl-hpeJgcyaoSDy9MJJdn6B2UiuGMK1CiO01vuYmn6-hE45V3kvCb3lE3WjbMjp1TcoZG0Omi3krbNqkfeNkzitXFUxqMH6Otf1oBpkN408jFtfKhaFSgrv7roZ2h5m0rvI";
+    final private String contentType = "application/json";
+
+    String NOTIFICATION_TITLE;
+    String NOTIFICATION_MESSAGE;
+    String TOPIC;
 
     private TextView tvRestaurant;
     private TextView tvTime;
@@ -155,6 +172,14 @@ public class MessagesFragment extends Fragment {
         String date = sdf.format(chat.getTime());
         tvTime.setText(date);
 
+//        ParseQuery<Message> query = ParseQuery.getQuery(Message.class);
+//        query.findInBackground(new FindCallback<Message>() {
+//            @Override
+//            public void done(List<Message> objects, ParseException e) {
+//                Log.i(TAG, "num objects " + objects.size());
+//            }
+//        });
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -163,7 +188,7 @@ public class MessagesFragment extends Fragment {
 
         yelpService.getRestaurantDetail("Bearer " + getContext().getString(R.string.yelp_api_key), restaurantId).enqueue(new Callback<YelpDetailResponse>() {
             @Override
-            public void onResponse(Call<YelpDetailResponse> call, Response<YelpDetailResponse> response) {
+            public void onResponse(Call<YelpDetailResponse> call, retrofit2.Response<YelpDetailResponse> response) {
                 Log.i(TAG, "onResponse " + response);
                 if (response.body() == null) {
                     Log.e(TAG, "Did not receive valid response body from Yelp API");
@@ -197,6 +222,17 @@ public class MessagesFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+
+//        List results = null;
+//        try {
+//            results = query.find();
+//            Log.i(TAG, "num messages: " + results.size());
+//            for (int i = 0; i < results.size(); i++) {
+//                allMessages.add((Message) results.get(i));
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
         btnMessage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +268,23 @@ public class MessagesFragment extends Fragment {
                 etMessage.setText("");
                 ivPhoto.setVisibility(View.GONE);
                 photoFile = null;
+
+                TOPIC = "/topics/userABC"; //topic must match with what the receiver subscribed to
+                NOTIFICATION_TITLE = tvRestaurant.getText().toString() + ", " + tvTime.getText().toString();
+                NOTIFICATION_MESSAGE = ((User)ParseUser.getCurrentUser()).getName() + ": " + messageBody;
+
+                JSONObject notification = new JSONObject();
+                JSONObject notifcationBody = new JSONObject();
+                try {
+                    notifcationBody.put("title", NOTIFICATION_TITLE);
+                    notifcationBody.put("message", NOTIFICATION_MESSAGE);
+
+                    notification.put("to", TOPIC);
+                    notification.put("data", notifcationBody);
+                } catch (JSONException e) {
+                    Log.e(TAG, "onCreate: " + e.getMessage() );
+                }
+                sendNotification(notification);
             }
         });
 
@@ -420,5 +473,31 @@ public class MessagesFragment extends Fragment {
         FragmentManager fm = getFragmentManager();
         InfoDialogFragment infoDialogFragment = InfoDialogFragment.newInstance(chat, id);
         infoDialogFragment.show(fm, "fragment_info_dialog");
+    }
+
+    private void sendNotification(JSONObject notification) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, "onResponse: " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Request error", Toast.LENGTH_LONG).show();
+                        Log.i(TAG, "onErrorResponse: Didn't work");
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", serverKey);
+                params.put("Content-Type", contentType);
+                return params;
+            }
+        };
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 }

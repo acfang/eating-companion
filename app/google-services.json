@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "578600137624",
+    "firebase_url": "https://eating-companion.firebaseio.com",
+    "project_id": "eating-companion",
+    "storage_bucket": "eating-companion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578600137624:android:d0829d6fa63f1f0c92b1ed",
+        "android_client_info": {
+          "package_name": "com.example.eatingcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578600137624-errosjii5oek6ufunsmarp7gilrfsk5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJPPtGURRKqmdcSmFFF9Laj9WtTqXnH18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578600137624-errosjii5oek6ufunsmarp7gilrfsk5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

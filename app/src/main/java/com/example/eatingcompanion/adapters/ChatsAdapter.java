@@ -27,6 +27,7 @@ import com.example.eatingcompanion.fragments.MessagesFragment;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
 import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
@@ -154,8 +155,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
                         Log.e(TAG, "Error when retrieving latest message", e);
                         return;
                     }
-                    String messagePreview = object.getUser().getName() + ": " + object.getBody();
-                    tvMessagePreview.setText(messagePreview);
+                    if (object.getUser() != null) {
+                        String messagePreview = object.getUser().getName() + ": " + object.getBody();
+                        tvMessagePreview.setText(messagePreview);
+                    }
                 }
             });
         }
