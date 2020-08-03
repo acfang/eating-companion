@@ -4,14 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import android.app.Notification;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +19,6 @@ import com.example.eatingcompanion.fragments.MessagesFragment;
 import com.example.eatingcompanion.fragments.NearbyFragment;
 import com.example.eatingcompanion.fragments.PostFragment;
 import com.example.eatingcompanion.fragments.ProfileFragment;
-import com.example.eatingcompanion.fragments.RestaurantDetailFragment;
 import com.example.eatingcompanion.fragments.RestaurantsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private CheckBox cbCamera;
     private CheckBox cbProfile;
 
-    private BroadcastReceiver mReceiver;
+//    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,17 +103,17 @@ public class MainActivity extends AppCompatActivity {
             parseIntent(intent);
         }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter("broadcaster"));
-
-
-        mReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Fragment fragment;
-                fragment = new ChatFragment();
-                fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
-            }
-        };
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter("broadcaster"));
+//
+//
+//        mReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Fragment fragment;
+//                fragment = new ChatFragment();
+//                fragmentManager.beginTransaction().add(R.id.flContainer, fragment).addToBackStack(null).commit();
+//            }
+//        };
     }
 
     private void uncheckAllItems() {

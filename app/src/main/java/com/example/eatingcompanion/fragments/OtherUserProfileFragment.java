@@ -24,11 +24,13 @@ import com.example.eatingcompanion.databinding.FragmentOtherUserProfileBinding;
 import com.example.eatingcompanion.models.Message;
 import com.example.eatingcompanion.models.Post;
 import com.example.eatingcompanion.models.User;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,7 @@ public class OtherUserProfileFragment extends Fragment {
     private List<Post> allPosts;
     private EndlessRecyclerViewScrollListener scrollListener;
     private SwipeRefreshLayout swipeContainer;
+    private SpinKitView spinKit;
 
     FragmentOtherUserProfileBinding binding;
 
@@ -80,11 +83,15 @@ public class OtherUserProfileFragment extends Fragment {
         tvBio = binding.tvBio;
         rvPosts = binding.rvPosts;
         swipeContainer = binding.swipeContainer;
+        spinKit = binding.spinKit;
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPosts.setLayoutManager(linearLayoutManager);
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
+        spinKit.setVisibility(View.VISIBLE);
 
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -170,6 +177,7 @@ public class OtherUserProfileFragment extends Fragment {
                 }
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
+                spinKit.setVisibility(View.GONE);
             }
         });
     }

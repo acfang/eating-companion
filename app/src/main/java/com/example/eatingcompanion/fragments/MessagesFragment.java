@@ -45,6 +45,9 @@ import com.example.eatingcompanion.databinding.FragmentMessagesBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.Message;
 import com.example.eatingcompanion.models.User;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.parse.FindCallback;
 import com.parse.ParseACL;
 import com.parse.ParseException;
@@ -109,6 +112,7 @@ public class MessagesFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private Chat chat;
+    private SpinKitView spinKit;
 
     FragmentMessagesBinding binding;
 
@@ -139,6 +143,7 @@ public class MessagesFragment extends Fragment {
         ivGallery = binding.ivGallery;
         ivPhoto = binding.ivPhoto;
         ivRemovePhoto = binding.ivRemovePhoto;
+        spinKit = binding.spinKit;
         allMessages = new ArrayList<>();
         adapter = new MessagesAdapter(getContext(), allMessages);
         rvMessages.setAdapter(adapter);
@@ -146,6 +151,9 @@ public class MessagesFragment extends Fragment {
         //llm.setReverseLayout(true);
         //llm.setStackFromEnd(true);
         rvMessages.setLayoutManager(llm);
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
+        spinKit.setVisibility(View.VISIBLE);
 
         ivCamera.setVisibility(View.GONE);
         ivGallery.setVisibility(View.GONE);
@@ -222,6 +230,7 @@ public class MessagesFragment extends Fragment {
                 Log.i(TAG, "num messages: "+ objects.size());
                 allMessages.addAll(objects);
                 adapter.notifyDataSetChanged();
+                spinKit.setVisibility(View.GONE);
             }
         });
 
@@ -501,8 +510,5 @@ public class MessagesFragment extends Fragment {
             }
         };
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-        Intent msgIntent = new Intent(getContext(), MainActivity.class);
-        Intent broadcast = new Intent("broadcaster");
-        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(broadcast);
     }
 }

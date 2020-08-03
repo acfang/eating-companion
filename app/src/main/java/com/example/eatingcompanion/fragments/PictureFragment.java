@@ -24,6 +24,9 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.example.eatingcompanion.databinding.FragmentPictureBinding;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -47,6 +50,7 @@ public class PictureFragment extends Fragment {
     private Button btnGallery;
     private ImageView ivPostImage;
     private Button btnSetPicture;
+    private SpinKitView spinKit;
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
@@ -71,6 +75,10 @@ public class PictureFragment extends Fragment {
         btnGallery = binding.btnGallery;
         ivPostImage = binding.ivPostImage;
         btnSetPicture = binding.btnSetPicture;
+        spinKit = binding.spinKit;
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
+        spinKit.setVisibility(View.GONE);
         final String photoType = getArguments().getString("photoType");
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -107,11 +115,13 @@ public class PictureFragment extends Fragment {
                 } else {
                     user.put("coverPicture", parseFile);
                 }
+                spinKit.setVisibility(View.VISIBLE);
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
                             Toast.makeText(getContext(), "Successfully set profile picture!", Toast.LENGTH_SHORT).show();
+                            spinKit.setVisibility(View.GONE);
                         } else {
                             e.printStackTrace();
                         }

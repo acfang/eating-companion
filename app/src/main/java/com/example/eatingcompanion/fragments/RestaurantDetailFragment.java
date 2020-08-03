@@ -29,6 +29,9 @@ import com.example.eatingcompanion.models.Category;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.DailyHours;
 import com.example.eatingcompanion.models.User;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.parse.ParseException;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -75,6 +78,7 @@ public class RestaurantDetailFragment extends Fragment {
     private Calendar calendar;
     private String city;
     private String state;
+    private SpinKitView spinKit;
 
     FragmentRestaurantDetailBinding binding;
 
@@ -110,6 +114,10 @@ public class RestaurantDetailFragment extends Fragment {
         etSetTime = binding.etSetTime;
         btnSetTime = binding.btnSetTime;
         btnCreateChat = binding.btnCreateChat;
+        spinKit = binding.spinKit;
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
+        spinKit.setVisibility(View.VISIBLE);
 
         calendar = Calendar.getInstance();
 
@@ -167,6 +175,7 @@ public class RestaurantDetailFragment extends Fragment {
                     concatenatedHours += dailyHours.get(i).getDailyHours();
                 }
                 tvHours.setText(concatenatedHours);
+                spinKit.setVisibility(View.GONE);
             }
 
             @Override

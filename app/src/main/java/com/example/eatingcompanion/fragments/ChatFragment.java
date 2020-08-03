@@ -28,6 +28,9 @@ import com.example.eatingcompanion.adapters.ChatsAdapter;
 import com.example.eatingcompanion.databinding.FragmentChatBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.User;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.google.android.material.snackbar.Snackbar;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -60,6 +63,7 @@ public class ChatFragment extends Fragment {
     private int position;
     private EndlessRecyclerViewScrollListener scrollListener;
     private SwipeRefreshLayout swipeContainer;
+    private SpinKitView spinKit;
 
     FragmentChatBinding binding;
 
@@ -80,12 +84,16 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvChats = binding.rvChats;
         swipeContainer = binding.swipeContainer;
+        spinKit = binding.spinKit;
         allChats = new ArrayList<>();
         adapter = new ChatsAdapter(getContext(), allChats);
         adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);
         rvChats.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvChats.setLayoutManager(linearLayoutManager);
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
+        spinKit.setVisibility(View.VISIBLE);
 
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -220,6 +228,7 @@ public class ChatFragment extends Fragment {
                 Log.i(TAG, "Number of chats: " + chats.size());
                 allChats.addAll(chats);
                 adapter.notifyDataSetChanged();
+                spinKit.setVisibility(View.GONE);
             }
         });
     }

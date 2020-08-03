@@ -26,6 +26,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.eatingcompanion.databinding.FragmentPostBinding;
 import com.example.eatingcompanion.models.Post;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -53,6 +56,7 @@ public class PostFragment extends Fragment {
     private EditText etOtherUser;
     private EditText etCaption;
     private Button btnPost;
+    private SpinKitView spinKit;
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
@@ -80,6 +84,10 @@ public class PostFragment extends Fragment {
         etOtherUser = binding.etOtherUser;
         etCaption = binding.etCaption;
         btnPost = binding.btnPost;
+        spinKit = binding.spinKit;
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
+        spinKit.setVisibility(View.GONE);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +110,7 @@ public class PostFragment extends Fragment {
                     Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                spinKit.setVisibility(View.VISIBLE);
                 ParseFile parseFile = new ParseFile(photoFile);
                 parseFile.saveInBackground();
                 ParseUser user = ParseUser.getCurrentUser();
@@ -118,6 +127,7 @@ public class PostFragment extends Fragment {
                             Log.e(TAG, "Error while saving post", e);
                         }
                         Toast.makeText(getContext(), "Post saved!", Toast.LENGTH_SHORT);
+                        spinKit.setVisibility(View.GONE);
                     }
                 });
             }

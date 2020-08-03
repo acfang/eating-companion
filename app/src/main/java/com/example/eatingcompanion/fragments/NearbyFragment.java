@@ -18,6 +18,9 @@ import com.example.eatingcompanion.adapters.UsersAdapter;
 import com.example.eatingcompanion.databinding.FragmentUsersBinding;
 import com.example.eatingcompanion.models.Chat;
 import com.example.eatingcompanion.models.User;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -42,6 +45,8 @@ public class NearbyFragment extends Fragment {
     private List<Chat> allChats;
     private int i;
     private List<String> alreadyIn;
+    private SpinKitView spinKitUsers;
+    private SpinKitView spinKitChats;
 
     FragmentUsersBinding binding;
 
@@ -62,6 +67,8 @@ public class NearbyFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvNearbyUsers = binding.rvNearbyUsers;
         rvNearbyChats = binding.rvNearbyChats;
+        spinKitUsers = binding.spinKitUsers;
+        spinKitChats = binding.spinKitChats;
         allUsers = new ArrayList<>();
         allChats = new ArrayList<>();
         usersAdapter = new UsersAdapter(getContext(), allUsers);
@@ -71,6 +78,11 @@ public class NearbyFragment extends Fragment {
         rvNearbyUsers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvNearbyChats.setLayoutManager(new LinearLayoutManager(getContext()));
         alreadyIn = new ArrayList<>();
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKitUsers.setIndeterminateDrawable(wanderingCubes);
+        spinKitChats.setIndeterminateDrawable(wanderingCubes);
+        spinKitUsers.setVisibility(View.VISIBLE);
+        spinKitChats.setVisibility(View.VISIBLE);
 
         ParseRelation<ParseObject> chatsIn = ((User) ParseUser.getCurrentUser()).getRelation(User.KEY_CHAT);
         ParseQuery query = chatsIn.getQuery();
@@ -119,6 +131,7 @@ public class NearbyFragment extends Fragment {
                     allUsers.add((User) objects.get(index));
                 }
                 usersAdapter.notifyDataSetChanged();
+                spinKitUsers.setVisibility(View.GONE);
             }
         });
 
@@ -143,6 +156,7 @@ public class NearbyFragment extends Fragment {
                 Log.i(TAG, "Number of chats: " + chats.size());
                 allChats.addAll(chats);
                 chatsAdapter.notifyDataSetChanged();
+                spinKitChats.setVisibility(View.GONE);
             }
         });
     }

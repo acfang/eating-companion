@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.eatingcompanion.R;
 import com.example.eatingcompanion.YelpSearchResponse;
@@ -23,6 +24,9 @@ import com.example.eatingcompanion.YelpService;
 import com.example.eatingcompanion.adapters.RestaurantsAdapter;
 import com.example.eatingcompanion.databinding.FragmentRestaurantsBinding;
 import com.example.eatingcompanion.models.Restaurant;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.WanderingCubes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,8 @@ public class RestaurantsFragment extends Fragment {
     private EditText etSearchTerm;
     private EditText etLocation;
     private Button btnSearch;
+    private SpinKitView spinKit;
+
 
     FragmentRestaurantsBinding binding;
 
@@ -66,11 +72,15 @@ public class RestaurantsFragment extends Fragment {
         etSearchTerm = binding.etSearchTerm;
         etLocation = binding.etLocation;
         btnSearch = binding.btnSearch;
+        spinKit = binding.spinKit;
         allRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(getContext(), allRestaurants);
         adapter.setStateRestorationPolicy(RecyclerView.Adapter.StateRestorationPolicy.PREVENT);
         rvRestaurants.setAdapter(adapter);
         rvRestaurants.setLayoutManager(new LinearLayoutManager(getContext()));
+        spinKit.setVisibility(View.GONE);
+        Sprite wanderingCubes = new WanderingCubes();
+        spinKit.setIndeterminateDrawable(wanderingCubes);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -87,6 +97,8 @@ public class RestaurantsFragment extends Fragment {
 
                 allRestaurants.clear();
 
+                spinKit.setVisibility(View.VISIBLE);
+
                 yelpService.searchRestaurants("Bearer " + getString(R.string.yelp_api_key), searchTerm, location).enqueue(new Callback<YelpSearchResponse>() {
                     @Override
                     public void onResponse(Call<YelpSearchResponse> call, Response<YelpSearchResponse> response) {
@@ -97,6 +109,7 @@ public class RestaurantsFragment extends Fragment {
                         }
                         allRestaurants.addAll(response.body().getRestaurants());
                         adapter.notifyDataSetChanged();
+                        spinKit.setVisibility(View.GONE);
                     }
 
                     @Override
