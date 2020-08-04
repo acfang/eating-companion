@@ -73,6 +73,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import cdflynn.android.library.crossview.CrossView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -104,7 +105,7 @@ public class MessagesFragment extends Fragment {
     private List<Message> allMessages;
     private EditText etMessage;
     private Button btnMessage;
-    private ImageView ivAddMedia;
+    //private ImageView ivAddMedia;
     private ImageView ivCamera;
     private ImageView ivGallery;
     private ImageView ivPhoto;
@@ -113,6 +114,7 @@ public class MessagesFragment extends Fragment {
     private String photoFileName = "photo.jpg";
     private Chat chat;
     private SpinKitView spinKit;
+    private CrossView crossView;
 
     FragmentMessagesBinding binding;
 
@@ -138,12 +140,13 @@ public class MessagesFragment extends Fragment {
         rvMessages = binding.rvMessages;
         etMessage = binding.etMessage;
         btnMessage = binding.btnMessage;
-        ivAddMedia = binding.ivAddMedia;
+        //ivAddMedia = binding.ivAddMedia;
         ivCamera = binding.ivCamera;
         ivGallery = binding.ivGallery;
         ivPhoto = binding.ivPhoto;
         ivRemovePhoto = binding.ivRemovePhoto;
         spinKit = binding.spinKit;
+        crossView = binding.crossView;
         allMessages = new ArrayList<>();
         adapter = new MessagesAdapter(getContext(), allMessages);
         rvMessages.setAdapter(adapter);
@@ -330,9 +333,10 @@ public class MessagesFragment extends Fragment {
             }
         });
 
-        ivAddMedia.setOnClickListener(new View.OnClickListener() {
+        crossView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                crossView.toggle();
                 if (ivCamera.getVisibility() == View.GONE) {
                     ivCamera.setVisibility(View.VISIBLE);
                     ivGallery.setVisibility(View.VISIBLE);
