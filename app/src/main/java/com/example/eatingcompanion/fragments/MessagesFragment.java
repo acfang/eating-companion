@@ -265,8 +265,8 @@ public class MessagesFragment extends Fragment {
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 currentUser.setACL(new ParseACL(currentUser));
                 ParseACL acl = new ParseACL(currentUser);
-                acl.setPublicReadAccess(false);
-                acl.setPublicWriteAccess(false);
+                acl.setPublicReadAccess(true);
+                acl.setPublicWriteAccess(true);
                 acl.setRoleReadAccess("Administrator", true);
                 acl.setRoleWriteAccess("Administrator", true);
                 message.setACL(acl);

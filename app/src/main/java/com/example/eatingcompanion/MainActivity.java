@@ -141,9 +141,7 @@ public class MainActivity extends AppCompatActivity {
         if (action != null) {
             Uri data = intent.getData();
             String chatId = data.getQueryParameter("id");
-            Fragment fragment;
-            fragment = new MessagesFragment();
-            // create bundle of post info to send to detail fragment
+            Fragment fragment = new MessagesFragment();
             Bundle args = new Bundle();
             args.putString("id", chatId);
             fragment.setArguments(args);

@@ -111,6 +111,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ViewHolder> 
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         public void bind(Chat chat) {
+            Glide.with(context).clear(ivChatPicture);
+            ivChatPicture.setImageResource(android.R.color.transparent);
+            ivChatPicture.setImageDrawable(null);
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy, hh:mma", Locale.US);
             String date = sdf.format(chat.getTime());
             tvTime.setText(date);

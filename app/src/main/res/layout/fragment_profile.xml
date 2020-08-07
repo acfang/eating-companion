@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ProfileFragment"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:layout_marginTop="?attr/actionBarSize">
 
     <ImageView
         android:id="@+id/ivCoverPicture"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:layout_height="140dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <View
         android:layout_width="138dp"
@@ -27,7 +28,7 @@
         android:layout_height="130dp"
         tools:srcCompat="@tools:sample/avatars"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp" />
+        android:layout_marginTop="50dp" />
 
     <RelativeLayout
         android:id="@+id/rlName"
@@ -70,7 +71,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:gravity="center"
         android:textColor="@color/darkGrayText"
         android:fontFamily="@font/questrial_regular"
@@ -85,7 +86,7 @@
         android:layout_below="@+id/tvBio"
         android:layout_alignStart="@+id/ivCoverPicture"
         android:layout_alignEnd="@+id/ivCoverPicture"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="12dp" />
 
     <Button
         android:id="@+id/btnEdit"
@@ -101,7 +102,6 @@
         android:background="@drawable/input_box"
         android:backgroundTint="@color/colorAccent"
         android:layout_marginStart="10dp"
-        android:layout_alignTop="@id/ivCoverPicture"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"/>
 
@@ -120,7 +120,6 @@
         android:background="@drawable/input_box"
         android:backgroundTint="@color/closedRed"
         android:layout_marginStart="10dp"
-        android:layout_alignTop="@id/ivCoverPicture"
         android:layout_marginEnd="10dp"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"/>
@@ -150,7 +149,7 @@
         android:layout_gravity="center"
         app:SpinKit_Color="@color/colorAccent"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/line"
-        android:layout_marginTop="115dp"/>
+        android:layout_marginTop="115dp"
+        android:layout_below="@id/line"/>
 
 </RelativeLayout>

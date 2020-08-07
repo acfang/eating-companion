@@ -98,7 +98,8 @@ public class InfoDialogFragment extends DialogFragment {
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, link);
                 sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
             }
         });
 

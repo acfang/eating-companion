@@ -86,4 +86,13 @@
         android:layout_alignStart="@id/tvUser"
         android:layout_below="@id/tvUser"/>
 
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grayLine"
+        android:visibility="visible"
+        android:layout_below="@+id/ivProfilePicture"
+        android:layout_marginTop="12dp" />
+
 </RelativeLayout>

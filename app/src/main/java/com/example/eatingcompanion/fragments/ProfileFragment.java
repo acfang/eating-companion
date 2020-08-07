@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.eatingcompanion.EndlessRecyclerViewScrollListener;
 import com.example.eatingcompanion.LoginActivity;
 import com.example.eatingcompanion.R;
@@ -39,6 +40,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ProfileFragment";
@@ -52,6 +55,7 @@ public class ProfileFragment extends Fragment {
     private Button btnEdit;
     private RecyclerView rvPosts;
     private PostsAdapter adapter;
+    //private ParallaxRecyclerAdapter<Post> adapter;
     private List<Post> allPosts;
     private EndlessRecyclerViewScrollListener scrollListener;
     private SwipeRefreshLayout swipeContainer;
@@ -86,9 +90,10 @@ public class ProfileFragment extends Fragment {
         spinKit = binding.spinKit;
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(), allPosts);
-        rvPosts.setAdapter(adapter);
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvPosts.setLayoutManager(linearLayoutManager);
+        rvPosts.setAdapter(adapter);
         User user = (User) ParseUser.getCurrentUser();
         Sprite wanderingCubes = new WanderingCubes();
         spinKit.setIndeterminateDrawable(wanderingCubes);
@@ -214,6 +219,7 @@ public class ProfileFragment extends Fragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setSkip(adapter.getItemCount());
+        //query.setSkip(adapter.getItemCountImpl(adapter));
         query.setLimit(20);
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {

@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ProfileFragment"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:layout_marginTop="?attr/actionBarSize">
 
     <ImageView
         android:id="@+id/ivCoverPicture"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:layout_height="140dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <View
         android:layout_width="138dp"
@@ -27,7 +27,7 @@
         android:layout_height="130dp"
         tools:srcCompat="@tools:sample/avatars"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp" />
+        android:layout_marginTop="50dp" />
 
     <RelativeLayout
         android:id="@+id/rlName"
@@ -70,7 +70,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:textSize="16sp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:gravity="center"
         android:textColor="@color/darkGrayText"
         android:fontFamily="@font/questrial_regular"
@@ -85,7 +85,7 @@
         android:layout_below="@+id/tvBio"
         android:layout_alignStart="@+id/ivCoverPicture"
         android:layout_alignEnd="@+id/ivCoverPicture"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="12dp" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
