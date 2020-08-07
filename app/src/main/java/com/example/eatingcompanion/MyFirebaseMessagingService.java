@@ -28,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "mFirebaseIDService";
     private final String ADMIN_CHANNEL_ID ="admin_channel";
-    private static final String SUBSCRIBE_TO = "userABC";
+    private static final String SUBSCRIBE_TO = "userDEF";
 
     @Override
     public void onNewToken (String token) {

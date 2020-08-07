@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.eatingcompanion.databinding.ActivitySignUpBinding;
 import com.example.eatingcompanion.fragments.PictureFragment;
 import com.example.eatingcompanion.models.User;
+import com.parse.ParseACL;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -88,6 +89,10 @@ public class SignUpActivity extends AppCompatActivity {
         user.setCity(city);
         user.setState(state);
         user.setBio(bio);
+        ParseACL parseACL = new ParseACL(user);
+        parseACL.setPublicReadAccess(true);
+        parseACL.setPublicWriteAccess(true);
+        user.setACL(parseACL);
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

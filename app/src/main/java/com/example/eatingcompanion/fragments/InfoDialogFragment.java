@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -26,6 +27,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,7 @@ public class InfoDialogFragment extends DialogFragment {
 
     private static Button btnRestaurantDetail;
     private static Button btnInviteLink;
+    private static Button btnJoin;
     private static ImageView ivClose;
     private static RecyclerView rvUsers;
     private static InfoUsersAdapter adapter;
@@ -69,6 +72,7 @@ public class InfoDialogFragment extends DialogFragment {
         // Get field from view
         btnRestaurantDetail = binding.btnRestaurantDetail;
         btnInviteLink = binding.btnInviteLink;
+        btnJoin = binding.btnJoin;
         ivClose = binding.ivClose;
         rvUsers = binding.rvUsers;
         allUsers = new ArrayList<>();
@@ -100,6 +104,17 @@ public class InfoDialogFragment extends DialogFragment {
                 sendIntent.setType("text/plain");
                 Intent shareIntent = Intent.createChooser(sendIntent, null);
                 startActivity(shareIntent);
+            }
+        });
+
+        btnJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseRelation<Chat> chatsIn = ParseUser.getCurrentUser().getRelation(User.KEY_CHAT);
+                chatsIn.add(chat);
+                ParseRelation<User> usersIn = chat.getRelation(Chat.KEY_USERS);
+                usersIn.add((User) ParseUser.getCurrentUser());
+                Toast.makeText(getContext(), "Chat joined!", Toast.LENGTH_SHORT).show();
             }
         });
 

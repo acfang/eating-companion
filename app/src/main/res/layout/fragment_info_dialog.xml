@@ -39,6 +39,25 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/btnRestaurantDetail"/>
 
+    <Button
+        android:id="@+id/btnJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Join Chat"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
+        android:textAllCaps="false"
+        android:fontFamily="@font/questrial_regular"
+        android:background="@drawable/input_box"
+        android:layout_marginEnd="10dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/btnInviteLink"/>
+
     <ImageView
         android:id="@+id/ivClose"
         android:layout_width="30dp"
@@ -48,7 +67,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="20dp"/>
 
     <TextView
         android:id="@+id/tvUsers"
@@ -58,7 +77,7 @@
         android:fontFamily="@font/questrial_regular"
         android:textColor="@color/darkGrayText"
         android:textSize="20sp"
-        android:layout_below="@id/btnInviteLink"
+        android:layout_below="@id/btnJoin"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"/>
 
