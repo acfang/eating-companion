@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 ParseACL parseACL = new ParseACL(ParseUser.getCurrentUser());
                 parseACL.setPublicReadAccess(true);
+                parseACL.setPublicWriteAccess(true);
 
                 ParseUser.getCurrentUser().setACL(parseACL);
 
