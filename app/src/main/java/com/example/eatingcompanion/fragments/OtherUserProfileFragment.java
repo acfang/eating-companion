@@ -31,6 +31,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,6 +188,7 @@ public class OtherUserProfileFragment extends Fragment {
         query.include(Post.KEY_USER);
         query.setSkip(adapter.getItemCount());
         query.setLimit(20);
+        query.whereEqualTo(Post.KEY_USER, user);
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
             @Override

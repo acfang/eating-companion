@@ -221,6 +221,7 @@ public class ProfileFragment extends Fragment {
         query.setSkip(adapter.getItemCount());
         //query.setSkip(adapter.getItemCountImpl(adapter));
         query.setLimit(20);
+        query.whereEqualTo(Post.KEY_USER, (User) ParseUser.getCurrentUser());
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
             @Override
