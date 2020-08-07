@@ -117,6 +117,7 @@ public class NearbyFragment extends Fragment {
         userQuery.include(User.KEY_STATE);
         userQuery.whereEqualTo(User.KEY_CITY, ((User) ParseUser.getCurrentUser()).getCity());
         userQuery.whereEqualTo(User.KEY_STATE, ((User) ParseUser.getCurrentUser()).getState());
+        userQuery.whereNotEqualTo(User.KEY_ID, ((User) ParseUser.getCurrentUser()).getObjectId());
         userQuery.setLimit(20);
         userQuery.addDescendingOrder(Chat.KEY_CREATED_AT);
         userQuery.findInBackground(new FindCallback<ParseUser>() {

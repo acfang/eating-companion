@@ -17,6 +17,7 @@ public class User extends ParseUser implements Serializable {
     public static final String KEY_STATE = "state";
     public static final String KEY_CHAT = "chatsIn";
     public static final String KEY_NAME = "firstName";
+    public static final String KEY_ID = "objectId";
 
     public ParseFile getProfilePicture() {
         return getParseFile(KEY_PROFILE_PICTURE);
